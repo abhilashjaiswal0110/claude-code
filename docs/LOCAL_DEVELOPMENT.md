@@ -11,9 +11,12 @@ This repository uses two configuration files:
 ### `.claude/settings.json` (Project-specific)
 - **Purpose:** Configure this repository to use LOCAL plugins from `plugins/` directory
 - **Committed to git:** Yes
-- **Contains:** Plugin marketplace references and installed plugins list
+- **Contains:**
+  - `disableDefaultMarketplaces: true` - Blocks PRO/official marketplaces
+  - Plugin marketplace references (absolute path to local marketplace.json)
+  - Installed plugins list
 - **Schema:** Must use `https://json.schemastore.org/claude-code-settings.json`
-- **Usage:** When you run `claude` in this repo, it uses these local plugins
+- **Usage:** When you run `claude` in this repo, it uses ONLY local plugins (PRO plugins disabled in this project)
 
 ### `.claude/settings.local.json` (User-specific)
 - **Purpose:** Your personal settings (PRO subscription, permissions, etc.)
@@ -24,12 +27,19 @@ This repository uses two configuration files:
 ## How It Works
 
 ```
-When you run: claude
+When you run: claude (in this repository)
 
 Claude Code loads:
-1. .claude/settings.json       → Uses LOCAL plugins from this repo
-2. .claude/settings.local.json → Your PRO subscription settings
-3. Both coexist without conflict!
+1. .claude/settings.json
+   → Disables default/PRO marketplaces
+   → Uses ONLY LOCAL plugins from this repo
+
+2. .claude/settings.local.json
+   → Your PRO subscription settings
+   → Other personal preferences
+
+Result: In THIS repo, you use LOCAL plugins.
+        In OTHER projects, you use PRO plugins.
 ```
 
 ## Verify Local Setup
