@@ -52,7 +52,8 @@ coverage/
 .nyc_output/
 
 # Claude Code internal files
-.claude/
+.claude/*
+!.claude/settings.json
 !.claude/plugins/
 .claude-plugin/marketplace.local.json
 
