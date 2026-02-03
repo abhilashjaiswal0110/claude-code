@@ -3,20 +3,9 @@
   "extraKnownMarketplaces": {
     "local-repo-plugins": {
       "source": {
-        "source": "file",
-        "path": "C:\\Users\\a833555\\OneDrive - ATOS\\Gitwork\\claude-code\\.claude-plugin\\marketplace.json"
+        "source": "directory",
+        "path": "C:\\Users\\a833555\\OneDrive - ATOS\\Gitwork\\claude-code\\plugins"
       }
     }
-  },
-  "enabledPlugins": {
-    "hookify@local-repo-plugins": true,
-    "feature-dev@local-repo-plugins": true,
-    "commit-commands@local-repo-plugins": true,
-    "pr-review-toolkit@local-repo-plugins": true,
-    "code-review@local-repo-plugins": true,
-    "plugin-dev@local-repo-plugins": true,
-    "agent-sdk-dev@local-repo-plugins": true,
-    "frontend-design@local-repo-plugins": true,
-    "security-guidance@local-repo-plugins": true
   }
 }

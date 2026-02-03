@@ -4,6 +4,26 @@
 
 This guide explains how to use this repository's local plugins with Claude Code CLI.
 
+## Important: Pro Subscription + Local Plugins
+
+Claude Code with a Pro subscription will ALWAYS show:
+- "Opus 4.5 · Claude Pro" header (this is expected)
+- The Pro marketplace alongside local plugins
+
+**Local plugins work alongside Pro plugins** - they don't replace them.
+
+## Restoring Official Pro Settings
+
+If you want to restore the original Pro-only configuration:
+
+```bash
+# Remove project-level settings
+rm .claude/settings.json
+
+# Or reset to minimal settings
+echo '{"$schema": "https://json.schemastore.org/claude-code-settings.json"}' > .claude/settings.json
+```
+
 ## Configuration Overview
 
 This repository uses two configuration files:
