@@ -109,7 +109,7 @@ Comprehensive introduction covering:
 **For: Plugin users, Developers**
 
 Complete plugin reference:
-- 12+ plugins detailed
+- 13 plugins detailed
 - Commands, agents, hooks, skills
 - Installation methods
 - Plugin structure
@@ -263,7 +263,7 @@ Solutions to common issues:
 
 | Time | What to Read |
 |------|-------------|
-| **5 minutes** | [README_QUICK_START.md](../README_QUICK_START.md) |
+| **5 minutes** | [Root README](../README.md) - Quick overview |
 | **15 minutes** | [GETTING_STARTED.md](./GETTING_STARTED.md) |
 | **30 minutes** | [PLUGIN_GUIDE.md](./PLUGIN_GUIDE.md) or [EXAMPLES.md](./EXAMPLES.md) |
 | **1 hour** | [SETUP_DEMO.md](./SETUP_DEMO.md) + Try examples |

@@ -2,11 +2,12 @@
 
 This guide walks through setting up this Claude Code plugin repository locally and demonstrating its capabilities.
 
-## Current System Status
+## Prerequisites
 
-Your system currently has:
-- ❌ Node.js - **NOT INSTALLED** (required)
-- ❌ Claude Code - **NOT INSTALLED** (required)
+Before you begin, ensure you have:
+- **Node.js 18+** (required) - Check with `node --version`
+- **Claude Code** (required) - Check with `claude --version`
+- **Anthropic API Key** (required) - Get from [console.anthropic.com](https://console.anthropic.com/)
 
 ## Installation Steps
 
@@ -102,8 +103,8 @@ Claude Code requires an Anthropic API key.
 Navigate to this repository and start Claude Code:
 
 ```powershell
-# From this directory
-cd "c:\Users\a833555\OneDrive - ATOS\Gitwork\claude-code"
+# Navigate to your clone of this repository
+cd "path\to\your\claude-code"
 
 # Start Claude Code
 claude
