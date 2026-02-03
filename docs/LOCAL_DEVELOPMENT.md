@@ -12,6 +12,7 @@ This repository uses two configuration files:
 - **Purpose:** Configure this repository to use LOCAL plugins from `plugins/` directory
 - **Committed to git:** Yes
 - **Contains:** Plugin marketplace references and installed plugins list
+- **Schema:** Must use `https://json.schemastore.org/claude-code-settings.json`
 - **Usage:** When you run `claude` in this repo, it uses these local plugins
 
 ### `.claude/settings.local.json` (User-specific)
