@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/settings.schema.json",
+  "plugins": {
+    "marketplaces": [
+      {
+        "name": "Local Repository Plugins",
+        "source": "./.claude-plugin/marketplace.json"
+      }
+    ],
+    "installed": [
+      "hookify",
+      "feature-dev",
+      "commit-commands",
+      "pr-review-toolkit",
+      "code-review",
+      "plugin-dev",
+      "agent-sdk-dev",
+      "frontend-design",
+      "security-guidance"
+    ]
+  }
+}
