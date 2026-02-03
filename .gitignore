@@ -1,2 +1,93 @@
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.temp/
+
+# Build outputs
+dist/
+build/
+out/
+*.build/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Claude Code internal files
+.claude/
+!.claude/plugins/
+.claude-plugin/marketplace.local.json
+
+# OS generated files
+*.pid
+*.seed
+*.pid.lock
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Development artifacts
+.scratch/
+.test/
+.local/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+
+# Java
+*.class
+*.jar
+*.war
+target/
+
+# Documentation builds
+.docusaurus/
+.next/
+_site/
