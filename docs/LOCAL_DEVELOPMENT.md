@@ -2,197 +2,229 @@
 
 **Last Updated:** February 2026
 
-This guide explains how to use this repository's local plugins with Claude Code CLI.
+This guide explains how to use this repository's local plugins with Claude Code CLI, with the official marketplace disabled.
 
-## Important: Pro Subscription + Local Plugins
+## Table of Contents
+- [Current Configuration](#current-configuration)
+- [How It Works](#how-it-works)
+- [Restoring Official Pro Marketplace](#restoring-official-pro-marketplace)
+- [Available Local Plugins](#available-local-plugins)
+- [Testing Plugin Changes](#testing-plugin-changes)
+- [Troubleshooting](#troubleshooting)
 
-Claude Code with a Pro subscription will ALWAYS show:
-- "Opus 4.5 · Claude Pro" header (this is expected)
-- The Pro marketplace alongside local plugins
-
-**Local plugins work alongside Pro plugins** - they don't replace them.
-
-## Restoring Official Pro Settings
-
-If you want to restore the original Pro-only configuration:
-
-```bash
-# Remove project-level settings
-rm .claude/settings.json
-
-# Or reset to minimal settings
-echo '{"$schema": "https://json.schemastore.org/claude-code-settings.json"}' > .claude/settings.json
-```
-
-## Configuration Overview
-
-This repository uses two configuration files:
-
-### `.claude/settings.json` (Project-specific)
-- **Purpose:** Configure this repository to use LOCAL plugins from `plugins/` directory
-- **Committed to git:** Yes
-- **Contains:**
-  - `disableDefaultMarketplaces: true` - Blocks PRO/official marketplaces
-  - Plugin marketplace references (absolute path to local marketplace.json)
-  - Installed plugins list
-- **Schema:** Must use `https://json.schemastore.org/claude-code-settings.json`
-- **Usage:** When you run `claude` in this repo, it uses ONLY local plugins (PRO plugins disabled in this project)
-
-### `.claude/settings.local.json` (User-specific)
-- **Purpose:** Your personal settings (PRO subscription, permissions, etc.)
-- **Committed to git:** No (ignored)
-- **Contains:** User permissions, personal preferences
-- **Usage:** Persists across all your Claude Code sessions
-
-## How It Works
-
-```
-When you run: claude (in this repository)
-
-Claude Code loads:
-1. .claude/settings.json
-   → Disables default/PRO marketplaces
-   → Uses ONLY LOCAL plugins from this repo
-
-2. .claude/settings.local.json
-   → Your PRO subscription settings
-   → Other personal preferences
-
-Result: In THIS repo, you use LOCAL plugins.
-        In OTHER projects, you use PRO plugins.
-```
-
-## Verify Local Setup
-
-### Check Plugin Source
-```bash
-cd /path/to/this/repo
-claude
-
-# Inside Claude Code:
-> /plugin list
-```
-
-You should see plugins from this repository's `plugins/` directory.
-
-### Switch Between Local and PRO
-
-**Use Local Plugins (this repo):**
-```bash
-cd /path/to/claude-code-repo
-claude
-# Uses .claude/settings.json → LOCAL plugins
-```
-
-**Use PRO Subscription (other projects):**
-```bash
-cd /path/to/your-other-project
-claude
-# Uses global PRO settings → PRO plugins
-```
+---
 
 ## Current Configuration
 
-### Installed Local Plugins
-The following plugins from this repository are installed:
+This setup uses `strictKnownMarketplaces` to **block the official marketplace** and only allow local plugins.
 
-1. **hookify** - Custom hooks and rules
-2. **feature-dev** - 7-phase feature development
-3. **commit-commands** - Git workflow automation
-4. **pr-review-toolkit** - Comprehensive PR reviews
-5. **code-review** - Automated code review
-6. **plugin-dev** - Plugin development toolkit
-7. **agent-sdk-dev** - Agent SDK development
-8. **frontend-design** - Frontend UI design
-9. **security-guidance** - Security warnings
+### Configuration Files
 
-### Available Local Plugins
-See [.claude-plugin/marketplace.json](./.claude-plugin/marketplace.json) for all 13 available plugins.
+| File | Purpose |
+|------|---------|
+| `~/.claude/managed-settings.json` | Blocks official marketplace via `strictKnownMarketplaces` |
+| `~/.claude/settings.json` | Registers local marketplace via `extraKnownMarketplaces` |
+| `.claude-plugin/marketplace.json` | Defines 13 local plugins |
 
-## Adding More Plugins
+### Key Settings
 
-Edit `.claude/settings.json` and add to the `installed` array:
-
+**`~/.claude/managed-settings.json`** (blocks official):
 ```json
 {
-  "plugins": {
-    "installed": [
-      "hookify",
-      "your-new-plugin-name"
-    ]
+  "strictKnownMarketplaces": {
+    "local-plugins": {
+      "source": {
+        "source": "file",
+        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
+      }
+    }
   }
 }
 ```
 
-Then restart Claude Code:
-```bash
-claude
+**`~/.claude/settings.json`** (registers local):
+```json
+{
+  "extraKnownMarketplaces": {
+    "local-plugins": {
+      "source": {
+        "source": "file",
+        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
+      }
+    }
+  }
+}
 ```
+
+---
+
+## How It Works
+
+```
+strictKnownMarketplaces in managed-settings.json:
+- ONLY allows marketplaces explicitly listed
+- Blocks claude-plugins-official (not listed)
+- Cannot be overridden by user settings
+
+Result: Only local-plugins marketplace is available
+```
+
+---
+
+## Restoring Official Pro Marketplace
+
+To restore the official Claude Code Pro marketplace:
+
+### Option 1: Remove Managed Settings (Recommended)
+
+```powershell
+# Delete managed-settings.json to remove marketplace restriction
+Remove-Item ~/.claude/managed-settings.json
+
+# Restore official plugins in settings.json
+# Edit ~/.claude/settings.json and add enabledPlugins:
+```
+
+```json
+{
+  "enabledPlugins": {
+    "github@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "plugin-dev@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "local-plugins": {
+      "source": {
+        "source": "file",
+        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
+      }
+    }
+  },
+  "autoUpdatesChannel": "latest",
+  "model": "opus"
+}
+```
+
+### Option 2: Keep Both Marketplaces
+
+To have BOTH local and official marketplaces:
+
+**`~/.claude/managed-settings.json`:**
+```json
+{
+  "strictKnownMarketplaces": {
+    "local-plugins": {
+      "source": {
+        "source": "file",
+        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
+      }
+    },
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  }
+}
+```
+
+### Option 3: Official Only
+
+To use ONLY the official marketplace (no local):
+
+```powershell
+# Delete managed-settings.json
+Remove-Item ~/.claude/managed-settings.json
+
+# Remove extraKnownMarketplaces from settings.json
+# Keep only enabledPlugins for official plugins
+```
+
+---
+
+## Available Local Plugins
+
+The `local-plugins` marketplace contains 13 plugins:
+
+| Plugin | Description | Category |
+|--------|-------------|----------|
+| **agent-sdk-dev** | Development kit for Claude Agent SDK | development |
+| **claude-opus-4-5-migration** | Migrate code/prompts to Opus 4.5 | development |
+| **code-review** | Automated PR code review with agents | productivity |
+| **commit-commands** | Git commit workflow automation | productivity |
+| **explanatory-output-style** | Educational insights about code | learning |
+| **feature-dev** | 7-phase feature development workflow | development |
+| **frontend-design** | Production-grade frontend interfaces | development |
+| **hookify** | Create custom hooks via markdown rules | productivity |
+| **learning-output-style** | Interactive learning mode | learning |
+| **plugin-dev** | Plugin development toolkit | development |
+| **pr-review-toolkit** | Comprehensive PR review agents | productivity |
+| **ralph-wiggum** | Self-referential AI development loops | development |
+| **security-guidance** | Security warnings for file edits | security |
+
+---
 
 ## Testing Plugin Changes
 
-When developing plugins:
+1. **Edit plugin files** in `plugins/your-plugin/`
+2. **Restart Claude Code** - changes are live immediately
+3. **Test with** `/plugin list` to verify loading
 
-1. **Make changes** to plugin files in `plugins/your-plugin/`
-2. **Restart Claude Code** - it will reload from local files
-3. **Test your changes** immediately
-4. **No need to reinstall** - changes are live!
+---
 
 ## Troubleshooting
 
+### Local Marketplace Not Showing
+
+```powershell
+# Verify managed-settings.json exists
+cat ~/.claude/managed-settings.json
+
+# Verify marketplace.json is valid
+cat .claude-plugin/marketplace.json | ConvertFrom-Json
+
+# Check for JSON syntax errors
+```
+
+### Official Marketplace Still Showing
+
+The `strictKnownMarketplaces` setting in `managed-settings.json` must be correctly configured. Verify:
+- File is at `~/.claude/managed-settings.json`
+- JSON is valid (no trailing commas)
+- Marketplace name matches exactly
+
 ### Plugins Not Loading
-```bash
-# Check settings file exists
-cat .claude/settings.json
 
-# Verify marketplace path is correct
+```powershell
+# Verify plugin source paths are relative to marketplace.json
 cat .claude-plugin/marketplace.json
+
+# Each plugin should have: "source": "./plugins/plugin-name"
 ```
 
-### Using Wrong Plugins
-```bash
-# Verify you're in the repository directory
-pwd
-
-# Check which settings file is active
-cat .claude/settings.json
-```
-
-### PRO Subscription Not Working
-Your PRO subscription settings are in `.claude/settings.local.json` which is preserved and not modified by this setup.
+---
 
 ## File Structure
 
 ```
+~/.claude/
+├── managed-settings.json    # Blocks official marketplace
+├── settings.json            # Registers local marketplace
+└── settings.local.json      # Personal preferences (gitignored)
+
 claude-code/
-├── .claude/
-│   ├── settings.json           # Project: use LOCAL plugins
-│   ├── settings.local.json     # User: PRO subscription (gitignored)
-│   └── commands/               # Custom commands
-│
 ├── .claude-plugin/
-│   └── marketplace.json        # Plugin registry
-│
-└── plugins/                    # 13 local plugins
+│   └── marketplace.json     # 13 local plugin definitions
+└── plugins/                 # Plugin source directories
     ├── hookify/
     ├── feature-dev/
     └── ...
 ```
-
-## Key Points
-
-✅ **Local and PRO coexist** - No conflicts
-✅ **Project-specific** - Only affects this repository
-✅ **Instant updates** - Plugin changes apply immediately
-✅ **PRO preserved** - Your subscription settings untouched
-✅ **Git-friendly** - settings.json committed, settings.local.json ignored
-
-## Next Steps
-
-1. **Start Claude Code:** `claude` (in this repo directory)
-2. **List plugins:** `/plugin list`
-3. **Try a plugin:** `/hookify Create a rule to warn about console.log`
-4. **Develop plugins:** Edit files in `plugins/` and restart
 
 ---
 
