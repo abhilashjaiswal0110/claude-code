@@ -2,10 +2,11 @@
 
 **Last Updated:** February 2026
 
-This guide explains how to use this repository's local plugins with Claude Code CLI, with the official marketplace disabled.
+This guide explains how to use this repository's local plugins with Claude Code CLI, either alongside or instead of the official marketplace.
 
 ## Table of Contents
 - [Current Configuration](#current-configuration)
+- [Managed Settings Location](#managed-settings-location)
 - [How It Works](#how-it-works)
 - [Restoring Official Pro Marketplace](#restoring-official-pro-marketplace)
 - [Available Local Plugins](#available-local-plugins)
@@ -16,7 +17,9 @@ This guide explains how to use this repository's local plugins with Claude Code 
 
 ## Current Configuration
 
-This setup uses `strictKnownMarketplaces` to **block the official marketplace** and only allow local plugins.
+This repository includes a local plugin marketplace configuration. By default, the project's `.claude/settings.json` registers the local marketplace using `extraKnownMarketplaces`, which **adds** plugins alongside any official marketplace.
+
+> **Note:** To completely block the official marketplace (enterprise scenario), you need a separate `managed-settings.json` file with `strictKnownMarketplaces`. This is typically controlled by system administrators and may not be editable by regular users.
 
 ### Configuration Files
 
@@ -29,44 +32,28 @@ This setup uses `strictKnownMarketplaces` to **block the official marketplace** 
 ### Key Settings
 
 **`~/.claude/managed-settings.json`** (blocks official):
-```json
-{
-  "strictKnownMarketplaces": {
-    "local-plugins": {
-      "source": {
-        "source": "file",
-        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
-      }
-    }
-  }
-}
-```
-
-**`~/.claude/settings.json`** (registers local):
-```json
-{
-  "extraKnownMarketplaces": {
-    "local-plugins": {
-      "source": {
-        "source": "file",
-        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
-      }
-    }
-  }
-}
-```
-
 ---
 
 ## How It Works
 
+### extraKnownMarketplaces (Default - Additive)
+```
+extraKnownMarketplaces in .claude/settings.json:
+- ADDS marketplaces to the available list
+- Official marketplace remains available
+- User can choose plugins from any source
+
+Result: Both local-plugins AND official marketplace available
+```
+
+### strictKnownMarketplaces (Enterprise - Restrictive)
 ```
 strictKnownMarketplaces in managed-settings.json:
 - ONLY allows marketplaces explicitly listed
-- Blocks claude-plugins-official (not listed)
-- Cannot be overridden by user settings
+- Blocks claude-plugins-official if not listed
+- Cannot be overridden by user settings (admin controlled)
 
-Result: Only local-plugins marketplace is available
+Result: Only listed marketplaces are available
 ```
 
 ---
@@ -100,7 +87,7 @@ Remove-Item ~/.claude/managed-settings.json
     "local-plugins": {
       "source": {
         "source": "file",
-        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
+        "path": ".claude-plugin/marketplace.json"
       }
     }
   },
@@ -109,18 +96,18 @@ Remove-Item ~/.claude/managed-settings.json
 }
 ```
 
-### Option 2: Keep Both Marketplaces
+### Option 2: Keep Both Marketplaces (Enterprise)
 
-To have BOTH local and official marketplaces:
+If your organization uses `strictKnownMarketplaces`, request your admin to include both:
 
-**`~/.claude/managed-settings.json`:**
+**`managed-settings.json`** (see [Managed Settings Location](#managed-settings-location)):
 ```json
 {
   "strictKnownMarketplaces": {
     "local-plugins": {
       "source": {
         "source": "file",
-        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
+        "path": "<path-to-repo>/.claude-plugin/marketplace.json"
       }
     },
     "claude-plugins-official": {

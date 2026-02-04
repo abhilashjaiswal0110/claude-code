@@ -4,7 +4,7 @@
     "local-plugins": {
       "source": {
         "source": "file",
-        "path": "C:/Users/a833555/OneDrive - ATOS/Gitwork/claude-code/.claude-plugin/marketplace.json"
+        "path": ".claude-plugin/marketplace.json"
       }
     }
   }
