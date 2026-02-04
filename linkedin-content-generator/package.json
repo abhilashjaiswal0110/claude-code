@@ -1,0 +1,37 @@
+{
+  "name": "linkedin-content-generator",
+  "version": "1.0.0",
+  "description": "AI Agent for generating LinkedIn content based on research and persona",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node --loader ts-node/esm src/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist",
+    "dev": "node --loader ts-node/esm --watch src/index.ts"
+  },
+  "keywords": [
+    "linkedin",
+    "content-generator",
+    "ai-agent",
+    "claude",
+    "automation"
+  ],
+  "author": "Abhilash Jaiswal",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.1.0",
+    "dotenv": "^17.2.3",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
