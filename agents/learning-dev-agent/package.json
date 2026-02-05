@@ -1,0 +1,31 @@
+{
+  "name": "learning-dev-agent",
+  "version": "1.0.0",
+  "description": "AI Agent for learning & development: skill gap analysis, learning paths, and training recommendations",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node --loader ts-node/esm src/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "dev": "node --loader ts-node/esm --watch src/index.ts"
+  },
+  "keywords": ["learning", "development", "skills", "training", "ai-agent", "claude"],
+  "author": "Abhilash Jaiswal",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.1.0",
+    "@enterprise-agents/core": "*",
+    "@enterprise-agents/prompts": "*",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

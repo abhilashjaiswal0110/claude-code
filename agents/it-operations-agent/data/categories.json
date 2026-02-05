@@ -1,0 +1,30 @@
+{
+  "incident_categories": [
+    {
+      "category": "Infrastructure",
+      "subcategories": ["Server", "Network", "Storage", "Database", "Cloud"]
+    },
+    {
+      "category": "Application",
+      "subcategories": ["Web Application", "API", "Batch Processing", "Integration", "Mobile"]
+    },
+    {
+      "category": "Security",
+      "subcategories": ["Access Control", "Vulnerability", "Data Breach", "Malware", "Compliance"]
+    },
+    {
+      "category": "Network",
+      "subcategories": ["Connectivity", "DNS", "Load Balancer", "Firewall", "VPN"]
+    },
+    {
+      "category": "End User",
+      "subcategories": ["Desktop", "Email", "Printing", "Software", "Hardware"]
+    }
+  ],
+  "severity_levels": [
+    { "level": "P1", "name": "Critical", "sla_response": "15 min", "sla_resolution": "4 hours" },
+    { "level": "P2", "name": "High", "sla_response": "30 min", "sla_resolution": "8 hours" },
+    { "level": "P3", "name": "Medium", "sla_response": "2 hours", "sla_resolution": "24 hours" },
+    { "level": "P4", "name": "Low", "sla_response": "4 hours", "sla_resolution": "48 hours" }
+  ]
+}

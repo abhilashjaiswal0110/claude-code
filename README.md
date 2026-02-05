@@ -27,6 +27,7 @@ cd your-project && claude
 ## Features
 
 - 🔌 **13+ Official Plugins** - Extend functionality with custom commands, agents, and workflows
+- 🏢 **Enterprise AI Agents** - Pre-built agents for HR, IT Ops, Marketing, Recruitment, Presales, and L&D
 - 🤖 **AI-Powered Assistance** - Natural language commands for code understanding and generation
 - 🔧 **Git Workflow Integration** - Smart commits, PR creation, and automated code review
 - 📝 **Custom Hooks & Rules** - Define behavior patterns and prevent unwanted actions
@@ -49,6 +50,44 @@ This repository contains production-ready plugins for Claude Code:
 | **[Security Guidance](./plugins/security-guidance/)** | Automatic security warnings and best practices |
 
 See the complete [Plugin Guide](./docs/PLUGIN_GUIDE.md) for all 13 plugins and detailed documentation.
+
+## Enterprise AI Agents
+
+This repository includes production-ready AI agents built with the Claude Agent SDK for enterprise use cases:
+
+| Agent | Description | Modes |
+|-------|-------------|-------|
+| **[HR Agent](./agents/hr-agent/)** | Employee relations, policy guidance, and onboarding support | `policy`, `onboarding`, `performance`, `employee-relations` |
+| **[IT Operations Agent](./agents/it-operations-agent/)** | Infrastructure management, incident response, and automation | `incident`, `monitoring`, `automation`, `documentation` |
+| **[Marketing Agent](./agents/marketing-agent/)** | Content generation for enterprise marketing | `blog`, `social`, `campaign`, `press-release`, `newsletter` |
+| **[Recruitment Agent](./agents/recruitment-agent/)** | Hiring support with bias detection | `jd`, `screening`, `interview`, `comparison`, `offer` |
+| **[Presales Agent](./agents/presales-agent/)** | Proposal generation and competitive analysis | `proposal`, `competitor`, `rfp`, `pitch-deck`, `win-loss` |
+| **[Learning & Development Agent](./agents/learning-dev-agent/)** | Training and skill development planning | `skill-gap`, `learning-path`, `training`, `assessment` |
+| **[LinkedIn Content Generator](./agents/linkedin-content-generator/)** | Professional LinkedIn content creation | Research-based content generation |
+
+### Shared Packages
+
+- **[@enterprise-agents/core](./packages/agent-core/)** - Shared SDK utilities: pipeline execution, CLI parsing, logging
+- **[@enterprise-agents/prompts](./packages/agent-prompts/)** - Reusable prompt fragments and enterprise context
+
+### Quick Start (Enterprise Agents)
+
+```bash
+# Navigate to an agent directory
+cd agents/marketing-agent
+
+# Install dependencies
+npm install
+
+# Configure API key
+cp .env.example .env
+# Edit .env and add your ANTHROPIC_API_KEY
+
+# Run the agent
+npm start "Your Topic Here"
+```
+
+For detailed documentation, see individual agent README files.
 
 ## Documentation
 
