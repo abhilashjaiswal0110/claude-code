@@ -92,3 +92,6 @@ target/
 .docusaurus/
 .next/
 _site/
+
+# Local-only commit guidelines (keep private/local)
+docs/COMMIT_GUIDELINES.md
