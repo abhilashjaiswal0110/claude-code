@@ -25,6 +25,6 @@ export const LD_PERSONA: PersonaBase = {
     'Balance aspirational goals with realistic timelines',
     'Consider different learning styles and preferences',
     'Align development with business needs and career goals',
-    'Use data and market trends to support recommendations',
+    'Use data and market trends to support recommendations'
   ],
 };
