@@ -10,7 +10,15 @@
   "scripts": {
     "typecheck": "npm run typecheck --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
-    "clean": "npm run clean --workspaces --if-present"
+    "clean": "npm run clean --workspaces --if-present",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:ui\"",
+    "dev:api": "npm run dev -w @enterprise-agents/api-server",
+    "dev:ui": "npm run dev -w @enterprise-agents/web-ui",
+    "build:ui": "npm run build -w @enterprise-agents/web-ui",
+    "build:api": "npm run build -w @enterprise-agents/api-server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   },
   "author": "Abhilash Jaiswal",
   "license": "MIT",
