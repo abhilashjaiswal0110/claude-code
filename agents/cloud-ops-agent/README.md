@@ -117,7 +117,7 @@ npm start -- --topic "Migrate on-premises CRM to Azure" --mode migration-assessm
 ## Output
 
 Generated files are saved to `output/` with:
-- Timestamped filename: `2025-02-06T143012_cloud-ops-cost-optimization_topic-slug.txt`
+- Timestamped filename: `2025-02-06T14-30-12_cloud-ops-cost-optimization_topic-slug.txt`
 - Structured JSON: Same filename with `.json` extension
 
 ## Data Directory

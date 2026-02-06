@@ -96,7 +96,7 @@ npm start -- --topic "Assess CSRD readiness for IT services" --mode esg-complian
 ## Output
 
 Generated files are saved to `output/` with:
-- Timestamped filename: `2025-02-06T143012_sustainability-carbon-footprint_topic-slug.txt`
+- Timestamped filename: `2025-02-06T14-30-12_sustainability-carbon-footprint_topic-slug.txt`
 - Structured JSON: Same filename with `.json` extension
 
 ## Data Directory

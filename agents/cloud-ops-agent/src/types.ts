@@ -67,7 +67,7 @@ export interface MigrationAssessment {
   sourceEnvironment: string;
   targetCloud: string;
   workloadAnalysis: string[];
-  migrationStrategy: '6Rs';
+  migrationStrategy: MigrationStrategy[];
   dependencies: string[];
   risks: string[];
   timeline: string;

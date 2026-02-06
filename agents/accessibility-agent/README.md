@@ -101,7 +101,7 @@ npm start -- --topic "Generate VPAT for enterprise SaaS platform" --mode complia
 ## Output
 
 Generated files are saved to `output/` with:
-- Timestamped filename: `2025-02-06T143012_accessibility-wcag-audit_topic-slug.txt`
+- Timestamped filename: `2025-02-06T14-30-12_accessibility-wcag-audit_topic-slug.txt`
 - Structured JSON: Same filename with `.json` extension
 
 ## Data Directory
