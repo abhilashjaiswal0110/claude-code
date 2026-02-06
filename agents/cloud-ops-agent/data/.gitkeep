@@ -1,0 +1,6 @@
+# Cloud operations data directory
+# Place cloud-related documents here:
+# - architectures/ - Architecture diagrams and docs
+# - runbooks/ - Operational runbooks
+# - configs/ - Infrastructure configurations
+# - reports/ - Cost reports and metrics
