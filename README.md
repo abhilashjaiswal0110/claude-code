@@ -64,6 +64,9 @@ This repository includes production-ready AI agents built with the Claude Agent 
 | **[Presales Agent](./agents/presales-agent/)** | Proposal generation and competitive analysis | `proposal`, `competitor`, `rfp`, `pitch-deck`, `win-loss` |
 | **[Learning & Development Agent](./agents/learning-dev-agent/)** | Training and skill development planning | `skill-gap`, `learning-path`, `training`, `assessment` |
 | **[LinkedIn Content Generator](./agents/linkedin-content-generator/)** | Professional LinkedIn content creation | Research-based content generation |
+| **[Sustainability Agent](./agents/sustainability-agent/)** | IT sustainability, carbon footprint, and ESG compliance | `carbon-footprint`, `green-it`, `sustainability-report`, `energy-optimization`, `esg-compliance` |
+| **[Accessibility Agent](./agents/accessibility-agent/)** | Digital accessibility auditing and WCAG compliance | `wcag-audit`, `remediation-plan`, `alt-text`, `aria-review`, `compliance-report` |
+| **[Cloud Operations Agent](./agents/cloud-ops-agent/)** | Multi-cloud operations, FinOps, and SRE practices | `cost-optimization`, `incident-response`, `capacity-planning`, `architecture-review`, `migration-assessment` |
 
 ### Shared Packages
 

@@ -1,5 +1,49 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+#### New Enterprise AI Agents
+
+- **Sustainability Agent** - IT sustainability analysis, carbon footprint assessment, and ESG compliance
+  - Modes: `carbon-footprint`, `green-it`, `sustainability-report`, `energy-optimization`, `esg-compliance`
+  - GHG Protocol-aligned emissions assessment (Scope 1, 2, 3)
+  - Supports GRI, CDP, TCFD, EU CSRD, and SEC Climate Rules compliance
+  - Science-Based Targets (SBTi) and ISO 14001/14064 framework integration
+  - Data center sustainability optimization (PUE, WUE metrics)
+
+- **Accessibility Agent** - Digital accessibility auditing and WCAG compliance
+  - Modes: `wcag-audit`, `remediation-plan`, `alt-text`, `aria-review`, `compliance-report`
+  - WCAG 2.1/2.2 conformance evaluation (A, AA, AAA levels)
+  - ADA, Section 508, and EN 301 549 standards support
+  - WAI-ARIA implementation analysis and corrections
+  - VPAT/ACR compliance documentation generation
+
+- **Cloud Operations Agent** - Multi-cloud operations, FinOps, and SRE practices
+  - Modes: `cost-optimization`, `incident-response`, `capacity-planning`, `architecture-review`, `migration-assessment`
+  - FinOps Foundation principles for cost optimization
+  - Well-Architected Framework reviews (AWS, Azure, GCP)
+  - SRE-based incident management and postmortems
+  - 6Rs cloud migration strategy planning
+  - Multi-cloud and hybrid cloud scenario support
+
+#### Shared Infrastructure Updates
+
+- **Extended Compliance Rules** - Added compliance framework exports to `@enterprise-agents/prompts`:
+  - `SUSTAINABILITY_COMPLIANCE_RULES` - GHG Protocol, GRI, CDP, TCFD, ISO standards
+  - `ACCESSIBILITY_COMPLIANCE_RULES` - WCAG, ADA, Section 508, EN 301 549, WAI-ARIA
+  - `CLOUD_OPERATIONS_COMPLIANCE_RULES` - FinOps, Well-Architected, SRE, ITIL practices
+
+- **Updated Agents README** - Comprehensive documentation for all enterprise agents with modes and use cases
+
+### Documentation
+
+- Added complete README files for each new agent with setup, usage examples, and framework references
+- Updated main repository README to include new agents in the enterprise agents table
+- Added budget allocation and pipeline stages documentation for all new agents
+- Included standards, frameworks, and compliance guidance in agent documentation
+
 ## 2.1.29
 
 - Fixed startup performance issues when resuming sessions that have `saved_hook_context`
