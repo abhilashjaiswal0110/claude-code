@@ -140,6 +140,67 @@ claude
 > /feature-dev
 ```
 
+### Using Enterprise AI Agents
+
+This repository includes 10+ enterprise AI agents that run standalone via CLI for business workflows like HR, marketing, recruitment, and IT operations.
+
+**Quick Start with an Agent:**
+
+```bash
+# 1. Navigate to an agent directory
+cd agents/marketing-agent
+
+# 2. Install dependencies (first time only)
+npm install
+
+# 3. Configure API key
+cp .env.example .env
+# Edit .env and add your ANTHROPIC_API_KEY
+
+# 4. Run the agent with default mode
+npm start "AI in Digital Transformation"
+
+# 5. Run with specific mode
+npm start -- --mode social "Cloud Security Trends 2025"
+```
+
+**Available Agents:**
+- **HR Agent** - Policy guidance, benefits, onboarding (`policy`, `benefits`, `engagement`, `onboarding`, `exit-interview`)
+- **Marketing Agent** - Content generation (`blog`, `social`, `campaign`, `press-release`, `newsletter`)
+- **Recruitment Agent** - Hiring support with bias detection (`jd`, `screening`, `interview`, `comparison`, `offer`)
+- **IT Operations Agent** - Infrastructure management (`incident`, `monitoring`, `automation`, `documentation`)
+- **Presales Agent** - Proposals and competitive analysis (`proposal`, `competitor`, `rfp`, `pitch-deck`, `win-loss`)
+- **Learning & Dev Agent** - Training planning (`skill-gap`, `learning-path`, `training`, `assessment`, `team-matrix`)
+- **LinkedIn Generator** - Professional content creation
+- **Sustainability Agent** - Carbon footprint and ESG compliance
+- **Accessibility Agent** - WCAG auditing and compliance
+- **Cloud Ops Agent** - Multi-cloud operations and FinOps
+
+**Example Test Commands:**
+
+```bash
+# HR Agent - Test policy mode
+cd agents/hr-agent
+npm start "What is the work from home policy?"
+
+# Marketing Agent - Test blog mode
+cd agents/marketing-agent
+npm start "AI-Powered Customer Service Platforms"
+
+# Recruitment Agent - Test job description with bias detection
+cd agents/recruitment-agent
+npm start "Senior Cloud Solutions Architect"
+```
+
+**Expected Outputs:**
+- Each agent creates `.txt` (human-readable) and `.json` (structured data) files
+- Files saved in `output/` directory with timestamps
+- JSON includes metadata: topic, mode, all pipeline stages, and generatedAt timestamp
+
+**For detailed testing examples and expected outputs, see:**
+- [Enterprise Agent Examples](./EXAMPLES.md#enterprise-ai-agents)
+- [Agent Testing Guide](../agents/README.md#testing--validation)
+
 ## Repository Structure
 
 ```
@@ -149,6 +210,12 @@ claude-code/
 │   ├── PLUGIN_GUIDE.md           # Using plugins
 │   ├── EXAMPLES.md               # Usage examples
 │   └── TROUBLESHOOTING.md        # Common issues
+├── agents/                        # Enterprise AI agents
+│   ├── hr-agent/                 # HR policy and guidance
+│   ├── marketing-agent/          # Marketing content
+│   ├── recruitment-agent/        # Hiring and recruitment
+│   ├── it-operations-agent/      # IT operations
+│   └── ... (10+ agents total)
 ├── plugins/                       # Plugin collection
 │   ├── hookify/                  # Custom hooks creation
 │   ├── feature-dev/              # Feature development workflow
@@ -158,6 +225,9 @@ claude-code/
 │   ├── plugin-dev/               # Plugin development toolkit
 │   ├── agent-sdk-dev/            # Agent SDK development
 │   └── ... (12+ plugins total)
+├── packages/                      # Shared agent packages
+│   ├── agent-core/               # SDK utilities
+│   └── agent-prompts/            # Reusable prompts
 ├── examples/                      # Example configurations
 └── scripts/                       # Utility scripts
 ```
