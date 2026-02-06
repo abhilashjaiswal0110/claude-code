@@ -10,8 +10,9 @@ const __dirname = dirname(__filename);
 
 const router = Router();
 
-// Ensure uploads directory exists
-const uploadsDir = join(__dirname, '..', '..', 'uploads');
+// Ensure uploads directory exists (relative to process working directory for consistency)
+// This works correctly both in development (src/) and production (dist/)
+const uploadsDir = process.env.UPLOADS_DIR || join(process.cwd(), 'uploads');
 if (!existsSync(uploadsDir)) {
   mkdirSync(uploadsDir, { recursive: true });
 }
@@ -56,7 +57,14 @@ const upload = multer({
   },
 });
 
-// In-memory file tracking (in production, use a database)
+/**
+ * In-memory file tracking.
+ * 
+ * NOTE: File metadata is stored in-memory. This means:
+ * - Metadata will be lost when the server restarts (files remain on disk)
+ * - Consider implementing database persistence for production use
+ * - A cleanup job runs periodically to remove old entries (configured below)
+ */
 const uploadedFiles = new Map<string, {
   id: string;
   name: string;
@@ -67,6 +75,21 @@ const uploadedFiles = new Map<string, {
   uploadedAt: Date;
 }>();
 
+// Cleanup old file entries every 6 hours (files older than 24 hours)
+setInterval(() => {
+  const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  let count = 0;
+  for (const [id, file] of uploadedFiles) {
+    if (file.uploadedAt < cutoff) {
+      uploadedFiles.delete(id);
+      count++;
+    }
+  }
+  if (count > 0) {
+    console.log(`[Upload] Cleaned up ${count} expired file metadata entries`);
+  }
+}, 6 * 60 * 60 * 1000);
+
 // POST /api/upload - Upload a file
 router.post('/', upload.single('file'), (req: Request, res: Response) => {
   if (!req.file) {
@@ -74,7 +97,11 @@ router.post('/', upload.single('file'), (req: Request, res: Response) => {
     return;
   }
 
-  const fileId = req.file.filename.split('.')[0];
+  // Safely extract file ID from filename (handles files without extensions)
+  const filenameParts = req.file.filename.split('.');
+  const fileId = filenameParts.length > 1 
+    ? filenameParts.slice(0, -1).join('.') 
+    : req.file.filename;
   const fileInfo = {
     id: fileId,
     name: req.file.filename,

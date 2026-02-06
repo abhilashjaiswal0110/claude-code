@@ -1,7 +1,11 @@
 import 'dotenv/config';
 import app from './server.js';
+import { sessionService } from './services/SessionService.js';
 
 const PORT = process.env.PORT || 3001;
+
+// Start automatic session cleanup scheduler
+sessionService.startCleanupScheduler();
 
 app.listen(PORT, () => {
   console.log(`

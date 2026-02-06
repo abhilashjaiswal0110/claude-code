@@ -97,9 +97,23 @@ export default function App() {
     [setSelectedAgent, clearUploadedFiles]
   );
 
+  /**
+   * Handles quick action button clicks by programmatically setting the textarea value.
+   * 
+   * Note: Direct DOM manipulation is used here as a pragmatic workaround to trigger
+   * React's controlled input handling. The textarea is owned by a child component
+   * (InputArea) and we need to inject the quick action text without lifting all
+   * input state to the parent component.
+   * 
+   * Alternative approaches considered:
+   * - Lifting state: Would require significant refactoring of InputArea
+   * - Context/Store: Quick actions are simple enough that adding store complexity isn't warranted
+   * - Refs via forwardRef: Would couple App tightly to InputArea internals
+   * 
+   * This approach works reliably for the current use case of injecting template prompts.
+   */
   const handleQuickAction = useCallback(
     (action: string) => {
-      // This will be handled by the ChatPanel's handleSend
       const chatPanel = document.querySelector('textarea');
       if (chatPanel) {
         const nativeInputValueSetter = Object.getOwnPropertyDescriptor(

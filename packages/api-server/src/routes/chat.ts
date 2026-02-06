@@ -5,7 +5,13 @@ import type { ChatRequest, StreamEvent } from '../types.js';
 
 const router = Router();
 
-// Active streams for cancellation
+/**
+ * Active streams for cancellation, keyed by session ID.
+ * 
+ * NOTE: Only one active stream per session is supported. If a user sends
+ * multiple messages quickly, the previous stream will be aborted to prevent
+ * response interleaving. This is intentional behavior to ensure coherent responses.
+ */
 const activeStreams = new Map<string, AbortController>();
 
 // POST /api/chat/:sessionId/message - Send a message and stream response

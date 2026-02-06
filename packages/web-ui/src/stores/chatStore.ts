@@ -67,7 +67,7 @@ interface ChatState {
   // Actions
   setSelectedAgent: (agent: Agent | null) => void;
   setSelectedMode: (mode: string) => void;
-  addMessage: (message: Omit<Message, 'id' | 'timestamp'>) => void;
+  addMessage: (message: Omit<Message, 'id' | 'timestamp'>) => string;
   updateMessage: (id: string, updates: Partial<Message>) => void;
   clearMessages: () => void;
   setIsStreaming: (streaming: boolean) => void;
@@ -262,8 +262,9 @@ if (typeof window !== 'undefined') {
       if (state?.isDarkMode) {
         document.documentElement.classList.add('dark');
       }
-    } catch {
-      // Ignore parse errors
+    } catch (error) {
+      // Log parse errors for debugging but don't break the app
+      console.warn('Failed to parse stored chat state:', error);
     }
   }
 }

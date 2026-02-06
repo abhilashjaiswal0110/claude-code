@@ -1,8 +1,18 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Session, ChatMessage } from '../types.js';
 
+/**
+ * Session management service for chat sessions.
+ * 
+ * NOTE: Sessions are stored in-memory. This means:
+ * - Session data will be lost when the server restarts
+ * - Not suitable for multi-instance deployments without sticky sessions
+ * 
+ * For production use, consider implementing persistence (Redis, database, etc.)
+ */
 class SessionService {
   private sessions: Map<string, Session> = new Map();
+  private cleanupInterval: ReturnType<typeof setInterval> | null = null;
 
   create(agentId: string, mode: string): Session {
     const session: Session = {
@@ -55,9 +65,12 @@ class SessionService {
     return this.sessions.delete(sessionId);
   }
 
-  // Cleanup old sessions (older than 24 hours)
-  cleanup(): number {
-    const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  /**
+   * Cleanup old sessions (older than specified hours, default 24).
+   * Called automatically every hour when startCleanupScheduler is called.
+   */
+  cleanup(maxAgeHours: number = 24): number {
+    const cutoff = new Date(Date.now() - maxAgeHours * 60 * 60 * 1000);
     let count = 0;
 
     for (const [id, session] of this.sessions) {
@@ -67,7 +80,44 @@ class SessionService {
       }
     }
 
+    if (count > 0) {
+      console.log(`[SessionService] Cleaned up ${count} expired session(s)`);
+    }
+
     return count;
+  }
+
+  /**
+   * Start automatic session cleanup scheduler.
+   * Runs every hour to remove sessions older than 24 hours.
+   */
+  startCleanupScheduler(): void {
+    if (this.cleanupInterval) return;
+    
+    // Run cleanup every hour
+    this.cleanupInterval = setInterval(() => {
+      this.cleanup();
+    }, 60 * 60 * 1000);
+
+    console.log('[SessionService] Cleanup scheduler started (runs hourly)');
+  }
+
+  /**
+   * Stop the automatic cleanup scheduler.
+   */
+  stopCleanupScheduler(): void {
+    if (this.cleanupInterval) {
+      clearInterval(this.cleanupInterval);
+      this.cleanupInterval = null;
+      console.log('[SessionService] Cleanup scheduler stopped');
+    }
+  }
+
+  /**
+   * Get count of active sessions.
+   */
+  getActiveCount(): number {
+    return this.sessions.size;
   }
 }
 

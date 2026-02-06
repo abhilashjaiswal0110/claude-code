@@ -92,12 +92,15 @@ export function InputArea({ agent, onSend, onStop, isStreaming }: InputAreaProps
       ];
 
       if (!validTypes.includes(file.type) && !file.name.endsWith('.md')) {
+        // TODO: Replace with toast notification component for better UX
+        // Consider using a toast library like react-hot-toast or sonner
         alert(`Invalid file type: ${file.name}`);
         continue;
       }
 
       // Validate file size (max 10MB)
       if (file.size > 10 * 1024 * 1024) {
+        // TODO: Replace with toast notification component for better UX
         alert(`File too large: ${file.name} (max 10MB)`);
         continue;
       }
