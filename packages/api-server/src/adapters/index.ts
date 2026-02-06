@@ -1,0 +1,11 @@
+export { BaseAdapter } from './BaseAdapter.js';
+export type { AdapterContext } from './BaseAdapter.js';
+export { HRAdapter } from './HRAdapter.js';
+export { ITOpsAdapter } from './ITOpsAdapter.js';
+export { MarketingAdapter } from './MarketingAdapter.js';
+export { RecruitmentAdapter } from './RecruitmentAdapter.js';
+export { PresalesAdapter } from './PresalesAdapter.js';
+export { LearningDevAdapter } from './LearningDevAdapter.js';
+export { LinkedInAdapter } from './LinkedInAdapter.js';
+export { SustainabilityAdapter } from './SustainabilityAdapter.js';
+export { CloudOpsAdapter } from './CloudOpsAdapter.js';
