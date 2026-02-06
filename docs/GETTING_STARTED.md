@@ -168,10 +168,10 @@ npm start -- --mode social "Cloud Security Trends 2025"
 - **HR Agent** - Policy guidance, benefits, onboarding (`policy`, `benefits`, `engagement`, `onboarding`, `exit-interview`)
 - **Marketing Agent** - Content generation (`blog`, `social`, `campaign`, `press-release`, `newsletter`)
 - **Recruitment Agent** - Hiring support with bias detection (`jd`, `screening`, `interview`, `comparison`, `offer`)
-- **IT Operations Agent** - Infrastructure management (`incident`, `monitoring`, `automation`, `documentation`)
+- **IT Operations Agent** - Infrastructure management (`incident`, `kb-search`, `root-cause`, `status-report`, `runbook`)
 - **Presales Agent** - Proposals and competitive analysis (`proposal`, `competitor`, `rfp`, `pitch-deck`, `win-loss`)
 - **Learning & Dev Agent** - Training planning (`skill-gap`, `learning-path`, `training`, `assessment`, `team-matrix`)
-- **LinkedIn Generator** - Professional content creation
+- **LinkedIn Content Generator** - Professional content creation
 - **Sustainability Agent** - Carbon footprint and ESG compliance
 - **Accessibility Agent** - WCAG auditing and compliance
 - **Cloud Ops Agent** - Multi-cloud operations and FinOps

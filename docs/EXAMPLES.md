@@ -708,17 +708,21 @@ cd agents/it-operations-agent
 npm start "Production API returning 500 errors intermittently"
 npm start "Database connection pool exhaustion"
 
-# Monitoring mode
-npm start -- --mode monitoring "Set up alerts for microservices architecture"
-npm start -- --mode monitoring "Create SLA dashboard for customer-facing services"
+# Knowledge base search mode
+npm start -- --mode kb-search "Search KB for known issue with 500 errors"
+npm start -- --mode kb-search "Best practices for microservices monitoring"
 
-# Automation mode
-npm start -- --mode automation "Automate SSL certificate renewal"
-npm start -- --mode automation "Create backup and restore scripts for PostgreSQL"
+# Root cause analysis mode
+npm start -- --mode root-cause "Investigate root cause of database latency"
+npm start -- --mode root-cause "Analyze memory leak in production service"
 
-# Documentation mode
-npm start -- --mode documentation "Write runbook for database failover"
-npm start -- --mode documentation "Create incident response playbook"
+# Status report mode
+npm start -- --mode status-report "Generate status report for production environment"
+npm start -- --mode status-report "Create SLA dashboard summary for Q1"
+
+# Runbook mode
+npm start -- --mode runbook "Write runbook for database failover"
+npm start -- --mode runbook "Create incident response playbook for API outages"
 ```
 
 #### Expected Output
@@ -1049,14 +1053,14 @@ cd agents/it-operations-agent
 # Step 1: Incident response
 npm start -- --mode incident "Production database connection failures"
 
-# Step 2: Create monitoring
-npm start -- --mode monitoring "Database health monitoring setup"
+# Step 2: Research monitoring best practices
+npm start -- --mode kb-search "Database health monitoring setup"
 
-# Step 3: Automation
-npm start -- --mode automation "Auto-restart failed database connections"
+# Step 3: Define automation runbook
+npm start -- --mode runbook "Auto-restart failed database connections"
 
-# Step 4: Documentation
-npm start -- --mode documentation "Database incident response playbook"
+# Step 4: Generate status report / documentation
+npm start -- --mode status-report "Database incident response summary and playbook"
 ```
 
 ---

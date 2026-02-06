@@ -376,9 +376,10 @@ cd agents/it-operations-agent
 npm start "Production API returning 500 errors intermittently"
 
 # Test other modes
-npm start -- --mode monitoring "Set up alerts for microservices"
-npm start -- --mode automation "Automate SSL certificate renewal"
-npm start -- --mode documentation "Write runbook for database failover"
+npm start -- --mode kb-search "Search KB for known issue with 500 errors"
+npm start -- --mode root-cause "Investigate root cause of database latency"
+npm start -- --mode status-report "Generate status report for production environment"
+npm start -- --mode runbook "Write runbook for database failover"
 ```
 
 **Expected Output Structure:**
@@ -660,9 +661,9 @@ node --version  # Should be 18.0.0+
 npm list @anthropic-ai/sdk
 # Should show installed version
 
-# Check API key
-echo $ANTHROPIC_API_KEY  # Linux/macOS
-echo $env:ANTHROPIC_API_KEY  # Windows PowerShell
+# Check API key (without exposing value)
+[ -z "$ANTHROPIC_API_KEY" ] && echo "ANTHROPIC_API_KEY is not set" || echo "ANTHROPIC_API_KEY is set"  # Linux/macOS
+if (-not $env:ANTHROPIC_API_KEY) { Write-Host "ANTHROPIC_API_KEY is not set" } else { Write-Host "ANTHROPIC_API_KEY is set" }  # Windows PowerShell
 ```
 
 **Empty or Incomplete Output:**
