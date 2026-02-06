@@ -295,6 +295,439 @@ Turn limits ensure agents don't exceed budget expectations.
 - ✅ **Check for compliance** with company policies
 - ✅ **Iterate on prompts** if results aren't satisfactory
 
+## Testing & Validation
+
+### Quick Test Commands
+
+Each agent can be quickly tested with sample prompts to verify functionality:
+
+#### HR Agent
+```bash
+cd agents/hr-agent
+
+# Test default mode (policy)
+npm start "What is the work from home policy?"
+
+# Test all modes
+npm start -- --mode benefits "What health insurance options are available?"
+npm start -- --mode engagement "Analyze Q4 engagement survey results"
+npm start -- --mode onboarding "New software engineer joining cloud team"
+npm start -- --mode exit-interview "Summarize exit interview trends Q3-Q4"
+```
+
+**Expected Output Structure:**
+- Classification of query type and sensitivity
+- Policy search results with document references
+- Comprehensive response with step-by-step guidance
+- Compliance check with disclaimers
+- Output files: `.txt` (formatted) and `.json` (structured)
+
+#### Marketing Agent
+```bash
+cd agents/marketing-agent
+
+# Test blog mode (default)
+npm start "AI in Enterprise Digital Transformation"
+
+# Test other modes
+npm start -- --mode social "Cloud Security Trends 2025"
+npm start -- --mode campaign "Hybrid Cloud Migration Services"
+npm start -- --mode press-release "Partnership Announcement"
+npm start -- --mode newsletter "January Tech Insights"
+```
+
+**Expected Output Structure:**
+- Research summary with market data and trends
+- Content strategy and messaging framework
+- Full content generation (2,500+ words for blog)
+- SEO optimization with keywords and meta descriptions
+- Output saved in both formats with topic slug
+
+#### Recruitment Agent
+```bash
+cd agents/recruitment-agent
+
+# Test job description mode
+npm start "Senior Cloud Solutions Architect"
+
+# Test other modes
+npm start -- --mode screening "Full Stack Developer - React and Node.js"
+npm start -- --mode interview "Data Science Lead - ML Engineering"
+npm start -- --mode comparison "3 finalists for VP Engineering role"
+npm start -- --mode offer "Senior Software Engineer - London office"
+```
+
+**Expected Output Structure:**
+- Role understanding and market context
+- Comprehensive content (job description, questions, framework)
+- **Bias & compliance check** (automatic):
+  - ✓ No gendered language detected
+  - ✓ No age-indicative terms found
+  - ✓ Equal opportunity statement included
+  - ✓ GDPR-compliant data handling
+  - ⚠️ Suggestions for improvement
+- Salary benchmarks and competitive data
+
+#### IT Operations Agent
+```bash
+cd agents/it-operations-agent
+
+# Test incident mode
+npm start "Production API returning 500 errors intermittently"
+
+# Test other modes
+npm start -- --mode monitoring "Set up alerts for microservices"
+npm start -- --mode automation "Automate SSL certificate renewal"
+npm start -- --mode documentation "Write runbook for database failover"
+```
+
+**Expected Output Structure:**
+- Incident severity classification (P0-P3)
+- Immediate actions with specific commands
+- Investigation steps and probable causes
+- Resolution steps and rollback procedures
+- Prevention recommendations
+
+#### Presales Agent
+```bash
+cd agents/presales-agent
+
+# Test proposal mode
+npm start "Cloud migration services for financial institution"
+
+# Test other modes
+npm start -- --mode competitor "Compare our cloud offering vs AWS"
+npm start -- --mode rfp "Government agency cloud infrastructure RFP"
+npm start -- --mode pitch-deck "Series B fundraising deck"
+npm start -- --mode win-loss "Analyze deals won and lost in Q4"
+```
+
+**Expected Output Structure:**
+- Client situation analysis
+- Proposed solution architecture
+- Implementation timeline and phases
+- Team structure and pricing ($X.XM - $Y.YM)
+- Success metrics and KPIs
+- Competitive differentiation (for competitor mode)
+
+#### Learning & Development Agent
+```bash
+cd agents/learning-dev-agent
+
+# Test skill gap mode
+npm start "Frontend team needs to learn TypeScript"
+
+# Test other modes
+npm start -- --mode learning-path "Junior developer to senior engineer"
+npm start -- --mode training "Cloud security workshop"
+npm start -- --mode assessment "Test React knowledge for developers"
+npm start -- --mode team-matrix "Skill inventory for engineering team"
+```
+
+**Expected Output Structure:**
+- Current skill assessment
+- Gap analysis with priority ranking
+- Learning resources (courses, books, certifications)
+- Implementation timeline (weeks/months)
+- Success metrics and checkpoints
+
+#### LinkedIn Content Generator
+```bash
+cd agents/linkedin-content-generator
+
+# Test with various topics
+npm start "AI and the future of work"
+npm start "Building high-performing engineering teams"
+npm start "Cloud cost optimization strategies"
+```
+
+**Expected Output Structure:**
+- Research summary with current trends
+- Two post variations:
+  1. **Hook-focused** (engagement-optimized)
+  2. **Value-focused** (educational thread-style)
+- Image suggestions with descriptions
+- Optimal posting schedule (days, times)
+- Character count and hashtag recommendations
+
+#### Sustainability Agent
+```bash
+cd agents/sustainability-agent
+
+# Test carbon footprint mode
+npm start "Calculate cloud infrastructure emissions"
+
+# Test other modes
+npm start -- --mode green-it "Optimize data center energy efficiency"
+npm start -- --mode sustainability-report "Annual ESG report"
+npm start -- --mode energy-optimization "Renewable energy integration"
+npm start -- --mode esg-compliance "EU CSRD compliance assessment"
+```
+
+**Expected Output Structure:**
+- GHG Protocol-aligned emissions calculation
+- Scope 1, 2, 3 breakdown
+- Reduction recommendations with ROI
+- Compliance framework mapping (GRI, CDP, TCFD)
+- Industry benchmarking
+
+#### Accessibility Agent
+```bash
+cd agents/accessibility-agent
+
+# Test WCAG audit mode
+npm start "Audit e-commerce website for WCAG 2.1 AA"
+
+# Test other modes
+npm start -- --mode remediation-plan "Fix admin dashboard issues"
+npm start -- --mode alt-text "Generate alt text for product images"
+npm start -- --mode aria-review "Review form accessibility"
+npm start -- --mode compliance-report "VPAT 2.4 Rev 508 documentation"
+```
+
+**Expected Output Structure:**
+- WCAG 2.1/2.2 conformance analysis
+- Issues categorized by severity (A, AA, AAA)
+- Prioritized remediation roadmap
+- Code examples for fixes
+- Compliance documentation (VPAT/ACR format)
+
+#### Cloud Operations Agent
+```bash
+cd agents/cloud-ops-agent
+
+# Test cost optimization mode
+npm start "Reduce AWS spend by 30%"
+
+# Test other modes
+npm start -- --mode incident-response "Multi-region outage postmortem"
+npm start -- --mode capacity-planning "Scale for 300% growth"
+npm start -- --mode architecture-review "Well-Architected assessment"
+npm start -- --mode migration-assessment "On-prem to AWS migration"
+```
+
+**Expected Output Structure:**
+- FinOps-aligned cost analysis
+- Savings opportunities with priority ($X,XXX/month)
+- Implementation steps with risk assessment
+- Architecture recommendations (Well-Architected Framework)
+- Migration strategy using 6Rs methodology
+
+### Automated Testing
+
+You can create test scripts to validate agent behavior:
+
+**test-agents.sh** (Bash/macOS/Linux):
+```bash
+#!/bin/bash
+
+echo "Testing Enterprise Agents..."
+
+# Test HR Agent
+cd agents/hr-agent
+echo "✓ Testing HR Agent..."
+npm start "What is the vacation policy?" > /dev/null 2>&1 && echo "  ✓ HR Agent working" || echo "  ✗ HR Agent failed"
+
+# Test Marketing Agent
+cd ../marketing-agent
+echo "✓ Testing Marketing Agent..."
+npm start "AI trends" > /dev/null 2>&1 && echo "  ✓ Marketing Agent working" || echo "  ✗ Marketing Agent failed"
+
+# Test Recruitment Agent
+cd ../recruitment-agent
+echo "✓ Testing Recruitment Agent..."
+npm start "Software Engineer" > /dev/null 2>&1 && echo "  ✓ Recruitment Agent working" || echo "  ✗ Recruitment Agent failed"
+
+echo "✓ All agent tests complete"
+```
+
+**test-agents.ps1** (PowerShell/Windows):
+```powershell
+Write-Host "Testing Enterprise Agents..."
+
+# Test HR Agent
+Set-Location agents/hr-agent
+Write-Host "Testing HR Agent..."
+npm start "What is the vacation policy?" *> $null
+if ($LASTEXITCODE -eq 0) { Write-Host "  ✓ HR Agent working" -ForegroundColor Green } 
+else { Write-Host "  ✗ HR Agent failed" -ForegroundColor Red }
+
+# Test Marketing Agent
+Set-Location ../marketing-agent
+Write-Host "Testing Marketing Agent..."
+npm start "AI trends" *> $null
+if ($LASTEXITCODE -eq 0) { Write-Host "  ✓ Marketing Agent working" -ForegroundColor Green }
+else { Write-Host "  ✗ Marketing Agent failed" -ForegroundColor Red }
+
+# Test Recruitment Agent
+Set-Location ../recruitment-agent
+Write-Host "Testing Recruitment Agent..."
+npm start "Software Engineer" *> $null
+if ($LASTEXITCODE -eq 0) { Write-Host "  ✓ Recruitment Agent working" -ForegroundColor Green }
+else { Write-Host "  ✗ Recruitment Agent failed" -ForegroundColor Red }
+
+Write-Host "✓ All agent tests complete"
+```
+
+### Output Validation
+
+Verify agent outputs match expected structure:
+
+```bash
+# Check JSON structure
+cat agents/hr-agent/output/<latest>.json | jq 'has("topic", "mode", "classification", "response")'
+# Should return: true
+
+# Verify output completeness
+cat agents/marketing-agent/output/<latest>.json | jq '.content | length'
+# Should return: > 2000 (characters for blog mode)
+
+# Check compliance data
+cat agents/recruitment-agent/output/<latest>.json | jq '.biasCheck'
+# Should contain bias detection results
+
+# Validate timestamps
+cat agents/presales-agent/output/<latest>.json | jq '.generatedAt'
+# Should return ISO 8601 timestamp
+```
+
+### Performance Testing
+
+Monitor agent execution time and costs:
+
+```bash
+# Time execution
+time npm start "Test topic"
+
+# Check pipeline stages and turns
+npm start "Test topic" 2>&1 | grep -E "(Stage|Turn|Budget)"
+
+# Monitor API usage
+# Add to .env: ANTHROPIC_LOG_LEVEL=debug
+npm start "Test topic" 2>&1 | grep "API call"
+```
+
+### Integration Testing
+
+Test agents in realistic workflows:
+
+**Complete Recruitment Workflow:**
+```bash
+cd agents/recruitment-agent
+
+# 1. Job description
+npm start -- --mode jd "Senior DevOps Engineer" 
+
+# 2. Screening framework
+npm start -- --mode screening "Senior DevOps Engineer"
+
+# 3. Interview questions
+npm start -- --mode interview "Senior DevOps Engineer"
+
+# 4. Candidate comparison
+npm start -- --mode comparison "3 DevOps finalists"
+
+# 5. Offer letter
+npm start -- --mode offer "Senior DevOps Engineer - NYC"
+
+# Verify all outputs created
+ls -la output/ | wc -l
+# Should show 5+ files (txt + json for each mode)
+```
+
+**Marketing Campaign Workflow:**
+```bash
+cd agents/marketing-agent
+
+# Blog → Social → Press Release → Newsletter
+for mode in blog social press-release newsletter; do
+  npm start -- --mode $mode "AI Platform Launch"
+done
+
+# Verify comprehensive campaign assets
+ls -la output/
+# Should show 8 files (4 txt + 4 json)
+```
+
+### Troubleshooting Tests
+
+**Agent Not Running:**
+```bash
+# Check Node.js version
+node --version  # Should be 18.0.0+
+
+# Verify dependencies
+npm list @anthropic-ai/sdk
+# Should show installed version
+
+# Check API key
+echo $ANTHROPIC_API_KEY  # Linux/macOS
+echo $env:ANTHROPIC_API_KEY  # Windows PowerShell
+```
+
+**Empty or Incomplete Output:**
+```bash
+# Enable debug logging
+export ANTHROPIC_LOG_LEVEL=debug  # Linux/macOS
+$env:ANTHROPIC_LOG_LEVEL="debug"  # Windows PowerShell
+
+npm start "Test topic"
+# Review detailed execution logs
+```
+
+**Budget Exceeded:**
+```bash
+# Check stage budgets in src/prompts.ts
+grep -r "maxBudgetUsd" src/
+
+# Reduce turn limits for testing
+# Edit src/prompts.ts and reduce maxTurns values
+```
+
+### Continuous Integration
+
+Add to CI/CD pipeline:
+
+```yaml
+# .github/workflows/test-agents.yml
+name: Test Enterprise Agents
+
+on: [push, pull_request]
+
+jobs:
+  test-agents:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        agent: [hr-agent, marketing-agent, recruitment-agent]
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: |
+          cd agents/${{ matrix.agent }}
+          npm install
+      
+      - name: Test agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd agents/${{ matrix.agent }}
+          npm start "Test topic" > output.txt
+          
+      - name: Validate output
+        run: |
+          cd agents/${{ matrix.agent }}
+          test -f output/*.json || exit 1
+          test -f output/*.txt || exit 1
+```
+
 ## Output Management
 
 All agents save output in dual format:
