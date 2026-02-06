@@ -121,6 +121,56 @@ These agents leverage the [Claude Agent SDK](https://docs.claude.com/en/api/agen
 
 [View Documentation →](./linkedin-content-generator/README.md)
 
+---
+
+### 🌱 Sustainability Agent
+**Purpose:** IT sustainability, carbon footprint analysis, and ESG compliance
+
+**Modes:**
+- `carbon-footprint` - GHG Protocol Scope 1, 2, 3 emissions analysis
+- `green-it` - Sustainable infrastructure and data center optimization
+- `sustainability-report` - GRI, CDP, TCFD-aligned reporting
+- `energy-optimization` - Energy efficiency and renewable integration
+- `esg-compliance` - Regulatory compliance assessment (EU CSRD, SEC)
+
+**Tech Stack:** TypeScript, Claude Agent SDK, sustainability frameworks
+
+[View Documentation →](./sustainability-agent/README.md)
+
+---
+
+### ♿ Accessibility Compliance Agent
+**Purpose:** Digital accessibility auditing and WCAG compliance
+
+**Modes:**
+- `wcag-audit` - Full WCAG 2.1/2.2 conformance audit
+- `remediation-plan` - Prioritized fix roadmap with code examples
+- `alt-text` - Image alternative text generation and review
+- `aria-review` - WAI-ARIA implementation analysis
+- `compliance-report` - VPAT/ACR compliance documentation
+
+**Features:** ADA, Section 508, EN 301 549 standards support
+
+**Tech Stack:** TypeScript, Claude Agent SDK, accessibility standards
+
+[View Documentation →](./accessibility-agent/README.md)
+
+---
+
+### ☁️ Cloud Operations Agent
+**Purpose:** Multi-cloud operations, FinOps, and SRE practices
+
+**Modes:**
+- `cost-optimization` - FinOps-aligned cloud spend analysis
+- `incident-response` - SRE incident analysis and postmortems
+- `capacity-planning` - Growth forecasting and scaling strategy
+- `architecture-review` - Well-Architected Framework assessments
+- `migration-assessment` - 6Rs cloud migration planning
+
+**Tech Stack:** TypeScript, Claude Agent SDK, AWS/Azure/GCP frameworks
+
+[View Documentation →](./cloud-ops-agent/README.md)
+
 ## Shared Infrastructure
 
 All agents leverage shared packages for consistency:

@@ -45,3 +45,38 @@ SECURITY CONSTRAINTS:
 - Follow least-privilege principles in all recommendations
 - Flag potential security concerns in generated content
 `.trim();
+
+export const SUSTAINABILITY_COMPLIANCE_RULES = `
+SUSTAINABILITY-SPECIFIC COMPLIANCE:
+- Reference recognized frameworks: GHG Protocol, GRI, CDP, TCFD, Science-Based Targets
+- Use accurate carbon accounting methodologies (Scope 1, 2, 3)
+- Avoid greenwashing - qualify claims with data and methodology
+- Include measurement uncertainty and limitations in reports
+- Reference ISO 14001/14064 standards where applicable
+- Consider regional regulatory requirements (EU CSRD, SEC Climate Rules)
+- Prioritize evidence-based recommendations over aspirational statements
+`.trim();
+
+export const ACCESSIBILITY_COMPLIANCE_RULES = `
+ACCESSIBILITY-SPECIFIC COMPLIANCE:
+- Reference WCAG 2.1/2.2 guidelines with specific success criteria
+- Include ADA and Section 508 compliance requirements where applicable
+- Consider EN 301 549 for EU accessibility requirements
+- Specify conformance levels (A, AA, AAA) for recommendations
+- Include assistive technology compatibility considerations
+- Reference WAI-ARIA patterns for dynamic content
+- Ensure remediation advice is actionable and prioritized
+- Consider diverse disability types: visual, auditory, motor, cognitive
+`.trim();
+
+export const CLOUD_OPERATIONS_COMPLIANCE_RULES = `
+CLOUD OPERATIONS COMPLIANCE:
+- Follow FinOps Foundation principles for cost optimization
+- Reference Well-Architected Frameworks (AWS, Azure, GCP)
+- Include security baseline configurations and compliance standards
+- Consider multi-cloud and hybrid cloud scenarios
+- Reference SRE best practices for reliability recommendations
+- Include disaster recovery and business continuity considerations
+- Follow change management and ITIL practices
+- Consider regional data residency and sovereignty requirements
+`.trim();
