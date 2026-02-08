@@ -1,0 +1,9 @@
+{
+  "name": "enterprise-agents",
+  "version": "1.0.0",
+  "description": "Unified access to 10 enterprise AI agents (HR, Marketing, Recruitment, Presales, IT Ops, L&D, LinkedIn, Sustainability, Accessibility, Cloud Ops) with intelligent auto-invocation and workflow orchestration",
+  "author": {
+    "name": "Abhilash Jaiswal",
+    "email": "abhilash.jaiswal@atos.net"
+  }
+}
