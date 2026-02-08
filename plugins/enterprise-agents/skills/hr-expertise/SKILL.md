@@ -1,3 +1,9 @@
+---
+name: HR Expertise
+description: Domain expertise for HR policy development, employee relations, benefits design, and organizational development
+version: 1.0.0
+---
+
 # HR Expertise Skill
 
 Domain expertise for HR policy development, employee relations, benefits design, and organizational development.

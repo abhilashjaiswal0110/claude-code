@@ -51,8 +51,7 @@ Or use commands directly: /hr, /marketing, /workflow recruitment-pipeline
 """
 
     result = {
-        "action": "allow",
-        "message": welcome_message.strip()
+        "systemMessage": welcome_message.strip()
     }
 
     print(json.dumps(result))

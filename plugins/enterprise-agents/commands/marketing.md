@@ -1,3 +1,8 @@
+---
+description: Execute the Marketing agent to generate enterprise marketing content including blogs, social media, campaigns, press releases, and newsletters
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Marketing Agent Command
 
 Execute the Marketing agent to generate enterprise marketing content including blogs, social media, campaigns, press releases, and newsletters.

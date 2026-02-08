@@ -1,3 +1,8 @@
+---
+description: Incident response, monitoring setup, automation scripts, and operations documentation
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # IT Operations Agent Command
 
 Incident response, monitoring setup, automation scripts, and operations documentation.

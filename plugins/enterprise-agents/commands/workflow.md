@@ -1,3 +1,8 @@
+---
+description: Execute predefined multi-agent workflows or create custom workflows by chaining enterprise agents
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Workflow Command
 
 Execute predefined multi-agent workflows or create custom workflows by chaining enterprise agents.
@@ -383,7 +388,7 @@ Use custom workflow:
 Detect independent steps and run in parallel:
 ```typescript
 // Sequential: 3 × 4min = 12min
-Step1 (MarketingStep2 (Presales) → Step3 (HR)
+Step1 (Marketing) → Step2 (Presales) → Step3 (HR)
 
 // Parallel: max(4min, 3min, 5min) = 5min
 Step1 (Marketing) ⎤

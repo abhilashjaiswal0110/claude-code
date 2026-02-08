@@ -1,3 +1,8 @@
+---
+description: Execute the Recruitment agent for bias-free job descriptions, candidate screening, interview questions, candidate comparisons, and offer letters
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Recruitment Agent Command
 
 Execute the Recruitment agent for bias-free job descriptions, candidate screening, interview questions, candidate comparisons, and offer letters.

@@ -61,14 +61,14 @@ Just describe what you need - the plugin detects intent:
 Combine agents for complex scenarios:
 
 ```bash
-# Recruitment → HR onboarding flow
-> /workflow recruitment-to-hr "Senior Data Scientist"
+# Recruitment pipeline - JD to onboarding
+> /workflow recruitment-pipeline "Senior Data Scientist"
 
-# Marketing → Presales proposal
-> /workflow marketing-to-presales "AI-powered customer analytics"
+# Content marketing campaign
+> /workflow content-campaign "AI-powered customer analytics"
 
-# IT Ops → Sustainability assessment
-> /workflow incident-carbon-impact "Production outage report"
+# Incident postmortem analysis
+> /workflow incident-postmortem "Production outage report"
 ```
 
 ## Auto-Invocation Patterns
@@ -205,7 +205,7 @@ Add to your `.claude/settings.json`:
 1. Create agent in `/agents/your-agent/`
 2. Add command file to `/plugins/enterprise-agents/commands/your-agent.md`
 3. Create skill in `/plugins/enterprise-agents/skills/your-agent-expertise/`
-4. Update auto-invoke patterns in `/plugins/enterprise-agents/hooks/auto-invoke.py`
+4. Update auto-invoke patterns in `/plugins/enterprise-agents/hooks/auto-invoke-agent.py`
 
 ### Testing
 

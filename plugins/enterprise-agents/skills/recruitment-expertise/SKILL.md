@@ -1,3 +1,9 @@
+---
+name: Recruitment Expertise
+description: Domain expertise for inclusive hiring, bias-free job descriptions, structured interviews, and skills-based candidate evaluation
+version: 1.0.0
+---
+
 # Recruitment Expertise Skill
 
 Domain expertise for inclusive hiring, bias-free job descriptions, structured interviews, and skills-based candidate evaluation.

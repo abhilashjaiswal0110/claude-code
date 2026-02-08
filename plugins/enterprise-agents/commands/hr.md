@@ -1,3 +1,8 @@
+---
+description: Execute the HR agent for policy guidance, benefits information, employee engagement insights, onboarding support, or exit interview analysis
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # HR Agent Command
 
 Execute the HR agent to get policy guidance, benefits information, employee engagement insights, onboarding support, or exit interview analysis.

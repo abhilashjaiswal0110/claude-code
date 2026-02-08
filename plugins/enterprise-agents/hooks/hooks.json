@@ -1,4 +1,27 @@
 {
-  "SessionStart": ["session-start.py"],
-  "PreUserPrompt": ["auto-invoke-agent.py"]
+  "description": "Enterprise Agents Plugin - Auto-invocation and session initialization hooks",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/session-start.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 ${CLAUDE_PLUGIN_ROOT}/hooks/auto-invoke-agent.py",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
 }

@@ -1,3 +1,9 @@
+---
+name: Marketing Expertise
+description: Domain expertise for enterprise B2B marketing, content strategy, messaging frameworks, and campaign development
+version: 1.0.0
+---
+
 # Marketing Expertise Skill
 
 Domain expertise for enterprise B2B marketing, content strategy, messaging frameworks, and campaign development.

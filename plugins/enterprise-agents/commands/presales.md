@@ -1,3 +1,8 @@
+---
+description: Generate proposals, competitive analysis, RFP responses, pitch decks, and win-loss analysis for sales engagements
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Presales Agent Command
 
 Generate proposals, competitive analysis, RFP responses, pitch decks, and win-loss analysis for sales engagements.

@@ -1,3 +1,8 @@
+---
+description: IT sustainability, carbon footprint analysis, green IT recommendations, and ESG compliance
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Sustainability Agent Command
 
 IT sustainability, carbon footprint analysis, green IT recommendations, and ESG compliance.

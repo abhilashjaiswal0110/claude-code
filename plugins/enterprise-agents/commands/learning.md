@@ -1,3 +1,8 @@
+---
+description: Skill gap analysis, learning path creation, training material design, and assessment development
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Learning & Development Agent Command
 
 Skill gap analysis, learning path creation, training material design, and assessment development.

@@ -1,3 +1,8 @@
+---
+description: Research-based professional LinkedIn content creation for thought leadership
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # LinkedIn Content Generator Command
 
 Research-based professional LinkedIn content creation for thought leadership.

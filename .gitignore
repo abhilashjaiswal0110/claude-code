@@ -40,6 +40,8 @@ logs/
 *.temp
 .cache/
 .temp/
+.tmp/
+tmpclaude-*/
 
 # Build outputs
 dist/
@@ -93,5 +95,6 @@ target/
 .next/
 _site/
 
-# Local-only commit guidelines (keep private/local)
-docs/COMMIT_GUIDELINES.md
+# Enterprise Agent outputs (may contain sensitive data)
+agents/*/output/
+output/enterprise-agents/

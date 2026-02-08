@@ -1,3 +1,9 @@
+---
+name: Workflow Orchestration
+description: Expertise in chaining multiple enterprise agents together to handle complex, multi-step business processes
+version: 1.0.0
+---
+
 # Workflow Orchestration Skill
 
 Expertise in chaining multiple enterprise agents together to handle complex, multi-step business processes.

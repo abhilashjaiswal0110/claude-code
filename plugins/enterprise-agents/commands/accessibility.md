@@ -1,3 +1,8 @@
+---
+description: Digital accessibility auditing, remediation planning, WCAG compliance, and inclusive design guidance
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Accessibility Agent Command
 
 Digital accessibility auditing, remediation planning, WCAG compliance, and inclusive design guidance.

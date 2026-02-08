@@ -1,3 +1,8 @@
+---
+description: Multi-cloud operations, FinOps, SRE practices, cost optimization, and cloud architecture review
+allowed-tools: Bash(cd:*), Bash(npm:*)
+---
+
 # Cloud Operations Agent Command
 
 Multi-cloud operations, FinOps, SRE practices, cost optimization, and cloud architecture review.
