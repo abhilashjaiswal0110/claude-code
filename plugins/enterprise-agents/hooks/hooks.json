@@ -1,0 +1,4 @@
+{
+  "SessionStart": ["session-start.py"],
+  "PreUserPrompt": ["auto-invoke-agent.py"]
+}
