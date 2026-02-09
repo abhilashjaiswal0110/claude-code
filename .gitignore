@@ -98,3 +98,7 @@ _site/
 # Enterprise Agent outputs (may contain sensitive data)
 agents/*/output/
 output/enterprise-agents/
+
+# Documentation - ensure commit guidelines are never ignored
+!**/commit_guidelines*
+!**/COMMIT_GUIDELINES*
