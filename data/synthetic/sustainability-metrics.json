@@ -1,0 +1,216 @@
+{
+  "$schema": "./schemas/sustainability.schema.json",
+  "_metadata": {
+    "description": "Synthetic sustainability and ESG data for POC demonstrations",
+    "generated": "2026-02-10",
+    "version": "1.0.0",
+    "note": "PLACEHOLDER: Replace with actual carbon accounting platform integration for production"
+  },
+  "organization": {
+    "name": "Atos SE",
+    "reportingYear": 2025,
+    "baselineYear": 2019,
+    "netZeroTarget": 2040,
+    "scienceBasedTarget": true,
+    "cdpScore": "A-"
+  },
+  "emissions": {
+    "scope1": {
+      "total": 12500,
+      "unit": "tCO2e",
+      "breakdown": {
+        "naturalGas": 4200,
+        "diesel": 1800,
+        "refrigerants": 2100,
+        "companyVehicles": 4400
+      },
+      "changeFromBaseline": -35
+    },
+    "scope2": {
+      "locationBased": 145000,
+      "marketBased": 28000,
+      "unit": "tCO2e",
+      "renewablePercentage": 82,
+      "breakdown": {
+        "electricity": 140000,
+        "heating": 3500,
+        "cooling": 1500
+      },
+      "changeFromBaseline": -68
+    },
+    "scope3": {
+      "total": 890000,
+      "unit": "tCO2e",
+      "categories": {
+        "purchasedGoodsServices": 420000,
+        "capitalGoods": 85000,
+        "fuelEnergyActivities": 32000,
+        "upstreamTransportation": 45000,
+        "wasteGenerated": 12000,
+        "businessTravel": 28000,
+        "employeeCommuting": 65000,
+        "upstreamLeasedAssets": 18000,
+        "downstreamTransportation": 0,
+        "processingOfSoldProducts": 0,
+        "useOfSoldProducts": 125000,
+        "endOfLifeTreatment": 8000,
+        "downstreamLeasedAssets": 22000,
+        "franchises": 0,
+        "investments": 30000
+      },
+      "changeFromBaseline": -22
+    }
+  },
+  "datacenters": [
+    {
+      "id": "DC-EU-01",
+      "name": "Frankfurt Primary DC",
+      "location": "Frankfurt, Germany",
+      "tier": "Tier III",
+      "pue": 1.35,
+      "wue": 0.8,
+      "renewablePercentage": 100,
+      "totalPowerMW": 15,
+      "itLoadMW": 11.1,
+      "carbonIntensity": 0,
+      "coolingType": "Free cooling + Adiabatic",
+      "certifications": ["ISO 50001", "LEED Gold"],
+      "annualEmissions": 0
+    },
+    {
+      "id": "DC-EU-02",
+      "name": "Amsterdam Secondary DC",
+      "location": "Amsterdam, Netherlands",
+      "tier": "Tier III",
+      "pue": 1.28,
+      "wue": 0.6,
+      "renewablePercentage": 100,
+      "totalPowerMW": 8,
+      "itLoadMW": 6.25,
+      "carbonIntensity": 0,
+      "coolingType": "Water cooling with canal integration",
+      "certifications": ["ISO 50001", "BREEAM Excellent"],
+      "annualEmissions": 0
+    },
+    {
+      "id": "DC-APAC-01",
+      "name": "Singapore DC",
+      "location": "Singapore",
+      "tier": "Tier III+",
+      "pue": 1.45,
+      "wue": 1.2,
+      "renewablePercentage": 65,
+      "totalPowerMW": 12,
+      "itLoadMW": 8.3,
+      "carbonIntensity": 145,
+      "coolingType": "Precision cooling with hot/cold aisle",
+      "certifications": ["BCA Green Mark Platinum"],
+      "annualEmissions": 18500
+    },
+    {
+      "id": "DC-US-01",
+      "name": "Dallas DC",
+      "location": "Dallas, Texas, USA",
+      "tier": "Tier IV",
+      "pue": 1.38,
+      "wue": 0.9,
+      "renewablePercentage": 85,
+      "totalPowerMW": 20,
+      "itLoadMW": 14.5,
+      "carbonIntensity": 52,
+      "coolingType": "Hybrid - evaporative + mechanical",
+      "certifications": ["ENERGY STAR", "ISO 50001"],
+      "annualEmissions": 9500
+    }
+  ],
+  "cloudWorkloads": {
+    "totalVMs": 45000,
+    "totalContainers": 125000,
+    "avgCPUUtilization": 42,
+    "avgMemoryUtilization": 58,
+    "rightSizingOpportunities": {
+      "overProvisionedVMs": 8500,
+      "potentialSavingsKWh": 2400000,
+      "potentialCO2Savings": 1200
+    },
+    "idleResources": {
+      "count": 3200,
+      "wastedSpendUSD": 450000,
+      "wastedEmissions": 850
+    }
+  },
+  "initiatives": [
+    {
+      "id": "INIT-001",
+      "name": "Data Center Renewable Energy Transition",
+      "status": "In Progress",
+      "startDate": "2024-01-01",
+      "targetDate": "2026-12-31",
+      "targetReduction": 45000,
+      "achievedReduction": 38000,
+      "investmentUSD": 12000000,
+      "roi": 2.3
+    },
+    {
+      "id": "INIT-002",
+      "name": "Fleet Electrification Program",
+      "status": "In Progress",
+      "startDate": "2024-06-01",
+      "targetDate": "2027-12-31",
+      "targetReduction": 3500,
+      "achievedReduction": 1200,
+      "investmentUSD": 8500000,
+      "roi": 1.8
+    },
+    {
+      "id": "INIT-003",
+      "name": "Green Software Development",
+      "status": "Active",
+      "startDate": "2025-01-01",
+      "targetDate": "2026-06-30",
+      "targetReduction": 5000,
+      "achievedReduction": 2100,
+      "investmentUSD": 500000,
+      "roi": 4.5
+    },
+    {
+      "id": "INIT-004",
+      "name": "Supplier Decarbonization Program",
+      "status": "Planning",
+      "startDate": "2026-04-01",
+      "targetDate": "2028-12-31",
+      "targetReduction": 120000,
+      "achievedReduction": 0,
+      "investmentUSD": 3000000,
+      "roi": 0
+    }
+  ],
+  "esgScores": {
+    "overall": 78,
+    "environmental": 82,
+    "social": 75,
+    "governance": 77,
+    "thirdPartyRatings": {
+      "msci": "AA",
+      "sustainalytics": 18.5,
+      "refinitiv": 76,
+      "cdp": "A-",
+      "sbti": "Committed"
+    }
+  },
+  "compliance": {
+    "csrd": {
+      "status": "In Progress",
+      "dueDate": "2026-12-31",
+      "completeness": 72
+    },
+    "tcfd": {
+      "status": "Compliant",
+      "lastReportDate": "2025-04-15"
+    },
+    "euTaxonomy": {
+      "eligibleRevenue": 45,
+      "alignedRevenue": 32
+    }
+  }
+}

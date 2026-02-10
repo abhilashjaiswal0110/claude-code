@@ -1,0 +1,178 @@
+{
+  "$schema": "./schemas/cloud-infrastructure.schema.json",
+  "_metadata": {
+    "description": "Synthetic cloud infrastructure data for POC demonstrations",
+    "generated": "2026-02-10",
+    "version": "1.0.0",
+    "note": "PLACEHOLDER: Replace with cloud provider APIs (AWS, Azure, GCP) integration for production"
+  },
+  "summary": {
+    "totalMonthlySpend": 2450000,
+    "currency": "USD",
+    "providers": ["AWS", "Azure", "GCP"],
+    "environments": ["production", "staging", "development", "sandbox"],
+    "totalResources": 15420,
+    "totalRegions": 12
+  },
+  "aws": {
+    "accountCount": 45,
+    "monthlySpend": 1250000,
+    "resources": {
+      "ec2Instances": 2850,
+      "rdsInstances": 120,
+      "s3Buckets": 340,
+      "lambdaFunctions": 890,
+      "eksClusters": 15,
+      "vpcs": 48
+    },
+    "regions": ["us-east-1", "eu-west-1", "ap-southeast-1", "ap-south-1"],
+    "costByService": {
+      "EC2": 520000,
+      "RDS": 280000,
+      "S3": 85000,
+      "Lambda": 45000,
+      "EKS": 120000,
+      "DataTransfer": 95000,
+      "Other": 105000
+    },
+    "reservedCapacity": {
+      "ec2RIUtilization": 72,
+      "savingsPlansUtilization": 85,
+      "potentialSavings": 125000
+    },
+    "securityFindings": {
+      "critical": 2,
+      "high": 15,
+      "medium": 45,
+      "low": 128
+    }
+  },
+  "azure": {
+    "subscriptionCount": 32,
+    "monthlySpend": 890000,
+    "resources": {
+      "virtualMachines": 1450,
+      "sqlDatabases": 85,
+      "storageAccounts": 220,
+      "functionApps": 320,
+      "aksClusters": 12,
+      "virtualNetworks": 35
+    },
+    "regions": ["westeurope", "northeurope", "eastus2", "southeastasia"],
+    "costByService": {
+      "VirtualMachines": 380000,
+      "SQLDatabase": 165000,
+      "Storage": 62000,
+      "Functions": 28000,
+      "AKS": 95000,
+      "Bandwidth": 72000,
+      "Other": 88000
+    },
+    "reservedCapacity": {
+      "vmRIUtilization": 68,
+      "potentialSavings": 95000
+    },
+    "securityFindings": {
+      "critical": 1,
+      "high": 8,
+      "medium": 32,
+      "low": 95
+    }
+  },
+  "gcp": {
+    "projectCount": 28,
+    "monthlySpend": 310000,
+    "resources": {
+      "computeInstances": 680,
+      "cloudSQLInstances": 35,
+      "cloudStorageBuckets": 145,
+      "cloudFunctions": 180,
+      "gkeClusters": 8,
+      "vpcNetworks": 22
+    },
+    "regions": ["europe-west1", "us-central1", "asia-southeast1"],
+    "costByService": {
+      "ComputeEngine": 125000,
+      "CloudSQL": 48000,
+      "CloudStorage": 28000,
+      "CloudFunctions": 15000,
+      "GKE": 42000,
+      "Networking": 32000,
+      "Other": 20000
+    },
+    "committedUseDiscount": {
+      "utilization": 78,
+      "potentialSavings": 35000
+    },
+    "securityFindings": {
+      "critical": 0,
+      "high": 5,
+      "medium": 22,
+      "low": 67
+    }
+  },
+  "optimizationOpportunities": [
+    {
+      "id": "OPT-001",
+      "type": "Right-sizing",
+      "description": "485 EC2 instances oversized by more than 50%",
+      "provider": "AWS",
+      "monthlySavings": 42000,
+      "effort": "Low",
+      "risk": "Low"
+    },
+    {
+      "id": "OPT-002",
+      "type": "Idle Resources",
+      "description": "127 idle VMs with <5% CPU for 30+ days",
+      "provider": "Azure",
+      "monthlySavings": 28000,
+      "effort": "Low",
+      "risk": "Medium"
+    },
+    {
+      "id": "OPT-003",
+      "type": "Reserved Instances",
+      "description": "Increase RI coverage from 72% to 85%",
+      "provider": "AWS",
+      "monthlySavings": 85000,
+      "effort": "Medium",
+      "risk": "Low"
+    },
+    {
+      "id": "OPT-004",
+      "type": "Storage Tiering",
+      "description": "Move 45TB cold data to archive storage",
+      "provider": "All",
+      "monthlySavings": 12000,
+      "effort": "Medium",
+      "risk": "Low"
+    },
+    {
+      "id": "OPT-005",
+      "type": "Spot Instances",
+      "description": "Use spot for dev/test workloads (320 instances)",
+      "provider": "AWS",
+      "monthlySavings": 35000,
+      "effort": "High",
+      "risk": "Medium"
+    }
+  ],
+  "slaMetrics": {
+    "overallAvailability": 99.95,
+    "p99Latency": 245,
+    "errorRate": 0.12,
+    "mttr": 18,
+    "incidentsLast30Days": 8,
+    "plannedMaintenanceWindows": 2
+  },
+  "complianceStatus": {
+    "soc2Type2": "Compliant",
+    "iso27001": "Compliant",
+    "pciDss": "Compliant",
+    "hipaa": "Compliant",
+    "gdpr": "Compliant",
+    "lastAuditDate": "2025-11-15",
+    "nextAuditDate": "2026-05-15"
+  }
+}
