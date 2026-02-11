@@ -71,7 +71,7 @@ Create an ESG compliance and reporting framework. Include:
 
 export class SustainabilityAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
-    id: 'sustainability',
+    id: 'sustainability-agent',
     name: 'Sustainability Agent',
     description: 'Carbon footprint, green IT, sustainability reporting, energy optimisation, and ESG compliance',
     category: 'Sustainability',
@@ -86,7 +86,8 @@ export class SustainabilityAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -97,10 +98,13 @@ export class SustainabilityAdapter extends BaseAdapter {
     this.emitStage(onEvent, 1, 'Recommendations', 'running');
     this.emitThinking(onEvent, `Generating ${mode} content...\n`);
 
-    const systemPrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS['sustainability-report'];
+    // Legacy mode ID aliases for backwards compatibility
+    const modeAlias: Record<string, string> = { 'energy-opt': 'energy-optimization', 'esg': 'esg-compliance' };
+    const resolvedMode = modeAlias[mode] ?? mode;
+    const systemPrompt = MODE_PROMPTS[resolvedMode] ?? MODE_PROMPTS['sustainability-report'];
     const userMessage = `${topic}${additionalContext ? `\n\nAdditional context: ${additionalContext}` : ''}`;
 
-    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
 
     this.emitStage(onEvent, 1, 'Recommendations', 'completed');
     this.emitDone(onEvent);

@@ -9,7 +9,7 @@ export interface AdapterContext {
 }
 
 const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+  apiKey: process.env.ANTHROPIC_API_KEY ?? '',
 });
 
 const MODEL = process.env.ANTHROPIC_MODEL ?? 'claude-sonnet-4-5-20250929';
@@ -19,18 +19,27 @@ export abstract class BaseAdapter {
 
   abstract processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string>;
 
   /**
-   * Call Claude API with streaming and emit content events
+   * Call Claude API with streaming and emit content events.
+   * Pass an AbortSignal to support cancellation via the /stop endpoint.
    */
   protected async callClaudeStream(
     systemPrompt: string,
     userMessage: string,
     onEvent: (event: StreamEvent) => void,
-    maxTokens = 4096
+    maxTokens = 4096,
+    signal?: AbortSignal
   ): Promise<string> {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      const msg = 'ANTHROPIC_API_KEY is not set. Configure it in the api-server environment before using AI agents.';
+      this.emitError(onEvent, msg);
+      throw new Error(msg);
+    }
+
     let fullContent = '';
 
     const stream = anthropic.messages.stream({
@@ -38,9 +47,10 @@ export abstract class BaseAdapter {
       max_tokens: maxTokens,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }],
-    });
+    }, { signal });
 
     for await (const event of stream) {
+      if (signal?.aborted) break;
       if (
         event.type === 'content_block_delta' &&
         event.delta.type === 'text_delta'

@@ -67,7 +67,7 @@ Create a team capability matrix. Include:
 
 export class LearningDevAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
-    id: 'learning-dev',
+    id: 'learning-dev-agent',
     name: 'Learning & Development Agent',
     description: 'Skills gap analysis, learning paths, training design, assessment frameworks, and team capability matrices',
     category: 'HR',
@@ -82,7 +82,8 @@ export class LearningDevAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -96,7 +97,7 @@ export class LearningDevAdapter extends BaseAdapter {
     const systemPrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS['learning-path'];
     const userMessage = `${topic}${additionalContext ? `\n\nAdditional context: ${additionalContext}` : ''}`;
 
-    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
 
     this.emitStage(onEvent, 1, 'Content Design', 'completed');
     this.emitDone(onEvent);

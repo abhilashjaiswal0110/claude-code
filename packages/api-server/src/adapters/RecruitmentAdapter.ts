@@ -66,7 +66,7 @@ Draft a professional offer letter and package summary. Include:
 
 export class RecruitmentAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
-    id: 'recruitment',
+    id: 'recruitment-agent',
     name: 'Recruitment Agent',
     description: 'Job descriptions, screening frameworks, interview guides, candidate comparison, and offer letters',
     category: 'HR',
@@ -81,7 +81,8 @@ export class RecruitmentAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -95,7 +96,7 @@ export class RecruitmentAdapter extends BaseAdapter {
     const systemPrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS['jd'];
     const userMessage = `Role/Request: "${topic}"${additionalContext ? `\n\nAdditional context: ${additionalContext}` : ''}`;
 
-    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
 
     this.emitStage(onEvent, 1, 'Document Generation', 'completed');
     this.emitDone(onEvent);

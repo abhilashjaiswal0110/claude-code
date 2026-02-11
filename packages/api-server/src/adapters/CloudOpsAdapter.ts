@@ -66,7 +66,7 @@ Create a cloud migration assessment and strategy. Include:
 
 export class CloudOpsAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
-    id: 'cloud-ops',
+    id: 'cloud-ops-agent',
     name: 'Cloud Operations Agent',
     description: 'Cost optimisation, incident response, capacity planning, architecture review, and migration assessment',
     category: 'Cloud',
@@ -81,7 +81,8 @@ export class CloudOpsAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -92,10 +93,18 @@ export class CloudOpsAdapter extends BaseAdapter {
     this.emitStage(onEvent, 1, 'Recommendation Generation', 'running');
     this.emitThinking(onEvent, 'Generating cloud recommendations...\n');
 
-    const systemPrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS['architecture-review'];
+    // Legacy mode ID aliases for backwards compatibility
+    const modeAlias: Record<string, string> = {
+      'cost-opt': 'cost-optimization',
+      'capacity': 'capacity-planning',
+      'arch-review': 'architecture-review',
+      'migration': 'migration-assessment',
+    };
+    const resolvedMode = modeAlias[mode] ?? mode;
+    const systemPrompt = MODE_PROMPTS[resolvedMode] ?? MODE_PROMPTS['architecture-review'];
     const userMessage = `${topic}${additionalContext ? `\n\nAdditional context: ${additionalContext}` : ''}`;
 
-    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
 
     this.emitStage(onEvent, 1, 'Recommendation Generation', 'completed');
     this.emitDone(onEvent);

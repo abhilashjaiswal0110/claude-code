@@ -62,7 +62,7 @@ Keep total reading time under 3 minutes.`,
 
 export class MarketingAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
-    id: 'marketing',
+    id: 'marketing-agent',
     name: 'Marketing Agent',
     description: 'Blog posts, social content, campaign briefs, press releases, and newsletters',
     category: 'Marketing',
@@ -77,7 +77,8 @@ export class MarketingAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -91,7 +92,7 @@ export class MarketingAdapter extends BaseAdapter {
     const systemPrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS['blog'];
     const userMessage = `Topic/Brief: "${topic}"${additionalContext ? `\n\nAdditional context: ${additionalContext}` : ''}`;
 
-    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
 
     this.emitStage(onEvent, 1, 'Content Creation', 'completed');
     this.emitDone(onEvent);

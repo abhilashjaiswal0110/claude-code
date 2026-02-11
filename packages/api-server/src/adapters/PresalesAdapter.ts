@@ -73,7 +73,7 @@ Analyse win/loss patterns and provide strategic insights. Cover:
 
 export class PresalesAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
-    id: 'presales',
+    id: 'presales-agent',
     name: 'Presales Agent',
     description: 'Proposals, competitive analysis, RFP responses, pitch decks, and win/loss analysis',
     category: 'Sales',
@@ -88,7 +88,8 @@ export class PresalesAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -102,7 +103,7 @@ export class PresalesAdapter extends BaseAdapter {
     const systemPrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS['proposal'];
     const userMessage = `${topic}${additionalContext ? `\n\nAdditional context: ${additionalContext}` : ''}`;
 
-    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
 
     this.emitStage(onEvent, 1, 'Content Generation', 'completed');
     this.emitDone(onEvent);

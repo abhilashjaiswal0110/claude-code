@@ -54,7 +54,7 @@ Your task is to create a detailed operational runbook. Include:
 
 export class ITOpsAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
-    id: 'it-ops',
+    id: 'it-operations-agent',
     name: 'IT Operations Agent',
     description: 'Incident response, runbooks, root cause analysis, and infrastructure automation guidance',
     category: 'IT Operations',
@@ -69,7 +69,8 @@ export class ITOpsAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -86,7 +87,7 @@ export class ITOpsAdapter extends BaseAdapter {
     const systemPrompt = MODE_PROMPTS[mode] ?? MODE_PROMPTS['incident'];
     const userMessage = `${topic}${additionalContext ? `\n\nAdditional context: ${additionalContext}` : ''}`;
 
-    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+    const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
 
     this.emitStage(onEvent, 2, 'Response Generation', 'completed');
     this.emitDone(onEvent);

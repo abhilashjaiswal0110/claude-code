@@ -22,7 +22,8 @@ export class LinkedInAdapter extends BaseAdapter {
 
   async processMessage(
     context: AdapterContext,
-    onEvent: (event: StreamEvent) => void
+    onEvent: (event: StreamEvent) => void,
+    signal?: AbortSignal
   ): Promise<string> {
     const { topic, mode, additionalContext } = context;
 
@@ -46,7 +47,7 @@ Format using Markdown with tables where appropriate.`;
 
 Provide a comprehensive LinkedIn content research brief for this topic.`;
 
-      const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+      const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
       this.emitStage(onEvent, 0, 'Trend Research', 'completed');
       this.emitDone(onEvent);
       return response;
@@ -87,7 +88,7 @@ Make the content SPECIFIC to the topic — avoid generic career advice templates
 
 Generate two LinkedIn post variations as Abhilash Jaiswal.`;
 
-      const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent);
+      const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
       this.emitStage(onEvent, 1, 'Post Generation', 'completed');
       this.emitDone(onEvent);
       return response;
