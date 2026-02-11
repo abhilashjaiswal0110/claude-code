@@ -1,0 +1,136 @@
+{
+  "$schema": "./schemas/learning.schema.json",
+  "_metadata": {
+    "description": "Synthetic learning and development data for POC demonstrations",
+    "generated": "2026-02-10",
+    "version": "1.0.0",
+    "note": "PLACEHOLDER: Replace with LMS integration (Cornerstone, Workday Learning, etc.) for production"
+  },
+  "catalog": {
+    "totalCourses": 1250,
+    "totalLearningPaths": 85,
+    "totalCertifications": 156,
+    "providers": ["Internal", "Pluralsight", "LinkedIn Learning", "Coursera", "AWS", "Microsoft", "Google Cloud"]
+  },
+  "learningPaths": [
+    {
+      "id": "LP-001",
+      "name": "Cloud Architect Mastery",
+      "description": "Comprehensive learning path to become a certified cloud architect across AWS, Azure, and GCP",
+      "level": "Advanced",
+      "duration": "120 hours",
+      "courses": [
+        { "id": "CRS-101", "name": "Cloud Fundamentals", "duration": "8 hours", "provider": "Internal" },
+        { "id": "CRS-102", "name": "AWS Solutions Architect Associate", "duration": "40 hours", "provider": "AWS" },
+        { "id": "CRS-103", "name": "Azure Solutions Architect Expert", "duration": "40 hours", "provider": "Microsoft" },
+        { "id": "CRS-104", "name": "Multi-Cloud Architecture Patterns", "duration": "16 hours", "provider": "Pluralsight" },
+        { "id": "CRS-105", "name": "Cloud Security Best Practices", "duration": "16 hours", "provider": "Internal" }
+      ],
+      "targetRoles": ["Cloud Architect", "Solutions Architect", "Platform Engineer"],
+      "completionRate": 68,
+      "avgRating": 4.6
+    },
+    {
+      "id": "LP-002",
+      "name": "AI/ML Engineering Track",
+      "description": "From ML fundamentals to production AI systems",
+      "level": "Advanced",
+      "duration": "160 hours",
+      "courses": [
+        { "id": "CRS-201", "name": "Python for Data Science", "duration": "20 hours", "provider": "Coursera" },
+        { "id": "CRS-202", "name": "Machine Learning Fundamentals", "duration": "30 hours", "provider": "Coursera" },
+        { "id": "CRS-203", "name": "Deep Learning Specialization", "duration": "50 hours", "provider": "Coursera" },
+        { "id": "CRS-204", "name": "MLOps and Production ML", "duration": "30 hours", "provider": "Google Cloud" },
+        { "id": "CRS-205", "name": "Generative AI with LLMs", "duration": "30 hours", "provider": "Internal" }
+      ],
+      "targetRoles": ["AI Engineer", "ML Engineer", "Data Scientist"],
+      "completionRate": 45,
+      "avgRating": 4.8
+    },
+    {
+      "id": "LP-003",
+      "name": "DevOps & Platform Engineering",
+      "description": "Master modern DevOps practices and platform engineering",
+      "level": "Intermediate",
+      "duration": "80 hours",
+      "courses": [
+        { "id": "CRS-301", "name": "Git & GitHub Advanced", "duration": "8 hours", "provider": "LinkedIn Learning" },
+        { "id": "CRS-302", "name": "Docker & Containerization", "duration": "16 hours", "provider": "Pluralsight" },
+        { "id": "CRS-303", "name": "Kubernetes Administration", "duration": "24 hours", "provider": "Linux Foundation" },
+        { "id": "CRS-304", "name": "Terraform & IaC", "duration": "16 hours", "provider": "Pluralsight" },
+        { "id": "CRS-305", "name": "CI/CD Pipeline Design", "duration": "16 hours", "provider": "Internal" }
+      ],
+      "targetRoles": ["DevOps Engineer", "Platform Engineer", "SRE"],
+      "completionRate": 72,
+      "avgRating": 4.5
+    },
+    {
+      "id": "LP-004",
+      "name": "Cybersecurity Professional",
+      "description": "Security fundamentals to advanced threat detection",
+      "level": "Advanced",
+      "duration": "100 hours",
+      "courses": [
+        { "id": "CRS-401", "name": "Security Fundamentals", "duration": "12 hours", "provider": "Internal" },
+        { "id": "CRS-402", "name": "Network Security", "duration": "20 hours", "provider": "Pluralsight" },
+        { "id": "CRS-403", "name": "Cloud Security", "duration": "24 hours", "provider": "AWS" },
+        { "id": "CRS-404", "name": "Threat Detection & Response", "duration": "24 hours", "provider": "Internal" },
+        { "id": "CRS-405", "name": "CISSP Exam Prep", "duration": "20 hours", "provider": "Pluralsight" }
+      ],
+      "targetRoles": ["Security Engineer", "Security Analyst", "CISO"],
+      "completionRate": 58,
+      "avgRating": 4.7
+    },
+    {
+      "id": "LP-005",
+      "name": "Leadership Excellence",
+      "description": "Develop leadership skills for technical managers",
+      "level": "All Levels",
+      "duration": "60 hours",
+      "courses": [
+        { "id": "CRS-501", "name": "First-Time Manager", "duration": "12 hours", "provider": "LinkedIn Learning" },
+        { "id": "CRS-502", "name": "Coaching & Feedback", "duration": "8 hours", "provider": "Internal" },
+        { "id": "CRS-503", "name": "Strategic Thinking", "duration": "16 hours", "provider": "Coursera" },
+        { "id": "CRS-504", "name": "Leading Remote Teams", "duration": "8 hours", "provider": "Internal" },
+        { "id": "CRS-505", "name": "Executive Communication", "duration": "16 hours", "provider": "LinkedIn Learning" }
+      ],
+      "targetRoles": ["Team Lead", "Manager", "Director"],
+      "completionRate": 82,
+      "avgRating": 4.4
+    }
+  ],
+  "skillFramework": {
+    "technicalSkills": [
+      { "skill": "Cloud Computing", "demand": "Very High", "gapPercentage": 25 },
+      { "skill": "AI/ML", "demand": "Very High", "gapPercentage": 45 },
+      { "skill": "DevOps", "demand": "High", "gapPercentage": 20 },
+      { "skill": "Cybersecurity", "demand": "Very High", "gapPercentage": 35 },
+      { "skill": "Data Engineering", "demand": "High", "gapPercentage": 30 },
+      { "skill": "Kubernetes", "demand": "High", "gapPercentage": 28 },
+      { "skill": "Python", "demand": "High", "gapPercentage": 15 },
+      { "skill": "SAP", "demand": "Medium", "gapPercentage": 18 }
+    ],
+    "softSkills": [
+      { "skill": "Communication", "demand": "Very High", "gapPercentage": 22 },
+      { "skill": "Leadership", "demand": "High", "gapPercentage": 30 },
+      { "skill": "Problem Solving", "demand": "Very High", "gapPercentage": 18 },
+      { "skill": "Collaboration", "demand": "High", "gapPercentage": 15 }
+    ]
+  },
+  "certifications": [
+    { "name": "AWS Solutions Architect Professional", "vendor": "AWS", "holders": 245, "target": 400, "passRate": 68 },
+    { "name": "Azure Solutions Architect Expert", "vendor": "Microsoft", "holders": 312, "target": 450, "passRate": 72 },
+    { "name": "CKA - Certified Kubernetes Administrator", "vendor": "CNCF", "holders": 128, "target": 250, "passRate": 65 },
+    { "name": "CISSP", "vendor": "ISC2", "holders": 89, "target": 150, "passRate": 58 },
+    { "name": "GCP Professional Cloud Architect", "vendor": "Google", "holders": 156, "target": 300, "passRate": 70 },
+    { "name": "TOGAF 9 Certified", "vendor": "The Open Group", "holders": 67, "target": 100, "passRate": 75 }
+  ],
+  "metrics": {
+    "avgTrainingHoursPerEmployee": 42,
+    "trainingBudgetUtilization": 78,
+    "employeesWithCompletedPath": 1250,
+    "activeLearnersMonthly": 4500,
+    "npsScore": 72,
+    "skillGrowthRate": 15
+  }
+}

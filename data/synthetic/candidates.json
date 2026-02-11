@@ -1,0 +1,306 @@
+{
+  "$schema": "./schemas/candidates.schema.json",
+  "_metadata": {
+    "description": "Synthetic recruitment candidate data for POC demonstrations",
+    "generated": "2026-02-10",
+    "version": "1.0.0",
+    "recordCount": 12,
+    "note": "PLACEHOLDER: Replace with ATS integration (Workday, Greenhouse, etc.) for production"
+  },
+  "candidates": [
+    {
+      "id": "CAND-001",
+      "firstName": "Raj",
+      "lastName": "Patel",
+      "email": "raj.patel@email.com",
+      "phone": "+91-9876543210",
+      "location": "Bangalore, India",
+      "currentTitle": "Senior Software Engineer",
+      "currentCompany": "TechCorp India",
+      "yearsExperience": 8,
+      "education": [
+        { "degree": "M.Tech", "field": "Computer Science", "institution": "IIT Bangalore", "year": 2018 },
+        { "degree": "B.Tech", "field": "Information Technology", "institution": "NIT Trichy", "year": 2016 }
+      ],
+      "skills": ["Python", "Java", "Kubernetes", "AWS", "Machine Learning", "System Design"],
+      "certifications": ["AWS Solutions Architect Professional", "CKA"],
+      "appliedPosition": "Lead Cloud Architect",
+      "requisitionId": "REQ-2026-015",
+      "applicationDate": "2026-02-01",
+      "source": "LinkedIn",
+      "status": "Interview",
+      "stage": "Technical Round 2",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP011",
+      "interviewHistory": [
+        { "date": "2026-02-05", "type": "Phone Screen", "interviewer": "EMP018", "score": 4.5, "feedback": "Strong technical background, excellent communication" },
+        { "date": "2026-02-08", "type": "Technical Round 1", "interviewer": "EMP007", "score": 4.2, "feedback": "Good system design skills, deep AWS knowledge" }
+      ],
+      "salaryExpectation": 3500000,
+      "noticePeriod": "60 days",
+      "willingToRelocate": true,
+      "visaStatus": "No Visa Required",
+      "referral": null
+    },
+    {
+      "id": "CAND-002",
+      "firstName": "Emma",
+      "lastName": "Thompson",
+      "email": "emma.thompson@email.com",
+      "phone": "+44-7890123456",
+      "location": "London, UK",
+      "currentTitle": "AI/ML Engineer",
+      "currentCompany": "DeepMind",
+      "yearsExperience": 6,
+      "education": [
+        { "degree": "PhD", "field": "Machine Learning", "institution": "Oxford University", "year": 2020 },
+        { "degree": "MSc", "field": "Artificial Intelligence", "institution": "Imperial College", "year": 2017 }
+      ],
+      "skills": ["PyTorch", "TensorFlow", "NLP", "Computer Vision", "MLOps", "Research"],
+      "certifications": ["Google Cloud ML Engineer"],
+      "appliedPosition": "Principal AI Architect",
+      "requisitionId": "REQ-2026-018",
+      "applicationDate": "2026-01-25",
+      "source": "Direct Application",
+      "status": "Offer",
+      "stage": "Offer Extended",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP002",
+      "interviewHistory": [
+        { "date": "2026-01-28", "type": "Phone Screen", "interviewer": "EMP018", "score": 5.0, "feedback": "Exceptional candidate, PhD from Oxford" },
+        { "date": "2026-02-01", "type": "Technical Deep Dive", "interviewer": "EMP001", "score": 4.8, "feedback": "Outstanding ML expertise, published researcher" },
+        { "date": "2026-02-05", "type": "Leadership Interview", "interviewer": "EMP002", "score": 4.7, "feedback": "Strong leadership potential, strategic thinking" }
+      ],
+      "salaryExpectation": 180000,
+      "noticePeriod": "90 days",
+      "willingToRelocate": false,
+      "visaStatus": "UK Right to Work",
+      "referral": "EMP001"
+    },
+    {
+      "id": "CAND-003",
+      "firstName": "Marcus",
+      "lastName": "Weber",
+      "email": "marcus.weber@email.com",
+      "phone": "+49-1512345678",
+      "location": "Munich, Germany",
+      "currentTitle": "Security Consultant",
+      "currentCompany": "Big4 Consulting",
+      "yearsExperience": 10,
+      "education": [
+        { "degree": "MSc", "field": "Information Security", "institution": "TU Munich", "year": 2015 }
+      ],
+      "skills": ["Penetration Testing", "SIEM", "Incident Response", "Cloud Security", "ISO 27001"],
+      "certifications": ["CISSP", "OSCP", "CISM"],
+      "appliedPosition": "Senior Security Architect",
+      "requisitionId": "REQ-2026-012",
+      "applicationDate": "2026-02-03",
+      "source": "Employee Referral",
+      "status": "Interview",
+      "stage": "Final Interview",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP014",
+      "interviewHistory": [
+        { "date": "2026-02-05", "type": "Phone Screen", "interviewer": "EMP018", "score": 4.3, "feedback": "Strong security background" },
+        { "date": "2026-02-07", "type": "Technical Assessment", "interviewer": "EMP009", "score": 4.5, "feedback": "Excellent technical depth in cloud security" }
+      ],
+      "salaryExpectation": 120000,
+      "noticePeriod": "30 days",
+      "willingToRelocate": true,
+      "visaStatus": "EU Citizen",
+      "referral": "EMP009"
+    },
+    {
+      "id": "CAND-004",
+      "firstName": "Sofia",
+      "lastName": "Gonzalez",
+      "email": "sofia.gonzalez@email.com",
+      "phone": "+34-612345678",
+      "location": "Madrid, Spain",
+      "currentTitle": "HR Business Partner",
+      "currentCompany": "Global Tech Corp",
+      "yearsExperience": 7,
+      "education": [
+        { "degree": "MBA", "field": "Human Resources", "institution": "IE Business School", "year": 2019 },
+        { "degree": "BA", "field": "Psychology", "institution": "Complutense Madrid", "year": 2016 }
+      ],
+      "skills": ["Employee Relations", "Talent Management", "HRIS", "Change Management", "Spanish", "English", "French"],
+      "certifications": ["SHRM-SCP", "CIPD Level 7"],
+      "appliedPosition": "HR Director, Southern Europe",
+      "requisitionId": "REQ-2026-020",
+      "applicationDate": "2026-01-20",
+      "source": "LinkedIn",
+      "status": "Rejected",
+      "stage": "Not Selected",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP010",
+      "interviewHistory": [
+        { "date": "2026-01-25", "type": "Phone Screen", "interviewer": "EMP018", "score": 4.0, "feedback": "Good experience but may be too tactical for director role" },
+        { "date": "2026-01-30", "type": "Hiring Manager Interview", "interviewer": "EMP010", "score": 3.5, "feedback": "Lacks strategic HR transformation experience needed for this level" }
+      ],
+      "salaryExpectation": 95000,
+      "noticePeriod": "45 days",
+      "willingToRelocate": false,
+      "visaStatus": "EU Citizen",
+      "referral": null,
+      "rejectionReason": "Insufficient strategic leadership experience for director-level role"
+    },
+    {
+      "id": "CAND-005",
+      "firstName": "Chen",
+      "lastName": "Wei",
+      "email": "chen.wei@email.com",
+      "phone": "+86-13912345678",
+      "location": "Shanghai, China",
+      "currentTitle": "DevOps Lead",
+      "currentCompany": "Alibaba Cloud",
+      "yearsExperience": 9,
+      "education": [
+        { "degree": "MSc", "field": "Software Engineering", "institution": "Tsinghua University", "year": 2016 }
+      ],
+      "skills": ["Kubernetes", "Terraform", "CI/CD", "Python", "Go", "Observability"],
+      "certifications": ["CKA", "CKS", "AWS DevOps Professional"],
+      "appliedPosition": "Principal Platform Engineer",
+      "requisitionId": "REQ-2026-014",
+      "applicationDate": "2026-02-05",
+      "source": "Agency",
+      "status": "Interview",
+      "stage": "Technical Round 1",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP011",
+      "interviewHistory": [
+        { "date": "2026-02-08", "type": "Phone Screen", "interviewer": "EMP018", "score": 4.2, "feedback": "Strong platform engineering experience at scale" }
+      ],
+      "salaryExpectation": 450000,
+      "noticePeriod": "30 days",
+      "willingToRelocate": true,
+      "visaStatus": "Requires Sponsorship",
+      "referral": null
+    },
+    {
+      "id": "CAND-006",
+      "firstName": "Anna",
+      "lastName": "Kowalski",
+      "email": "anna.kowalski@email.com",
+      "phone": "+48-501234567",
+      "location": "Warsaw, Poland",
+      "currentTitle": "Data Engineer",
+      "currentCompany": "Startup Co",
+      "yearsExperience": 4,
+      "education": [
+        { "degree": "MSc", "field": "Data Science", "institution": "Warsaw University of Technology", "year": 2021 }
+      ],
+      "skills": ["Python", "Spark", "Kafka", "Airflow", "SQL", "dbt"],
+      "certifications": ["Databricks Certified", "GCP Data Engineer"],
+      "appliedPosition": "Senior Data Engineer",
+      "requisitionId": "REQ-2026-016",
+      "applicationDate": "2026-02-07",
+      "source": "Job Board",
+      "status": "New",
+      "stage": "Application Review",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP001",
+      "interviewHistory": [],
+      "salaryExpectation": 85000,
+      "noticePeriod": "30 days",
+      "willingToRelocate": true,
+      "visaStatus": "EU Citizen",
+      "referral": null
+    },
+    {
+      "id": "CAND-007",
+      "firstName": "James",
+      "lastName": "O'Connor",
+      "email": "james.oconnor@email.com",
+      "phone": "+353-871234567",
+      "location": "Dublin, Ireland",
+      "currentTitle": "Solutions Architect",
+      "currentCompany": "Microsoft Ireland",
+      "yearsExperience": 12,
+      "education": [
+        { "degree": "BEng", "field": "Computer Engineering", "institution": "Trinity College Dublin", "year": 2013 }
+      ],
+      "skills": ["Azure", "Solution Design", "Enterprise Architecture", "Pre-sales", "TOGAF"],
+      "certifications": ["Azure Solutions Architect Expert", "TOGAF 9 Certified"],
+      "appliedPosition": "Chief Architect, Cloud Services",
+      "requisitionId": "REQ-2026-022",
+      "applicationDate": "2026-01-15",
+      "source": "Headhunter",
+      "status": "Offer",
+      "stage": "Offer Accepted",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP003",
+      "interviewHistory": [
+        { "date": "2026-01-20", "type": "Phone Screen", "interviewer": "EMP018", "score": 4.8, "feedback": "Excellent experience from Microsoft" },
+        { "date": "2026-01-25", "type": "Technical Deep Dive", "interviewer": "EMP007", "score": 4.7, "feedback": "Deep Azure expertise, great architecture thinking" },
+        { "date": "2026-01-30", "type": "Leadership Panel", "interviewer": "EMP003", "score": 4.9, "feedback": "Perfect fit for chief architect role" },
+        { "date": "2026-02-03", "type": "Executive Interview", "interviewer": "EMP003", "score": 5.0, "feedback": "Approved for hire" }
+      ],
+      "salaryExpectation": 195000,
+      "noticePeriod": "60 days",
+      "willingToRelocate": false,
+      "visaStatus": "EU Citizen",
+      "referral": null,
+      "offerDetails": {
+        "baseSalary": 190000,
+        "bonus": 30,
+        "equity": 50000,
+        "startDate": "2026-04-01"
+      }
+    },
+    {
+      "id": "CAND-008",
+      "firstName": "Yuki",
+      "lastName": "Tanaka",
+      "email": "yuki.tanaka@email.com",
+      "phone": "+81-9012345678",
+      "location": "Tokyo, Japan",
+      "currentTitle": "UX Design Lead",
+      "currentCompany": "Design Agency Tokyo",
+      "yearsExperience": 8,
+      "education": [
+        { "degree": "MFA", "field": "Interaction Design", "institution": "Musashino Art University", "year": 2017 }
+      ],
+      "skills": ["UX Design", "Design Systems", "Figma", "User Research", "Accessibility", "Japanese", "English"],
+      "certifications": ["Google UX Certificate", "IAAP CPACC"],
+      "appliedPosition": "Head of Design",
+      "requisitionId": "REQ-2026-025",
+      "applicationDate": "2026-02-02",
+      "source": "Direct Application",
+      "status": "Interview",
+      "stage": "Portfolio Review",
+      "recruiter": "EMP018",
+      "hiringManager": "EMP015",
+      "interviewHistory": [
+        { "date": "2026-02-06", "type": "Phone Screen", "interviewer": "EMP018", "score": 4.4, "feedback": "Strong design background with accessibility focus" }
+      ],
+      "salaryExpectation": 15000000,
+      "noticePeriod": "60 days",
+      "willingToRelocate": false,
+      "visaStatus": "Japanese Citizen",
+      "referral": null
+    }
+  ],
+  "recruitmentMetrics": {
+    "period": "Q1 2026",
+    "openRequisitions": 45,
+    "totalApplications": 892,
+    "activeInPipeline": 156,
+    "hiredThisQuarter": 28,
+    "timeToHire": {
+      "average": 42,
+      "engineering": 52,
+      "sales": 35,
+      "operations": 38
+    },
+    "sourceEffectiveness": {
+      "LinkedIn": { "applications": 312, "hires": 12, "conversionRate": 3.8 },
+      "Employee Referral": { "applications": 89, "hires": 8, "conversionRate": 9.0 },
+      "Job Boards": { "applications": 245, "hires": 4, "conversionRate": 1.6 },
+      "Agency": { "applications": 156, "hires": 3, "conversionRate": 1.9 },
+      "Direct": { "applications": 90, "hires": 1, "conversionRate": 1.1 }
+    },
+    "offerAcceptanceRate": 82,
+    "costPerHire": 8500
+  }
+}

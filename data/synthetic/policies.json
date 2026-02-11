@@ -1,0 +1,203 @@
+{
+  "$schema": "./schemas/policies.schema.json",
+  "_metadata": {
+    "description": "Synthetic HR policies data for POC demonstrations",
+    "generated": "2026-02-10",
+    "version": "1.0.0",
+    "note": "PLACEHOLDER: Replace with HRIS/document management system integration for production"
+  },
+  "policies": [
+    {
+      "id": "POL-HR-001",
+      "title": "Remote Work Policy",
+      "category": "Work Arrangements",
+      "version": "3.2",
+      "effectiveDate": "2025-01-01",
+      "lastReviewDate": "2024-11-15",
+      "nextReviewDate": "2025-11-15",
+      "owner": "HR Operations",
+      "approver": "Chief People Officer",
+      "status": "Active",
+      "summary": "Guidelines for remote and hybrid work arrangements, including eligibility, equipment, and expectations",
+      "keyPoints": [
+        "All employees eligible for up to 3 days remote work per week",
+        "Manager approval required for fully remote arrangements",
+        "Company provides laptop, monitor, and €500 home office stipend",
+        "Core collaboration hours: 10:00-15:00 local time",
+        "Quarterly in-person team meetings required"
+      ],
+      "applicableTo": ["All Employees"],
+      "regions": ["Global"],
+      "faqs": [
+        { "question": "Can I work from a different country?", "answer": "International remote work up to 30 days per year is permitted with manager and HR approval. Tax implications may apply." },
+        { "question": "What internet speed is required?", "answer": "Minimum 50 Mbps download speed is recommended for video conferencing." },
+        { "question": "How do I request a home office stipend?", "answer": "Submit a request through the HR portal under 'Benefits > Home Office Allowance' with receipts." }
+      ]
+    },
+    {
+      "id": "POL-HR-002",
+      "title": "Annual Leave Policy",
+      "category": "Time Off",
+      "version": "2.1",
+      "effectiveDate": "2025-01-01",
+      "lastReviewDate": "2024-10-01",
+      "nextReviewDate": "2025-10-01",
+      "owner": "HR Operations",
+      "approver": "Chief People Officer",
+      "status": "Active",
+      "summary": "Annual leave entitlements, booking procedures, and carryover rules",
+      "keyPoints": [
+        "Base entitlement: 25 days per year (pro-rated for part-time)",
+        "Additional days for tenure: +1 day after 5 years, +2 days after 10 years",
+        "Maximum carryover: 5 days to following year",
+        "Minimum 2 weeks notice for leave >5 consecutive days",
+        "Manager approval required; automatic approval for <3 days if no conflicts"
+      ],
+      "applicableTo": ["All Employees"],
+      "regions": ["EMEA", "APAC"],
+      "faqs": [
+        { "question": "Can I sell unused leave?", "answer": "Up to 3 days can be sold back at the end of the year at base salary rate." },
+        { "question": "What about bank holidays?", "answer": "Bank holidays are in addition to annual leave, following local country calendars." }
+      ]
+    },
+    {
+      "id": "POL-HR-003",
+      "title": "Parental Leave Policy",
+      "category": "Time Off",
+      "version": "4.0",
+      "effectiveDate": "2025-04-01",
+      "lastReviewDate": "2025-02-01",
+      "nextReviewDate": "2026-02-01",
+      "owner": "HR Operations",
+      "approver": "Chief People Officer",
+      "status": "Active",
+      "summary": "Comprehensive parental leave for birth, adoption, and surrogacy",
+      "keyPoints": [
+        "Primary caregiver: 26 weeks at full pay",
+        "Secondary caregiver: 8 weeks at full pay",
+        "Adoption and surrogacy: Same entitlements as birth parents",
+        "Flexible return options: part-time for up to 6 months after leave",
+        "Keep-in-touch days: up to 10 paid days during leave"
+      ],
+      "applicableTo": ["All Employees"],
+      "regions": ["Global"],
+      "faqs": [
+        { "question": "When should I notify HR?", "answer": "At least 8 weeks before intended leave start date." },
+        { "question": "Can I split parental leave?", "answer": "Yes, leave can be taken in up to 3 blocks within the first 18 months." }
+      ]
+    },
+    {
+      "id": "POL-HR-004",
+      "title": "Learning & Development Policy",
+      "category": "Career Development",
+      "version": "2.3",
+      "effectiveDate": "2025-01-01",
+      "lastReviewDate": "2024-12-01",
+      "nextReviewDate": "2025-12-01",
+      "owner": "Learning & Development",
+      "approver": "Chief People Officer",
+      "status": "Active",
+      "summary": "Guidelines for professional development, training budgets, and certification support",
+      "keyPoints": [
+        "Annual learning budget: €2,500 per employee",
+        "Certification exam fees: 100% reimbursed for first attempt, 50% for retakes",
+        "Study leave: 2 days per certification exam",
+        "Conference attendance: 1 per year with manager approval",
+        "Internal mentoring program available to all"
+      ],
+      "applicableTo": ["All Employees"],
+      "regions": ["Global"],
+      "faqs": [
+        { "question": "What certifications are eligible?", "answer": "Any job-relevant certifications from recognized vendors (AWS, Microsoft, Google, etc.)." },
+        { "question": "Can I use budget for degree programs?", "answer": "Executive approval required for degree programs. Separate education assistance policy applies." }
+      ]
+    },
+    {
+      "id": "POL-HR-005",
+      "title": "Performance Management Policy",
+      "category": "Performance",
+      "version": "3.1",
+      "effectiveDate": "2025-01-01",
+      "lastReviewDate": "2024-11-01",
+      "nextReviewDate": "2025-11-01",
+      "owner": "Talent Management",
+      "approver": "Chief People Officer",
+      "status": "Active",
+      "summary": "Continuous feedback culture with quarterly check-ins and annual reviews",
+      "keyPoints": [
+        "Quarterly performance conversations required",
+        "Goal setting: OKRs aligned to company objectives",
+        "360-degree feedback every 6 months",
+        "Performance ratings: Exceptional, Strong, Developing, Below Expectations",
+        "Calibration sessions at department level"
+      ],
+      "applicableTo": ["All Employees"],
+      "regions": ["Global"],
+      "faqs": [
+        { "question": "How are ratings calibrated?", "answer": "Department-level calibration sessions ensure consistency. Final ratings approved by HR." },
+        { "question": "What happens with a 'Below Expectations' rating?", "answer": "Performance improvement plan (PIP) initiated with clear goals and 90-day timeline." }
+      ]
+    },
+    {
+      "id": "POL-IT-001",
+      "title": "Information Security Policy",
+      "category": "Security",
+      "version": "5.2",
+      "effectiveDate": "2025-01-15",
+      "lastReviewDate": "2024-12-15",
+      "nextReviewDate": "2025-06-15",
+      "owner": "Information Security",
+      "approver": "CISO",
+      "status": "Active",
+      "summary": "Corporate information security standards and employee responsibilities",
+      "keyPoints": [
+        "All devices must have endpoint protection and disk encryption",
+        "MFA required for all corporate applications",
+        "Password policy: 14+ characters, 90-day rotation, no reuse of last 12",
+        "Data classification: Public, Internal, Confidential, Restricted",
+        "Phishing simulations conducted monthly"
+      ],
+      "applicableTo": ["All Employees", "Contractors"],
+      "regions": ["Global"],
+      "faqs": [
+        { "question": "Can I use personal devices for work?", "answer": "BYOD is permitted with MDM enrollment. Contact IT Security for setup." },
+        { "question": "How do I report a security incident?", "answer": "Email security@company.com or call the 24/7 security hotline immediately." }
+      ]
+    },
+    {
+      "id": "POL-EXP-001",
+      "title": "Travel & Expense Policy",
+      "category": "Expenses",
+      "version": "2.8",
+      "effectiveDate": "2025-01-01",
+      "lastReviewDate": "2024-10-01",
+      "nextReviewDate": "2025-10-01",
+      "owner": "Finance",
+      "approver": "CFO",
+      "status": "Active",
+      "summary": "Guidelines for business travel and expense reimbursement",
+      "keyPoints": [
+        "Book travel 14+ days in advance when possible",
+        "Economy class for flights under 6 hours; business class for longer flights with VP approval",
+        "Per diem rates by country (see appendix)",
+        "Expense reports due within 30 days",
+        "Receipts required for expenses over €25"
+      ],
+      "applicableTo": ["All Employees"],
+      "regions": ["Global"],
+      "faqs": [
+        { "question": "What's the hotel rate limit?", "answer": "Up to €200/night in major cities, €150/night elsewhere. Exceptions require manager approval." },
+        { "question": "Can I keep frequent flyer miles?", "answer": "Yes, personal retention of loyalty points is permitted." }
+      ]
+    }
+  ],
+  "categories": [
+    { "name": "Work Arrangements", "count": 3 },
+    { "name": "Time Off", "count": 5 },
+    { "name": "Career Development", "count": 4 },
+    { "name": "Performance", "count": 2 },
+    { "name": "Security", "count": 6 },
+    { "name": "Expenses", "count": 2 },
+    { "name": "Ethics & Compliance", "count": 4 }
+  ]
+}
