@@ -12,6 +12,7 @@ import { BaseConnector } from './base-connector.js';
 import { INTEGRATION_ENDPOINTS } from '../config.js';
 import type { IntegrationConfig, ServiceNowIncident, PaginatedResponse } from '../types.js';
 import { logger } from '../monitoring/logger.js';
+import { escapeServiceNowQuery, escapeSOQL, escapeJQL, escapeOData } from '../utils/query-escape.js';
 
 export class ServiceNowConnector extends BaseConnector {
   constructor(config: IntegrationConfig) {
@@ -41,10 +42,16 @@ export class ServiceNowConnector extends BaseConnector {
   }): Promise<PaginatedResponse<ServiceNowIncident>> {
     const params = new URLSearchParams();
 
-    if (query.state) params.append('sysparm_query', `state=${query.state}`);
-    if (query.priority) params.append('sysparm_query', `priority=${query.priority}`);
-    if (query.assignmentGroup) params.append('sysparm_query', `assignment_group=${query.assignmentGroup}`);
-    if (query.category) params.append('sysparm_query', `category=${query.category}`);
+    // Build proper ServiceNow query with AND operators (^ separator)
+    const conditions: string[] = [];
+    if (query.state) conditions.push(`state=${escapeServiceNowQuery(query.state)}`);
+    if (query.priority) conditions.push(`priority=${escapeServiceNowQuery(query.priority)}`);
+    if (query.assignmentGroup) conditions.push(`assignment_group=${escapeServiceNowQuery(query.assignmentGroup)}`);
+    if (query.category) conditions.push(`category=${escapeServiceNowQuery(query.category)}`);
+
+    if (conditions.length > 0) {
+      params.append('sysparm_query', conditions.join('^'));
+    }
     params.append('sysparm_limit', String(query.limit ?? 50));
     params.append('sysparm_offset', String(query.offset ?? 0));
 

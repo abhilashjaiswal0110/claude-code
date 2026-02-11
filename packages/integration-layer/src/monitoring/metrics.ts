@@ -221,15 +221,23 @@ export class MetricsCollector {
   }
 
   /**
+   * Extract metric name from key (format: "name{labels}")
+   */
+  private extractMetricName(key: string): string {
+    const braceIndex = key.indexOf('{');
+    return braceIndex > 0 ? key.substring(0, braceIndex) : key;
+  }
+
+  /**
    * Get metrics as JSON
    */
   getMetricsJson(): Metric[] {
     const metrics: Metric[] = [];
     const now = new Date();
 
-    for (const [, { value, labels }] of this.counters) {
+    for (const [key, { value, labels }] of this.counters) {
       metrics.push({
-        name: 'counter',
+        name: this.extractMetricName(key),
         type: 'counter',
         value,
         labels,
@@ -237,9 +245,9 @@ export class MetricsCollector {
       });
     }
 
-    for (const [, { value, labels }] of this.gauges) {
+    for (const [key, { value, labels }] of this.gauges) {
       metrics.push({
-        name: 'gauge',
+        name: this.extractMetricName(key),
         type: 'gauge',
         value,
         labels,

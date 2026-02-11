@@ -48,13 +48,17 @@ export class RedisCache implements CacheProvider {
       });
 
       // Attempt connection
-      this.client.connect().catch((error) => {
-        logger.warn('[RedisCache] Failed to connect to Redis:', error.message);
+      this.client.connect().catch((error: unknown) => {
+        logger.warn('[RedisCache] Failed to connect to Redis:', error instanceof Error ? error.message : String(error));
         this.client = null;
       });
-    } catch (error) {
+    } catch (error: unknown) {
       logger.warn('[RedisCache] Redis initialization failed, cache disabled');
       this.client = null;
+      // In production, propagate the error for visibility
+      if (process.env.NODE_ENV === 'production' && process.env.REDIS_REQUIRED === 'true') {
+        throw error instanceof Error ? error : new Error('[RedisCache] Redis initialization failed');
+      }
     }
   }
 

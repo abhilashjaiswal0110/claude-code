@@ -12,6 +12,7 @@ import { BaseConnector } from './base-connector.js';
 import { INTEGRATION_ENDPOINTS } from '../config.js';
 import type { IntegrationConfig, JiraIssue, PaginatedResponse } from '../types.js';
 import { logger } from '../monitoring/logger.js';
+import { escapeJQL, sanitizeIdentifier } from '../utils/query-escape.js';
 
 export class JiraConnector extends BaseConnector {
   constructor(config: IntegrationConfig) {
@@ -73,14 +74,20 @@ export class JiraConnector extends BaseConnector {
     limit?: number;
     startAt?: number;
   }): Promise<PaginatedResponse<JiraIssue>> {
-    // Build JQL query
+    // Build JQL query with proper escaping to prevent injection
     const conditions: string[] = [];
 
-    if (query.project) conditions.push(`project = ${query.project}`);
-    if (query.status) conditions.push(`status = "${query.status}"`);
-    if (query.assignee) conditions.push(`assignee = ${query.assignee}`);
-    if (query.issueType) conditions.push(`issuetype = "${query.issueType}"`);
-    if (query.labels?.length) conditions.push(`labels in (${query.labels.join(',')})`);
+    if (query.project) {
+      const project = sanitizeIdentifier(query.project, /^[A-Z][A-Z0-9_]*$/i);
+      if (project) conditions.push(`project = ${project}`);
+    }
+    if (query.status) conditions.push(`status = ${escapeJQL(query.status)}`);
+    if (query.assignee) conditions.push(`assignee = ${escapeJQL(query.assignee)}`);
+    if (query.issueType) conditions.push(`issuetype = ${escapeJQL(query.issueType)}`);
+    if (query.labels?.length) {
+      const escapedLabels = query.labels.map((l) => escapeJQL(l)).join(',');
+      conditions.push(`labels in (${escapedLabels})`);
+    }
 
     const jql = query.jql || (conditions.length > 0 ? conditions.join(' AND ') : 'order by created DESC');
 

@@ -12,6 +12,7 @@ import { BaseConnector } from './base-connector.js';
 import { INTEGRATION_ENDPOINTS } from '../config.js';
 import type { IntegrationConfig, SAPMaterialMaster, PaginatedResponse } from '../types.js';
 import { logger } from '../monitoring/logger.js';
+import { escapeOData, sanitizeISODate } from '../utils/query-escape.js';
 
 export class SAPConnector extends BaseConnector {
   constructor(config: IntegrationConfig) {
@@ -39,12 +40,13 @@ export class SAPConnector extends BaseConnector {
     limit?: number;
     offset?: number;
   }): Promise<PaginatedResponse<SAPMaterialMaster>> {
+    // Build OData filter with proper escaping to prevent injection
     const filters: string[] = [];
 
-    if (query.materialType) filters.push(`MaterialType eq '${query.materialType}'`);
-    if (query.materialGroup) filters.push(`MaterialGroup eq '${query.materialGroup}'`);
-    if (query.plant) filters.push(`Plant eq '${query.plant}'`);
-    if (query.description) filters.push(`contains(Description, '${query.description}')`);
+    if (query.materialType) filters.push(`MaterialType eq '${escapeOData(query.materialType)}'`);
+    if (query.materialGroup) filters.push(`MaterialGroup eq '${escapeOData(query.materialGroup)}'`);
+    if (query.plant) filters.push(`Plant eq '${escapeOData(query.plant)}'`);
+    if (query.description) filters.push(`contains(Description, '${escapeOData(query.description)}')`);
 
     const params: Record<string, string> = {
       $top: String(query.limit ?? 50),
@@ -120,12 +122,19 @@ export class SAPConnector extends BaseConnector {
     createdDate: string;
     items: number;
   }>> {
+    // Build OData filter with proper escaping to prevent injection
     const filters: string[] = [];
 
-    if (query.vendor) filters.push(`Supplier eq '${query.vendor}'`);
-    if (query.status) filters.push(`PurchaseOrderStatus eq '${query.status}'`);
-    if (query.dateFrom) filters.push(`PurchaseOrderDate ge datetime'${query.dateFrom}'`);
-    if (query.dateTo) filters.push(`PurchaseOrderDate le datetime'${query.dateTo}'`);
+    if (query.vendor) filters.push(`Supplier eq '${escapeOData(query.vendor)}'`);
+    if (query.status) filters.push(`PurchaseOrderStatus eq '${escapeOData(query.status)}'`);
+    if (query.dateFrom) {
+      const date = sanitizeISODate(query.dateFrom);
+      if (date) filters.push(`PurchaseOrderDate ge datetime'${date}'`);
+    }
+    if (query.dateTo) {
+      const date = sanitizeISODate(query.dateTo);
+      if (date) filters.push(`PurchaseOrderDate le datetime'${date}'`);
+    }
 
     const params: Record<string, string> = {
       $top: String(query.limit ?? 50),

@@ -9,9 +9,9 @@
  */
 
 import { BaseConnector } from './base-connector.js';
-import { INTEGRATION_ENDPOINTS } from '../config.js';
 import type { IntegrationConfig, AzureADUser, PaginatedResponse } from '../types.js';
 import { logger } from '../monitoring/logger.js';
+import { escapeOData } from '../utils/query-escape.js';
 
 export class AzureADConnector extends BaseConnector {
   constructor(config: IntegrationConfig) {
@@ -43,11 +43,12 @@ export class AzureADConnector extends BaseConnector {
     searchText?: string;
     limit?: number;
   }): Promise<PaginatedResponse<AzureADUser>> {
+    // Build OData filter with proper escaping to prevent injection
     const filters: string[] = [];
 
-    if (query.department) filters.push(`department eq '${query.department}'`);
-    if (query.jobTitle) filters.push(`jobTitle eq '${query.jobTitle}'`);
-    if (query.officeLocation) filters.push(`officeLocation eq '${query.officeLocation}'`);
+    if (query.department) filters.push(`department eq '${escapeOData(query.department)}'`);
+    if (query.jobTitle) filters.push(`jobTitle eq '${escapeOData(query.jobTitle)}'`);
+    if (query.officeLocation) filters.push(`officeLocation eq '${escapeOData(query.officeLocation)}'`);
     if (query.accountEnabled !== undefined) filters.push(`accountEnabled eq ${query.accountEnabled}`);
 
     const params: Record<string, string> = {
@@ -56,7 +57,11 @@ export class AzureADConnector extends BaseConnector {
     };
 
     if (filters.length > 0) params.$filter = filters.join(' and ');
-    if (query.searchText) params.$search = `"displayName:${query.searchText}" OR "mail:${query.searchText}"`;
+    if (query.searchText) {
+      // Escape search text for OData $search
+      const escapedSearch = escapeOData(query.searchText);
+      params.$search = `"displayName:${escapedSearch}" OR "mail:${escapedSearch}"`;
+    }
 
     logger.info(`[AzureAD] Searching users: ${JSON.stringify(query)}`);
 
@@ -152,7 +157,7 @@ export class AzureADConnector extends BaseConnector {
     }> }>(
       () => this.client.get('/v1.0/auditLogs/signIns', {
         params: {
-          $filter: `userId eq '${userId}' and createdDateTime ge ${dateFilter}`,
+          $filter: `userId eq '${escapeOData(userId)}' and createdDateTime ge ${dateFilter}`,
           $top: 100,
         },
       }),

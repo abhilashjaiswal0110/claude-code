@@ -12,6 +12,7 @@ import { BaseConnector } from './base-connector.js';
 import { INTEGRATION_ENDPOINTS } from '../config.js';
 import type { IntegrationConfig, SalesforceOpportunity, PaginatedResponse } from '../types.js';
 import { logger } from '../monitoring/logger.js';
+import { escapeSOQL, sanitizeNumeric, sanitizeISODate } from '../utils/query-escape.js';
 
 export class SalesforceConnector extends BaseConnector {
   constructor(config: IntegrationConfig) {
@@ -40,18 +41,31 @@ export class SalesforceConnector extends BaseConnector {
     closeDateTo?: string;
     limit?: number;
   }): Promise<PaginatedResponse<SalesforceOpportunity>> {
-    // Build SOQL query
+    // Build SOQL query with proper escaping to prevent injection
     const conditions: string[] = [];
 
-    if (query.stage) conditions.push(`StageName = '${query.stage}'`);
-    if (query.minAmount) conditions.push(`Amount >= ${query.minAmount}`);
-    if (query.maxAmount) conditions.push(`Amount <= ${query.maxAmount}`);
-    if (query.ownerId) conditions.push(`OwnerId = '${query.ownerId}'`);
-    if (query.closeDateFrom) conditions.push(`CloseDate >= ${query.closeDateFrom}`);
-    if (query.closeDateTo) conditions.push(`CloseDate <= ${query.closeDateTo}`);
+    if (query.stage) conditions.push(`StageName = '${escapeSOQL(query.stage)}'`);
+    if (query.minAmount != null) {
+      const amount = sanitizeNumeric(query.minAmount);
+      if (amount !== null) conditions.push(`Amount >= ${amount}`);
+    }
+    if (query.maxAmount != null) {
+      const amount = sanitizeNumeric(query.maxAmount);
+      if (amount !== null) conditions.push(`Amount <= ${amount}`);
+    }
+    if (query.ownerId) conditions.push(`OwnerId = '${escapeSOQL(query.ownerId)}'`);
+    if (query.closeDateFrom) {
+      const date = sanitizeISODate(query.closeDateFrom);
+      if (date) conditions.push(`CloseDate >= ${date}`);
+    }
+    if (query.closeDateTo) {
+      const date = sanitizeISODate(query.closeDateTo);
+      if (date) conditions.push(`CloseDate <= ${date}`);
+    }
 
     const whereClause = conditions.length > 0 ? ` WHERE ${conditions.join(' AND ')}` : '';
-    const soql = `SELECT Id, Name, AccountId, Amount, StageName, Probability, CloseDate, OwnerId, Description FROM Opportunity${whereClause} LIMIT ${query.limit ?? 50}`;
+    const limit = sanitizeNumeric(query.limit ?? 50) ?? 50;
+    const soql = `SELECT Id, Name, AccountId, Amount, StageName, Probability, CloseDate, OwnerId, Description FROM Opportunity${whereClause} LIMIT ${limit}`;
 
     logger.info(`[Salesforce] Executing SOQL: ${soql}`);
 
@@ -103,7 +117,7 @@ export class SalesforceConnector extends BaseConnector {
     annualRevenue: number;
     employeeCount: number;
   }>> {
-    const soql = `SELECT Id, Name, Industry, AnnualRevenue, NumberOfEmployees FROM Account WHERE Industry = '${industry}' LIMIT 100`;
+    const soql = `SELECT Id, Name, Industry, AnnualRevenue, NumberOfEmployees FROM Account WHERE Industry = '${escapeSOQL(industry)}' LIMIT 100`;
 
     const result = await this.execute<{ records: Array<{
       Id: string;

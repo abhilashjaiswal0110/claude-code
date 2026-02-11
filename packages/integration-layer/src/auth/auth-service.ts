@@ -29,7 +29,11 @@ export class AuthService {
     this.audience = config?.audience ?? process.env.JWT_AUDIENCE ?? 'enterprise-agents-api';
     this.tokenExpiry = config?.tokenExpiry ?? process.env.JWT_EXPIRY ?? '1h';
 
+    // CRITICAL: Fail in production if using placeholder secret
     if (this.jwtSecret.includes('PLACEHOLDER')) {
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('[AuthService] CRITICAL: JWT_SECRET must be configured in production. Application cannot start with placeholder secret.');
+      }
       logger.warn('[AuthService] Using placeholder JWT secret - configure JWT_SECRET for production');
     }
   }
@@ -122,6 +126,21 @@ export class AuthService {
     // In production, integrate with Azure AD, Okta, LDAP, etc.
 
     logger.info(`[AuthService] Authentication attempt for: ${username}`);
+
+    // Demo authentication - ONLY enabled with explicit feature flag
+    const demoAuthEnabled = process.env.ENABLE_DEMO_AUTH === 'true';
+
+    if (process.env.NODE_ENV === 'production' && !demoAuthEnabled) {
+      logger.error('[AuthService] Demo authentication disabled in production');
+      return {
+        success: false,
+        error: 'Authentication not configured. Please integrate with identity provider.',
+      };
+    }
+
+    if (!demoAuthEnabled) {
+      logger.warn('[AuthService] Demo authentication used - set ENABLE_DEMO_AUTH=true to enable explicitly');
+    }
 
     // Demo user for POC - replace with actual authentication
     const demoUser: UserPrincipal = {

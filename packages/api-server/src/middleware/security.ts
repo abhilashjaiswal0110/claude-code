@@ -66,10 +66,15 @@ export async function rateLimit(req: Request, res: Response, next: NextFunction)
   }
 }
 
+// Valid API keys for POC mode (should be loaded from secure storage in production)
+const POC_API_KEYS = new Set(
+  (process.env.POC_API_KEYS || '').split(',').filter(Boolean)
+);
+
 /**
  * API key authentication middleware
  *
- * PLACEHOLDER: Implement actual API key validation
+ * PLACEHOLDER: Implement actual API key validation against secure storage
  */
 export function apiKeyAuth(req: Request, res: Response, next: NextFunction): void {
   const apiKey = req.headers['x-api-key'] as string;
@@ -79,27 +84,34 @@ export function apiKeyAuth(req: Request, res: Response, next: NextFunction): voi
     return next();
   }
 
-  // Skip auth in development
-  if (process.env.NODE_ENV !== 'production') {
-    return next();
-  }
+  // In production, API key is always required
+  if (process.env.NODE_ENV === 'production') {
+    if (!apiKey) {
+      res.status(401).json({
+        error: 'Unauthorized',
+        message: 'API key required. Include X-API-Key header.',
+      });
+      return;
+    }
 
-  if (!apiKey) {
-    res.status(401).json({
-      error: 'Unauthorized',
-      message: 'API key required. Include X-API-Key header.',
-    });
-    return;
-  }
-
-  // PLACEHOLDER: Validate API key against database/cache
-  // For POC, accept any non-empty API key
-  if (apiKey.length < 10) {
-    res.status(401).json({
-      error: 'Unauthorized',
-      message: 'Invalid API key.',
-    });
-    return;
+    // PLACEHOLDER: Validate against secure key store (e.g., HashiCorp Vault, AWS Secrets Manager)
+    // For now, validate against environment-configured keys
+    if (!POC_API_KEYS.has(apiKey)) {
+      res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Invalid API key.',
+      });
+      return;
+    }
+  } else {
+    // Non-production: require explicit POC_SKIP_AUTH=true to skip authentication
+    if (process.env.POC_SKIP_AUTH !== 'true' && !apiKey) {
+      res.status(401).json({
+        error: 'Unauthorized',
+        message: 'API key required. Set POC_SKIP_AUTH=true to skip in development.',
+      });
+      return;
+    }
   }
 
   next();
@@ -108,7 +120,7 @@ export function apiKeyAuth(req: Request, res: Response, next: NextFunction): voi
 /**
  * JWT authentication middleware
  *
- * PLACEHOLDER: Implement actual JWT validation
+ * PLACEHOLDER: Implement actual JWT validation with AuthService
  */
 export function jwtAuth(req: Request, res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization;
@@ -119,29 +131,40 @@ export function jwtAuth(req: Request, res: Response, next: NextFunction): void {
     return next();
   }
 
-  // Skip auth in development
-  if (process.env.NODE_ENV !== 'production') {
-    return next();
-  }
+  // In production, JWT is always required for non-public endpoints
+  if (process.env.NODE_ENV === 'production') {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Bearer token required.',
+      });
+      return;
+    }
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    res.status(401).json({
-      error: 'Unauthorized',
-      message: 'Bearer token required.',
-    });
-    return;
-  }
+    const token = authHeader.substring(7);
 
-  const token = authHeader.substring(7);
-
-  // PLACEHOLDER: Validate JWT token
-  // In production, implement actual JWT validation with AuthService
-  if (token.length < 10) {
-    res.status(401).json({
-      error: 'Unauthorized',
-      message: 'Invalid token.',
-    });
-    return;
+    // PLACEHOLDER: Validate JWT with AuthService
+    // In production, this should decode and verify the JWT signature
+    // For now, validate basic JWT structure (header.payload.signature)
+    const jwtParts = token.split('.');
+    if (jwtParts.length !== 3 || jwtParts.some((part) => part.length < 4)) {
+      res.status(401).json({
+        error: 'Unauthorized',
+        message: 'Invalid token format.',
+      });
+      return;
+    }
+  } else {
+    // Non-production: require explicit POC_SKIP_AUTH=true to skip JWT validation
+    if (process.env.POC_SKIP_AUTH !== 'true') {
+      if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        res.status(401).json({
+          error: 'Unauthorized',
+          message: 'Bearer token required. Set POC_SKIP_AUTH=true to skip in development.',
+        });
+        return;
+      }
+    }
   }
 
   next();

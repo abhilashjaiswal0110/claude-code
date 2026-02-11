@@ -122,9 +122,9 @@ export class RequestTracer {
     this.activeSpans.delete(spanId);
     this.completedSpans.push(span);
 
-    // Trim completed spans if over limit
-    if (this.completedSpans.length > this.maxCompletedSpans) {
-      this.completedSpans = this.completedSpans.slice(-this.maxCompletedSpans);
+    // Trim completed spans if at or over limit
+    if (this.completedSpans.length >= this.maxCompletedSpans) {
+      this.completedSpans = this.completedSpans.slice(-this.maxCompletedSpans + 1);
     }
 
     logger.debug(`[Tracer] Ended span: ${span.operationName}`, {
