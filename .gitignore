@@ -98,8 +98,6 @@ _site/
 # Enterprise Agent outputs (may contain sensitive data)
 agents/*/output/
 output/enterprise-agents/
-config/production.env
-
 
 # Documentation - ensure commit guidelines are never ignored
 **/COMMIT_GUIDELINES*
