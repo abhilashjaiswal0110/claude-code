@@ -14,7 +14,6 @@
 Instead, please report them via:
 
 1. **GitHub Security Advisories**: https://github.com/abhilashjaiswal0110/claude-code/security/advisories/new
-2. **Email**: abhilash.jaiswal@atos.net
 
 Please include the following information:
 
