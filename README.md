@@ -73,7 +73,30 @@ This repository includes production-ready AI agents built with the Claude Agent 
 - **[@enterprise-agents/core](./packages/agent-core/)** - Shared SDK utilities: pipeline execution, CLI parsing, logging
 - **[@enterprise-agents/prompts](./packages/agent-prompts/)** - Reusable prompt fragments and enterprise context
 
-### Quick Start (Enterprise Agents)
+### Running the Web App (Full Stack)
+
+The enterprise agents come with a full web UI + API server. Run both together from the **project root**:
+
+```bash
+# 1. Install all dependencies (run once from root)
+npm install
+
+# 2. Configure the API server key (REQUIRED)
+cp packages/api-server/.env.example packages/api-server/.env
+# Edit packages/api-server/.env and set:  ANTHROPIC_API_KEY=sk-ant-...
+
+# 3. Start both API server and web UI
+npm run dev
+```
+
+This runs:
+- **API server** on http://localhost:3001 (handles Claude AI calls)
+- **Web UI** on http://localhost:5173 (the chat interface)
+
+> **Important:** The `ANTHROPIC_API_KEY` must be set in `packages/api-server/.env`.
+> Get your key from https://console.anthropic.com/settings/keys
+
+### Quick Start (CLI Agents only)
 
 ```bash
 # Navigate to an agent directory
