@@ -8,9 +8,6 @@ on:
 
 permissions:
   contents: read
-  security-events: write
-  pull-requests: write
-  checks: write
 
 jobs:
   build:
@@ -34,13 +31,14 @@ jobs:
         run: npm ci
 
       - name: Run linter
-        run: npm run lint --if-present || echo "No lint script found"
+        run: npm run lint --if-present
 
       - name: Build project
         run: npm run build --if-present
 
       - name: Check TypeScript
-        run: npx tsc --noEmit --skipLibCheck || echo "TypeScript check completed with warnings"
+        run: npx tsc --noEmit --skipLibCheck
+        continue-on-error: true
 
   test:
     name: Test Suite
@@ -61,7 +59,7 @@ jobs:
         run: npm ci
 
       - name: Run tests
-        run: npm test --if-present || echo "No tests configured yet"
+        run: npm test --if-present
         env:
           NODE_ENV: test
 
@@ -90,7 +88,7 @@ jobs:
       - name: Run npm audit
         run: |
           npm audit --audit-level=moderate || true
-          npm audit --production --json > npm-audit.json || true
+          npm audit --omit=dev --json > npm-audit.json || true
         continue-on-error: true
 
       - name: Dependency Review
@@ -110,9 +108,9 @@ jobs:
     timeout-minutes: 20
 
     permissions:
+      contents: read
       security-events: write
       actions: read
-      contents: read
 
     steps:
       - name: Checkout code
@@ -155,7 +153,7 @@ jobs:
         continue-on-error: true
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@v3
         if: github.event_name == 'pull_request'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -189,6 +187,10 @@ jobs:
     name: PR Validation
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
+
+    permissions:
+      pull-requests: read
+      statuses: read
 
     steps:
       - name: Checkout code
@@ -229,10 +231,22 @@ jobs:
     steps:
       - name: Check job results
         run: |
+          # Required checks: build, test, security-scan, codeql
           if [ "${{ needs.build.result }}" != "success" ] || \
+             [ "${{ needs.test.result }}" != "success" ] || \
              [ "${{ needs.security-scan.result }}" != "success" ] || \
              [ "${{ needs.codeql.result }}" != "success" ]; then
             echo "Required checks failed"
             exit 1
           fi
+
+          # Non-blocking checks: code-quality, license-check (log if they did not succeed)
+          if [ "${{ needs.code-quality.result }}" != "success" ]; then
+            echo "Warning: code-quality job did not succeed (result: ${{ needs.code-quality.result }})"
+          fi
+
+          if [ "${{ needs.license-check.result }}" != "success" ]; then
+            echo "Warning: license-check job did not succeed (result: ${{ needs.license-check.result }})"
+          fi
+
           echo "All required checks passed"
