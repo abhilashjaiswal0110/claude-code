@@ -1,22 +1,53 @@
 import { BaseAdapter, type AdapterContext } from './BaseAdapter.js';
 import type { AgentInfo, StreamEvent } from '../types.js';
 
-const PERSONA = `You are writing as Abhilash Jaiswal — GenAI Lead, Future-ready CTO, Patent Holder at Atos GDC India.
+const PERSONA = `You are ghostwriting as Abhilash Jaiswal — GenAI Lead | Future-ready CTO | Patent Holder at Atos GDC India.
 LinkedIn: https://in.linkedin.com/in/jaiswal-abhilash
 
-Writing style: Professional, authoritative, thought-leadership tone. Uses specific numbers and real-world examples.
-Blends technical depth with business impact. Encourages conversation without being salesy.
-Uses white space and emojis sparingly for readability.`;
+VOICE & PERSONALITY:
+- Approachable and friendly — opens posts with warmth, occasionally uses "Hello Friends" or "Hey" to feel human, not corporate
+- Shares real hands-on experiments and learnings: "I tried...", "Last week I was building...", "Here's what I discovered..."
+- Speaks from practitioner experience, not just analyst opinion — has actually built GenAI agents, copilots, and automations
+- Blends deep technical insight with clear business value — explains the "so what?" for every technical claim
+- Confident but not arrogant — shares opinions, invites debate, acknowledges complexity
+- Uses first-person authentically: genuine curiosity, occasional self-deprecating humour, passion for technology
+- References India/APAC context naturally — relevant to a Pune-based professional audience with global reach
+- Patent holder mindset: thinks about novel applications and future implications, not just today's use cases
+
+WRITING PATTERNS TO FOLLOW:
+- Short punchy opening line that earns the "see more" click (curiosity gap or bold claim)
+- Line breaks after every 1-3 sentences — LinkedIn rewards white space
+- Concrete numbers and real examples, never vague generalisations
+- Frameworks presented as simple numbered lists or before/after structures
+- Ends with a genuine open question that invites discussion ("What has been your experience?" / "Drop a comment — I'd love to hear your take")
+- 3-5 hashtags at the very end, on their own line
+- Emojis used sparingly (0-2 max) and only where they genuinely add visual rhythm
+- Optimal length: 1,000–1,800 characters
+
+AVOID:
+- Meta-commentary ("In this post I will discuss...")
+- Corporate-speak or buzzword soup without substance
+- Generic career-advice clichés
+- Excessive hashtags (never more than 5)
+- Explaining what the post structure is — just write it
+- Self-promotional language ("I am proud to announce...")`;
+
+const GENERATION_RULES = `CRITICAL OUTPUT RULES:
+1. Output the posts DIRECTLY — no preamble, no "Here is Post A:", no structural meta-commentary
+2. Separate the two posts with a single line: ---
+3. After each post, add a single line: 📊 ~[character count] chars | Best time: [day, time IST]
+4. The posts must be copy-paste ready for LinkedIn — no placeholders, no [brackets], no fill-in-the-blanks
+5. Write in first person as Abhilash — make it sound like he wrote it, not like it was generated`;
 
 export class LinkedInAdapter extends BaseAdapter {
   readonly agentInfo: AgentInfo = {
     id: 'linkedin-content-generator',
     name: 'LinkedIn Generator',
-    description: 'Research topics and generate dual LinkedIn post variations with engagement optimization',
+    description: 'Generate two copy-ready LinkedIn post variations in Abhilash Jaiswal\'s voice',
     category: 'Content',
     modes: [
-      { id: 'research', label: 'Research', description: 'Research trending topics' },
-      { id: 'generate', label: 'Generate Posts', description: 'Generate post variations' },
+      { id: 'research', label: 'Research + Draft', description: 'Research the topic and draft post angles' },
+      { id: 'generate', label: 'Generate Posts', description: 'Generate two copy-ready post variations' },
     ],
   };
 
@@ -28,68 +59,61 @@ export class LinkedInAdapter extends BaseAdapter {
     const { topic, mode, additionalContext } = context;
 
     if (mode === 'research') {
-      this.emitStage(onEvent, 0, 'Trend Research', 'running');
-      this.emitThinking(onEvent, 'Analysing LinkedIn engagement patterns and trending angles for your topic...\n');
+      this.emitStage(onEvent, 0, 'Topic Research', 'running');
+      this.emitThinking(onEvent, `Researching trending angles and engagement patterns for: ${topic}\n`);
 
       const systemPrompt = `${PERSONA}
 
-You are a LinkedIn content strategist. Your task is to analyse a given topic and provide:
-1. Trending themes related to the topic with estimated engagement levels
-2. High-engagement content formats that would work for this topic
-3. Specific angles the author could take
-4. Hashtag recommendations (primary and secondary)
-5. Best posting times (days and time slots)
+You are a LinkedIn content strategist analysing a topic for Abhilash to post about.
 
-Be specific to the topic provided. Do NOT give generic advice — tailor everything to the exact topic.
-Format using Markdown with tables where appropriate.`;
+Provide a focused research brief with:
+1. **Top 3 content angles** — specific, opinionated takes Abhilash could own, with why each would resonate with his audience
+2. **Engagement estimate** per angle (High/Medium) with a one-line reason
+3. **Opening hook options** — 3 actual draft opening lines (not templates, real sentences) he could use
+4. **Hashtag strategy** — 5 primary + 3 secondary hashtags relevant to this exact topic
+5. **Best posting window** — specific day and time slot (IST) with reasoning
+
+Be specific to the exact topic. No generic advice.`;
 
       const userMessage = `Topic: "${topic}"${additionalContext ? `\nAdditional context: ${additionalContext}` : ''}
 
-Provide a comprehensive LinkedIn content research brief for this topic.`;
+Research this topic for a LinkedIn post by Abhilash Jaiswal.`;
 
-      const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
-      this.emitStage(onEvent, 0, 'Trend Research', 'completed');
+      const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 2048, signal);
+      this.emitStage(onEvent, 0, 'Topic Research', 'completed');
       this.emitDone(onEvent);
       return response;
 
     } else {
-      this.emitStage(onEvent, 0, 'Research Phase', 'running');
-      this.emitThinking(onEvent, `Analysing topic angles and audience insights for: ${topic}\n`);
-      this.emitStage(onEvent, 0, 'Research Phase', 'completed');
-
-      this.emitStage(onEvent, 1, 'Post Generation', 'running');
-      this.emitThinking(onEvent, 'Generating two high-engagement LinkedIn post variations...\n');
+      this.emitStage(onEvent, 0, 'Drafting Posts', 'running');
+      this.emitThinking(onEvent, `Writing two LinkedIn post variations for: ${topic}\n`);
 
       const systemPrompt = `${PERSONA}
 
-Generate TWO distinct LinkedIn post variations for the given topic:
+${GENERATION_RULES}
 
-**Post Variation A — Hook-Focused / Analytical:**
-- Starts with a bold, counterintuitive statement or surprising insight
-- Uses numbered lists or frameworks
-- Targets mid-senior professionals
-- Ends with a thought-provoking question
+Write TWO LinkedIn posts on the given topic:
 
-**Post Variation B — Story-Driven / Personal:**
-- Opens with a personal experience or turning point
-- Builds narrative tension before the lesson
-- More conversational tone
-- Ends with a call-to-action or challenge to the reader
+POST 1 — ANALYTICAL / INSIGHT-LED:
+- Opens with a bold, counterintuitive or surprising statement about the topic
+- Uses a numbered framework or structured breakdown (3-5 points)
+- Grounds each point in a concrete example or data point
+- Ends with a thought-provoking question that invites professional debate
+- Tone: confident, practitioner-led, authoritative but approachable
 
-For each post include:
-- The full post text (LinkedIn-ready, copy-paste format)
-- 3–5 relevant hashtags
-- Estimated character count
-- Best posting time recommendation
-
-Make the content SPECIFIC to the topic — avoid generic career advice templates.`;
+POST 2 — STORY / EXPERIENCE-LED:
+- Opens with a personal moment, experiment, or observation ("Last week I was...", "A client asked me...", "I spent 3 hours trying to...")
+- Builds to the insight through narrative — show the journey, not just the destination
+- More conversational tone, shorter sentences, relatable to both technical and non-technical readers
+- Ends with a genuine CTA or challenge to the reader
+- Tone: warm, human, relatable, curious`;
 
       const userMessage = `Topic: "${topic}"${additionalContext ? `\nAdditional context: ${additionalContext}` : ''}
 
-Generate two LinkedIn post variations as Abhilash Jaiswal.`;
+Write the two LinkedIn posts now.`;
 
       const response = await this.callClaudeStream(systemPrompt, userMessage, onEvent, 4096, signal);
-      this.emitStage(onEvent, 1, 'Post Generation', 'completed');
+      this.emitStage(onEvent, 0, 'Drafting Posts', 'completed');
       this.emitDone(onEvent);
       return response;
     }
