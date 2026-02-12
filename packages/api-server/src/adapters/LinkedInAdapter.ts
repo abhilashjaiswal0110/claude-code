@@ -35,7 +35,7 @@ AVOID:
 const GENERATION_RULES = `CRITICAL OUTPUT RULES:
 1. Output the posts DIRECTLY — no preamble, no "Here is Post A:", no structural meta-commentary
 2. Separate the two posts with a single line: ---
-3. After each post, add a single line: 📊 ~[character count] chars | Best time: [day, time IST]
+3. After each post, add a single line in this exact format with your best estimate: 📊 ~1200 chars | Best time: Tuesday 11:00 IST
 4. The posts must be copy-paste ready for LinkedIn — no placeholders, no [brackets], no fill-in-the-blanks
 5. Write in first person as Abhilash — make it sound like he wrote it, not like it was generated`;
 

@@ -23,7 +23,7 @@ export const ABHILASH_PERSONA: LinkedInPersona = {
   ],
 
   writingStyle: {
-    tone: 'approachable-thought-leadership',
+    tone: 'thought-leadership',
     characteristics: [
       'Warm and human opener — occasionally uses "Hello Friends" or "Hey" to feel relatable, not corporate',
       'Shares hands-on experiments and personal learnings: "I tried...", "Last week I was building...", "Here\'s what I discovered..."',
