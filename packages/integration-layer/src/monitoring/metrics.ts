@@ -210,7 +210,11 @@ export class MetricsCollector {
       const labelStr = key.includes('{') ? key.slice(key.indexOf('{')) : '{}';
 
       for (const bucket of buckets) {
-        const bucketLabels = labelStr.replace('}', `,le="${bucket.le}"}`);
+        // Insert le label before the closing brace - use lastIndexOf to handle nested braces
+        const lastBrace = labelStr.lastIndexOf('}');
+        const bucketLabels = lastBrace >= 0
+          ? `${labelStr.slice(0, lastBrace)},le="${bucket.le}"}`
+          : `{le="${bucket.le}"}`;
         lines.push(`${baseName}_bucket${bucketLabels} ${bucket.count}`);
       }
       lines.push(`${baseName}_sum${labelStr} ${sum}`);

@@ -136,8 +136,9 @@ export class RedisCache implements CacheProvider {
     if (!this.client) return 0;
 
     try {
+      // Pattern is used as-is (wildcards are valid Redis KEYS pattern syntax)
       const searchPattern = pattern
-        ? `${this.prefix}${pattern.replace(/\*/g, '*')}`
+        ? `${this.prefix}${pattern}`
         : `${this.prefix}*`;
 
       const keys = await this.client.keys(searchPattern);
