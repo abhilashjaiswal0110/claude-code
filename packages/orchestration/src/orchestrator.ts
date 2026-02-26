@@ -246,7 +246,7 @@ Format your response as JSON:
             // Ensure task is removed from executing on error
             this.state.executing = this.state.executing.filter(id => id !== nextTaskId);
             this.state.failed.push(nextTaskId);
-            logger.error({ err: error, taskId: nextTaskId }, 'Error executing worker task');
+            logger.error(`Error executing worker task ${nextTaskId}`, error);
           });
       }
 
