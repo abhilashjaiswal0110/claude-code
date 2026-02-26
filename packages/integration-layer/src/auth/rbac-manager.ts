@@ -10,7 +10,8 @@ import type { UserPrincipal, Role, Permission } from './types.js';
 
 export class RBACManager {
   private roles: Map<string, Role> = new Map();
-  private initialized = false;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private _initialized = false;
 
   constructor() {
     this.initializeDefaultRoles();
@@ -226,7 +227,7 @@ export class RBACManager {
   /**
    * Validate access to agent
    */
-  canAccessAgent(user: UserPrincipal, agentId: string, mode: string): boolean {
+  canAccessAgent(user: UserPrincipal, agentId: string, _mode: string): boolean {
     return this.hasPermission(user, `agents/${agentId}`, 'execute') ||
            this.hasPermission(user, 'agents', 'execute');
   }

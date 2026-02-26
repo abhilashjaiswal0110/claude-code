@@ -179,7 +179,7 @@ export class AuditLogger {
     }
 
     if (filter.resource) {
-      results = results.filter((l) => l.resource.includes(filter.resource));
+      results = results.filter((l) => l.resource.includes(filter.resource!));
     }
 
     if (filter.startDate) {
