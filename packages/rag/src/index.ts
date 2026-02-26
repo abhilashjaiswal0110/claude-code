@@ -174,11 +174,18 @@ export async function loadDocumentsFromDirectory(
     if (!extensions.includes(ext)) continue;
 
     const filePath = path.join(resolvedPath, file);
-    const stats = fs.statSync(filePath);
 
-    if (!stats.isFile()) continue;
-
-    const content = fs.readFileSync(filePath, 'utf-8');
+    // Handle file operations in try-catch to avoid race conditions
+    let content: string;
+    try {
+      const stats = fs.statSync(filePath);
+      if (!stats.isFile()) continue;
+      content = fs.readFileSync(filePath, 'utf-8');
+    } catch (err) {
+      // File may have been deleted/changed - skip it
+      if ((err as NodeJS.ErrnoException).code === 'ENOENT') continue;
+      throw err;
+    }
     const doc = createDocument(file, content, {
       title: path.basename(file, ext),
       source: filePath,

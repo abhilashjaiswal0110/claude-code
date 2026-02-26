@@ -181,15 +181,17 @@ export function parseResponseBlocks(messages: AgentMessage[]): ResponseBlock[] {
       if (msg.message?.content) {
         for (const block of msg.message.content) {
           if (block.type === 'text' && block.text) {
-            // Check for thinking block markers
-            const thinkingMatch = block.text.match(/<thinking>([\s\S]*?)<\/thinking>/);
-            if (thinkingMatch) {
+            // Check for thinking block markers - use indexOf for performance
+            const thinkingStart = block.text.indexOf('<thinking>');
+            const thinkingEnd = block.text.indexOf('</thinking>');
+            if (thinkingStart !== -1 && thinkingEnd !== -1 && thinkingEnd > thinkingStart) {
+              const thinkingContent = block.text.slice(thinkingStart + 10, thinkingEnd);
               blocks.push({
                 type: 'thinking',
-                content: thinkingMatch[1].trim(),
+                content: thinkingContent.trim(),
               });
               // Add remaining text if any
-              const remaining = block.text.replace(/<thinking>[\s\S]*?<\/thinking>/, '').trim();
+              const remaining = (block.text.slice(0, thinkingStart) + block.text.slice(thinkingEnd + 11)).trim();
               if (remaining) {
                 blocks.push({
                   type: 'text',

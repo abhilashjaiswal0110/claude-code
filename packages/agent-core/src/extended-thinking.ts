@@ -10,7 +10,7 @@
  */
 
 import { query } from '@anthropic-ai/claude-agent-sdk';
-import { logProgress, logInfo, logWarning, logDebug } from './logger.js';
+import { logger } from './logger.js';
 
 /**
  * Configuration for extended thinking mode
@@ -110,7 +110,7 @@ export async function runExtendedThinking(
   let inputTokens = 0;
   let outputTokens = 0;
 
-  logInfo('Starting extended thinking process...');
+  logger.info('Starting extended thinking process...');
 
   // Build the enhanced prompt that encourages deep thinking
   const enhancedPrompt = buildThinkingPrompt(prompt, mergedConfig);
@@ -142,7 +142,7 @@ ${mergedConfig.thinkingContext ? `\nAdditional context: ${mergedConfig.thinkingC
       if (message.type === 'assistant' && message.message.content) {
         for (const block of message.message.content) {
           if (block.type === 'text') {
-            logProgress();
+            logger.progress();
 
             // Capture thinking blocks if they're marked
             const text = block.text;
@@ -168,12 +168,12 @@ ${mergedConfig.thinkingContext ? `\nAdditional context: ${mergedConfig.thinkingC
       }
     }
   } catch (err) {
-    logWarning(`Extended thinking error: ${err instanceof Error ? err.message : String(err)}`);
+    logger.warning(`Extended thinking error: ${err instanceof Error ? err.message : String(err)}`);
     throw err;
   }
 
   const thinkingDurationMs = Date.now() - startTime;
-  logInfo(`Extended thinking completed in ${thinkingDurationMs}ms`);
+  logger.info(`Extended thinking completed in ${thinkingDurationMs}ms`);
 
   return {
     response,

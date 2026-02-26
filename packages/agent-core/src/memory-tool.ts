@@ -196,27 +196,35 @@ export class MemoryToolHandler {
         };
       }
 
-      // Handle file reading
+      // Handle file reading - attempt read inside try-catch to handle race conditions
       if (stats.isFile()) {
-        const content = fs.readFileSync(fullPath, 'utf-8');
-        let lines = content.split('\n');
-        let startNum = 1;
+        try {
+          const content = fs.readFileSync(fullPath, 'utf-8');
+          let lines = content.split('\n');
+          let startNum = 1;
 
-        // Apply view range if specified
-        if (view_range) {
-          const startLine = Math.max(1, view_range[0]) - 1; // Convert to 0-indexed
-          const endLine = view_range[1] === -1 ? lines.length : view_range[1];
-          lines = lines.slice(startLine, endLine);
-          startNum = startLine + 1;
+          // Apply view range if specified
+          if (view_range) {
+            const startLine = Math.max(1, view_range[0]) - 1; // Convert to 0-indexed
+            const endLine = view_range[1] === -1 ? lines.length : view_range[1];
+            lines = lines.slice(startLine, endLine);
+            startNum = startLine + 1;
+          }
+
+          // Format with line numbers
+          const numberedLines = lines.map((line, i) => {
+            const lineNum = String(i + startNum).padStart(4, ' ');
+            return `${lineNum}: ${line}`;
+          });
+
+          return { success: numberedLines.join('\n') };
+        } catch (readErr) {
+          // Handle file being deleted/changed between stat and read
+          if ((readErr as NodeJS.ErrnoException).code === 'ENOENT') {
+            return { error: `File no longer exists: ${memoryPath}` };
+          }
+          throw readErr;
         }
-
-        // Format with line numbers
-        const numberedLines = lines.map((line, i) => {
-          const lineNum = String(i + startNum).padStart(4, ' ');
-          return `${lineNum}: ${line}`;
-        });
-
-        return { success: numberedLines.join('\n') };
       }
 
       return { error: `Path not found: ${memoryPath}` };
@@ -277,12 +285,15 @@ export class MemoryToolHandler {
 
     const fullPath = this.validatePath(memoryPath);
 
-    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile()) {
-      return { error: `File not found: ${memoryPath}` };
-    }
-
     try {
+      // Read file directly - handle errors in catch block to avoid race conditions
       const content = fs.readFileSync(fullPath, 'utf-8');
+
+      // Verify it's a file (after successful read)
+      const stats = fs.statSync(fullPath);
+      if (!stats.isFile()) {
+        return { error: `Path is not a file: ${memoryPath}` };
+      }
 
       // Check if old_str exists
       const count = (content.match(new RegExp(this.escapeRegex(old_str), 'g')) || []).length;
@@ -306,6 +317,9 @@ export class MemoryToolHandler {
 
       return { success: `File ${memoryPath} has been edited successfully` };
     } catch (err) {
+      if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
+        return { error: `File not found: ${memoryPath}` };
+      }
       const message = err instanceof Error ? err.message : String(err);
       return { error: `Cannot edit file ${memoryPath}: ${message}` };
     }
@@ -330,12 +344,16 @@ export class MemoryToolHandler {
 
     const fullPath = this.validatePath(memoryPath);
 
-    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile()) {
-      return { error: `File not found: ${memoryPath}` };
-    }
-
     try {
-      const lines = fs.readFileSync(fullPath, 'utf-8').split('\n');
+      // Read file directly - handle errors in catch block to avoid race conditions
+      const content = fs.readFileSync(fullPath, 'utf-8');
+      const lines = content.split('\n');
+
+      // Verify it's a file (after successful read)
+      const stats = fs.statSync(fullPath);
+      if (!stats.isFile()) {
+        return { error: `Path is not a file: ${memoryPath}` };
+      }
 
       // Validate insert_line
       if (insert_line < 0 || insert_line > lines.length) {
@@ -352,6 +370,9 @@ export class MemoryToolHandler {
 
       return { success: `Text inserted at line ${insert_line} in ${memoryPath}` };
     } catch (err) {
+      if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
+        return { error: `File not found: ${memoryPath}` };
+      }
       const message = err instanceof Error ? err.message : String(err);
       return { error: `Cannot insert into ${memoryPath}: ${message}` };
     }

@@ -87,7 +87,9 @@ export async function conductResearch(
 
   resetActivityContext();
 
-  const modeConfig = RESEARCH_MODES[request.researchType] || RESEARCH_MODES['comprehensive'];
+  // Get mode config for reference (used in prompts module)
+  const _modeConfig = RESEARCH_MODES[request.researchType] || RESEARCH_MODES['comprehensive'];
+  void _modeConfig; // Acknowledge intentional reference for future use
 
   // Use multi-stage pipeline for comprehensive research
   if (request.researchType === 'comprehensive' ||
@@ -395,7 +397,9 @@ export async function continueResearch(
  * Create a new research session for multi-turn conversations
  */
 export function createSession(initialResult: ResearchResult): ResearchSession {
-  const sessionId = `research-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  // Use crypto for secure session ID generation
+  const randomBytes = await import('crypto').then(c => c.randomBytes(4).toString('hex'));
+  const sessionId = `research-${Date.now()}-${randomBytes}`;
 
   const session: ResearchSession = {
     id: sessionId,

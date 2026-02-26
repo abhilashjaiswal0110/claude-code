@@ -177,8 +177,12 @@ Format your response as JSON:
    */
   private parseSubtasks(result: string): Task[] {
     try {
-      // Extract JSON from response
-      const jsonMatch = result.match(/\{[\s\S]*"subtasks"[\s\S]*\}/);
+      // Extract JSON from response - use safer approach to avoid ReDoS
+      const startIdx = result.indexOf('{');
+      const endIdx = result.lastIndexOf('}');
+      const jsonMatch = startIdx !== -1 && endIdx > startIdx && result.includes('"subtasks"')
+        ? [result.slice(startIdx, endIdx + 1)]
+        : null;
       if (!jsonMatch) {
         throw new Error('No subtasks JSON found in response');
       }

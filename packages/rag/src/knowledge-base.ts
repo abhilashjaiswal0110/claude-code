@@ -305,7 +305,9 @@ export class KnowledgeBase {
    * Sentence-based chunking
    */
   private chunkBySentence(text: string, config: Required<ChunkingConfig>): string[] {
-    const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+    // Use a simpler, safer sentence splitting approach to avoid ReDoS
+    const sentences = text.split(/(?<=[.!?])\s+/).filter(s => s.length > 0);
+    if (sentences.length === 0) sentences.push(text);
     const chunks: string[] = [];
     let currentChunk = '';
 
