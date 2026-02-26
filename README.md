@@ -67,11 +67,31 @@ This repository includes production-ready AI agents built with the Claude Agent 
 | **[Sustainability Agent](./agents/sustainability-agent/)** | IT sustainability, carbon footprint, and ESG compliance | `carbon-footprint`, `green-it`, `sustainability-report`, `energy-optimization`, `esg-compliance` |
 | **[Accessibility Agent](./agents/accessibility-agent/)** | Digital accessibility auditing and WCAG compliance | `wcag-audit`, `remediation-plan`, `alt-text`, `aria-review`, `compliance-report` |
 | **[Cloud Operations Agent](./agents/cloud-ops-agent/)** | Multi-cloud operations, FinOps, and SRE practices | `cost-optimization`, `incident-response`, `capacity-planning`, `architecture-review`, `migration-assessment` |
+| **[Research Agent](./agents/research-agent/)** | Enterprise research with citations and multi-turn support | `comprehensive`, `quick-facts`, `comparison`, `trend-analysis`, `technical`, `market`, `literature` |
 
 ### Shared Packages
 
-- **[@enterprise-agents/core](./packages/agent-core/)** - Shared SDK utilities: pipeline execution, CLI parsing, logging
-- **[@enterprise-agents/prompts](./packages/agent-prompts/)** - Reusable prompt fragments and enterprise context
+| Package | Description |
+|---------|-------------|
+| **[@enterprise-agents/core](./packages/agent-core/)** | Shared SDK utilities: pipeline execution, CLI parsing, logging, memory tool, extended thinking, visualization |
+| **[@enterprise-agents/prompts](./packages/agent-prompts/)** | Reusable prompt fragments and enterprise context |
+| **[@enterprise-agents/skills-framework](./packages/skills-framework/)** | Skills architecture with progressive disclosure and custom skill development |
+| **[@enterprise-agents/orchestration](./packages/orchestration/)** | Multi-agent patterns: orchestrator-workers, evaluator-optimizer, prompt chaining, routing |
+| **[@enterprise-agents/rag](./packages/rag/)** | Retrieval-Augmented Generation with knowledge base management |
+
+### Cookbook-Inspired Features
+
+This repository includes patterns from [Anthropic's claude-cookbooks](https://github.com/anthropics/claude-cookbooks):
+
+| Feature | Package | Description |
+|---------|---------|-------------|
+| **Memory Tool** | `@enterprise-agents/core` | Persistent memory system for agent state |
+| **Extended Thinking** | `@enterprise-agents/core` | Deep reasoning for complex analysis |
+| **Skills Architecture** | `@enterprise-agents/skills-framework` | Progressive capability loading |
+| **Orchestrator-Workers** | `@enterprise-agents/orchestration` | Task decomposition and delegation |
+| **Evaluator-Optimizer** | `@enterprise-agents/orchestration` | Iterative content refinement |
+| **Prompt Chaining** | `@enterprise-agents/orchestration` | Sequential workflow execution |
+| **RAG** | `@enterprise-agents/rag` | Knowledge-enhanced generation |
 
 ### Running the Web App (Full Stack)
 
