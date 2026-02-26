@@ -114,8 +114,10 @@ export class MemoryToolHandler {
       : path.resolve(this.memoryRoot);
 
     // Verify the resolved path is still within memory_root
+    // Use path.relative to properly check containment, avoiding prefix bypass attacks
     const normalizedRoot = path.resolve(this.memoryRoot);
-    if (!fullPath.startsWith(normalizedRoot)) {
+    const relativePath2 = path.relative(normalizedRoot, fullPath);
+    if (relativePath2.startsWith('..') || path.isAbsolute(relativePath2)) {
       throw new Error(
         `Path '${memoryPath}' would escape /memories directory. ` +
         'Directory traversal attempts are not allowed.'

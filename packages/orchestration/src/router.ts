@@ -204,11 +204,14 @@ Respond with JSON:
       }
     }
 
-    // Parse classification
+    // Parse classification - use indexOf/lastIndexOf to avoid ReDoS
     try {
-      const jsonMatch = result.match(/\{[\s\S]*"category_number"[\s\S]*\}/);
-      if (jsonMatch) {
-        const parsed = JSON.parse(jsonMatch[0]);
+      const startIdx = result.indexOf('{');
+      const endIdx = result.lastIndexOf('}');
+
+      if (startIdx !== -1 && endIdx > startIdx && result.includes('"category_number"')) {
+        const jsonStr = result.slice(startIdx, endIdx + 1);
+        const parsed = JSON.parse(jsonStr);
         const categoryIndex = parsed.category_number - 1;
 
         if (categoryIndex >= 0 && categoryIndex < this.config.routes.length) {

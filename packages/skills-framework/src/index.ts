@@ -87,11 +87,11 @@ export async function loadSkill(skillPath: string): Promise<import('./types.js')
  * `);
  * ```
  */
-export function parseSkillMd(content: string): {
+export async function parseSkillMd(content: string): Promise<{
   metadata: import('./types.js').SkillMetadata;
   instructions: string;
-} {
-  const { SkillLoader } = require('./skill-loader.js');
+}> {
+  const { SkillLoader } = await import('./skill-loader.js');
   const loader = new SkillLoader();
   return loader.parseSkillMd(content);
 }
@@ -133,10 +133,10 @@ export async function validateSkill(
  * });
  * ```
  */
-export function generateSkillTemplate(
+export async function generateSkillTemplate(
   metadata: Partial<import('./types.js').SkillMetadata>
-): string {
-  const yaml = require('yaml');
+): Promise<string> {
+  const yaml = await import('yaml');
 
   const frontmatter = yaml.stringify({
     name: metadata.name || 'my-skill',
@@ -222,7 +222,7 @@ export async function createSkillDirectory(
   fs.mkdirSync(path.join(skillDir, 'resources'), { recursive: true });
 
   // Create SKILL.md
-  const skillMdContent = generateSkillTemplate(metadata);
+  const skillMdContent = await generateSkillTemplate(metadata);
   fs.writeFileSync(path.join(skillDir, 'SKILL.md'), skillMdContent, 'utf-8');
 
   // Create placeholder files

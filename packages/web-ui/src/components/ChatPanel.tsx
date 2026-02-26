@@ -185,10 +185,13 @@ ${agent.modes.map((m) => `- **${m.label}**: ${m.description}`).join('\n')}
             saveSession();
           },
           onError: () => {
-            // Mark all non-completed stages as error
-            // Note: stages array has initial status 'pending', use index-based update
-            stages.forEach((_, i) => {
-              updatePipelineStage(i, { status: 'error' });
+            // Mark only non-completed stages as error
+            // Access current store state to preserve completed stages
+            const currentStages = useChatStore.getState().pipelineStages;
+            currentStages.forEach((stage, i) => {
+              if (stage.status !== 'completed') {
+                updatePipelineStage(i, { status: 'error' });
+              }
             });
           },
         }

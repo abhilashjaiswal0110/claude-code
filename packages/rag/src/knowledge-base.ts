@@ -51,9 +51,13 @@ export class KnowledgeBase {
   private chunkIndex: Map<string, string[]> = new Map(); // docId -> chunkIds
 
   constructor(config: KnowledgeBaseConfig) {
+    // Sanitize name to prevent directory traversal attacks
+    const safeName = this.sanitizeName(config.name);
+
     this.config = {
       ...DEFAULT_CONFIG,
       ...config,
+      name: safeName,
       chunking: { ...DEFAULT_CHUNKING, ...config.chunking },
     } as KnowledgeBaseConfig;
 
@@ -61,6 +65,18 @@ export class KnowledgeBase {
     if (this.config.storage === 'file' && this.config.storagePath) {
       this.loadFromFile();
     }
+  }
+
+  /**
+   * Sanitize knowledge base name to prevent directory traversal
+   */
+  private sanitizeName(name: string): string {
+    // Only allow alphanumeric, hyphens, and underscores
+    const sanitized = name.replace(/[^a-zA-Z0-9_-]/g, '_');
+    if (!sanitized || sanitized !== name) {
+      logger.warning(`Knowledge base name sanitized: "${name}" -> "${sanitized}"`);
+    }
+    return sanitized || 'default';
   }
 
   /**

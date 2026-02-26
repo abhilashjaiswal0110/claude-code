@@ -231,16 +231,23 @@ Format your response as JSON:
         this.state.pending = this.state.pending.filter(id => id !== nextTaskId);
         this.state.executing.push(nextTaskId);
 
-        // Execute asynchronously
+        // Execute asynchronously with error handling
         const task = this.state.tasks.find(t => t.id === nextTaskId)!;
-        this.executeWorkerTask(task).then(result => {
-          this.state.executing = this.state.executing.filter(id => id !== nextTaskId);
-          this.state.results.push(result);
+        this.executeWorkerTask(task)
+          .then(result => {
+            this.state.executing = this.state.executing.filter(id => id !== nextTaskId);
+            this.state.results.push(result);
 
-          if (!result.success) {
+            if (!result.success) {
+              this.state.failed.push(nextTaskId);
+            }
+          })
+          .catch(error => {
+            // Ensure task is removed from executing on error
+            this.state.executing = this.state.executing.filter(id => id !== nextTaskId);
             this.state.failed.push(nextTaskId);
-          }
-        });
+            logger.error({ err: error, taskId: nextTaskId }, 'Error executing worker task');
+          });
       }
 
       // Wait a bit before checking again

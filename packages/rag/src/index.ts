@@ -66,9 +66,9 @@ export {
  * console.log(result.response);
  * ```
  */
-export function createQuickRAG(name: string = 'default'): import('./rag-engine.js').RAGEngine {
-  const { KnowledgeBase } = require('./knowledge-base.js');
-  const { RAGEngine } = require('./rag-engine.js');
+export async function createQuickRAG(name: string = 'default'): Promise<import('./rag-engine.js').RAGEngine> {
+  const { KnowledgeBase } = await import('./knowledge-base.js');
+  const { RAGEngine } = await import('./rag-engine.js');
 
   const kb = new KnowledgeBase({
     name,
@@ -97,12 +97,12 @@ export function createQuickRAG(name: string = 'default'): import('./rag-engine.j
  * });
  * ```
  */
-export function createPersistentRAG(
+export async function createPersistentRAG(
   name: string,
   storagePath: string
-): import('./rag-engine.js').RAGEngine {
-  const { KnowledgeBase } = require('./knowledge-base.js');
-  const { RAGEngine } = require('./rag-engine.js');
+): Promise<import('./rag-engine.js').RAGEngine> {
+  const { KnowledgeBase } = await import('./knowledge-base.js');
+  const { RAGEngine } = await import('./rag-engine.js');
 
   const kb = new KnowledgeBase({
     name,
