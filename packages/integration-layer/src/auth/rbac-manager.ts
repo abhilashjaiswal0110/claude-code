@@ -10,8 +10,7 @@ import type { UserPrincipal, Role, Permission } from './types.js';
 
 export class RBACManager {
   private roles: Map<string, Role> = new Map();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private _initialized = false;
+  private initialized = false;
 
   constructor() {
     this.initializeDefaultRoles();
@@ -118,6 +117,13 @@ export class RBACManager {
   addRole(role: Role): void {
     this.roles.set(role.id, role);
     logger.debug(`[RBACManager] Role added/updated: ${role.name}`);
+  }
+
+  /**
+   * Check if RBAC manager is initialized
+   */
+  isInitialized(): boolean {
+    return this.initialized;
   }
 
   /**

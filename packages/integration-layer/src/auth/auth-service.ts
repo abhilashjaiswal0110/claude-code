@@ -89,9 +89,10 @@ export class AuthService {
         aud: this.audience,
       };
 
+      // Cast to SignOptions to satisfy jwt.sign overload
       const token = jwt.sign(payload, this.jwtSecret, {
-        expiresIn: this.tokenExpiry as string | number,
-      });
+        expiresIn: this.tokenExpiry,
+      } as jwt.SignOptions);
 
       const decoded = jwt.decode(token) as TokenPayload;
       const expiresIn = decoded.exp - decoded.iat;
