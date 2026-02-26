@@ -349,7 +349,7 @@ export class SkillLoader {
    */
   buildDisclosureStages(
     skill: LoadedSkill,
-    maxTokensPerStage: number = 2000
+    _maxTokensPerStage: number = 2000
   ): DisclosureStage[] {
     const stages: DisclosureStage[] = [];
 

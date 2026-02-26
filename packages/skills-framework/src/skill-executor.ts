@@ -11,9 +11,7 @@ import { query } from '@anthropic-ai/claude-agent-sdk';
 
 import type {
   LoadedSkill,
-  SkillExecutionContext,
   SkillExecutionResult,
-  DisclosureStage,
   GeneratedFile,
 } from './types.js';
 import { SkillLoader } from './skill-loader.js';

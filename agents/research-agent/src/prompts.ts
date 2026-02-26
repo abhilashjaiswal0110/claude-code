@@ -5,7 +5,7 @@
  */
 
 import type { StageConfig, StageContext } from '@enterprise-agents/core';
-import type { ResearchMode, ResearchType } from './types.js';
+import type { ResearchMode } from './types.js';
 import { buildResearchPersona, getResearchModePrompt, CITATION_FORMAT } from './persona.js';
 
 /**

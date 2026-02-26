@@ -107,7 +107,7 @@ export async function conductResearch(
  */
 async function conductMultiStageResearch(
   request: ResearchRequest,
-  config: ResearchAgentConfig,
+  _config: ResearchAgentConfig,
   startTime: number
 ): Promise<ResearchResult> {
   const modeConfig = RESEARCH_MODES[request.researchType] || RESEARCH_MODES['comprehensive'];
@@ -283,7 +283,7 @@ Format for professional presentation with clear headings and structure.`,
  */
 async function conductQuickResearch(
   request: ResearchRequest,
-  config: ResearchAgentConfig,
+  _config: ResearchAgentConfig,
   startTime: number
 ): Promise<ResearchResult> {
   const modeConfig = RESEARCH_MODES[request.researchType] || RESEARCH_MODES['quick-facts'];
@@ -396,9 +396,10 @@ export async function continueResearch(
 /**
  * Create a new research session for multi-turn conversations
  */
-export function createSession(initialResult: ResearchResult): ResearchSession {
+export async function createSession(initialResult: ResearchResult): Promise<ResearchSession> {
   // Use crypto for secure session ID generation
-  const randomBytes = await import('crypto').then(c => c.randomBytes(4).toString('hex'));
+  const crypto = await import('crypto');
+  const randomBytes = crypto.randomBytes(4).toString('hex');
   const sessionId = `research-${Date.now()}-${randomBytes}`;
 
   const session: ResearchSession = {
@@ -713,12 +714,6 @@ async function main(): Promise<void> {
 // Run if executed directly
 main();
 
-// Export for programmatic use
-export {
-  conductResearch,
-  continueResearch,
-  createSession,
-  endSession,
-  RESEARCH_MODES,
-  RESEARCH_PERSONA,
-};
+// Note: Functions are exported at their definitions.
+// Re-export constants for convenience.
+export { RESEARCH_MODES, RESEARCH_PERSONA };

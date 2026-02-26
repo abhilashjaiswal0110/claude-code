@@ -106,7 +106,7 @@ export class RAGEngine {
   /**
    * Build context string from retrieved chunks
    */
-  private buildContext(results: RetrievalResult[], config: Required<RAGQueryConfig>): string {
+  private buildContext(results: RetrievalResult[], _config: Required<RAGQueryConfig>): string {
     if (results.length === 0) {
       return 'No relevant information found in the knowledge base.';
     }
