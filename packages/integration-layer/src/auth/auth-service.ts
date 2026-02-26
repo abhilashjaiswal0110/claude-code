@@ -89,9 +89,10 @@ export class AuthService {
         aud: this.audience,
       };
 
+      // Cast to SignOptions to satisfy jwt.sign overload
       const token = jwt.sign(payload, this.jwtSecret, {
         expiresIn: this.tokenExpiry,
-      });
+      } as jwt.SignOptions);
 
       const decoded = jwt.decode(token) as TokenPayload;
       const expiresIn = decoded.exp - decoded.iat;
@@ -162,7 +163,7 @@ export class AuthService {
   /**
    * Refresh expired token
    */
-  async refreshToken(refreshToken: string): Promise<AuthResult> {
+  async refreshToken(_refreshToken: string): Promise<AuthResult> {
     // PLACEHOLDER: Implement refresh token logic
     // In production, validate refresh token and issue new access token
 

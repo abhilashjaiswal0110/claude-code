@@ -1,0 +1,34 @@
+{
+  "name": "@enterprise-agents/rag",
+  "version": "1.0.0",
+  "description": "Retrieval-Augmented Generation (RAG) capabilities for enterprise agents",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.1.0",
+    "@enterprise-agents/core": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "rag",
+    "retrieval",
+    "embeddings",
+    "knowledge-base",
+    "enterprise"
+  ]
+}

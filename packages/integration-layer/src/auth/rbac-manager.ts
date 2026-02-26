@@ -120,6 +120,13 @@ export class RBACManager {
   }
 
   /**
+   * Check if RBAC manager is initialized
+   */
+  isInitialized(): boolean {
+    return this.initialized;
+  }
+
+  /**
    * Get role by ID
    */
   getRole(roleId: string): Role | undefined {
@@ -226,7 +233,7 @@ export class RBACManager {
   /**
    * Validate access to agent
    */
-  canAccessAgent(user: UserPrincipal, agentId: string, mode: string): boolean {
+  canAccessAgent(user: UserPrincipal, agentId: string, _mode: string): boolean {
     return this.hasPermission(user, `agents/${agentId}`, 'execute') ||
            this.hasPermission(user, 'agents', 'execute');
   }

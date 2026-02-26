@@ -5,7 +5,8 @@
  * fault tolerance and observability patterns.
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
+// @ts-expect-error - opossum lacks type declarations
 import CircuitBreaker from 'opossum';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { logger } from '../monitoring/logger.js';

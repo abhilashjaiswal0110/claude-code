@@ -80,7 +80,7 @@ export class TokenManager {
    *
    * PLACEHOLDER: Implement actual OAuth2 token refresh
    */
-  private async refreshToken(serviceId: string, refreshToken: string): Promise<void> {
+  private async refreshToken(serviceId: string, _refreshToken: string): Promise<void> {
     // PLACEHOLDER: Implement OAuth2 refresh token flow
     // In production, call the appropriate token endpoint
 

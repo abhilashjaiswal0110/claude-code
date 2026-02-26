@@ -1,0 +1,32 @@
+{
+  "name": "@enterprise-agents/research-agent",
+  "version": "1.0.0",
+  "description": "Enterprise research agent with web search, citations, and multi-turn conversation support",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.1.0",
+    "@enterprise-agents/core": "*",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "research",
+    "web-search",
+    "citations",
+    "enterprise",
+    "agent"
+  ]
+}

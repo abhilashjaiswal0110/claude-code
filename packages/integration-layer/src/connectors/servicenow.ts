@@ -12,7 +12,7 @@ import { BaseConnector } from './base-connector.js';
 import { INTEGRATION_ENDPOINTS } from '../config.js';
 import type { IntegrationConfig, ServiceNowIncident, PaginatedResponse } from '../types.js';
 import { logger } from '../monitoring/logger.js';
-import { escapeServiceNowQuery, escapeSOQL, escapeJQL, escapeOData } from '../utils/query-escape.js';
+import { escapeServiceNowQuery } from '../utils/query-escape.js';
 
 export class ServiceNowConnector extends BaseConnector {
   constructor(config: IntegrationConfig) {

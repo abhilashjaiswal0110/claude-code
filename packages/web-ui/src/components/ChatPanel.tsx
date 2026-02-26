@@ -166,8 +166,9 @@ ${agent.modes.map((m) => `- **${m.label}**: ${m.description}`).join('\n')}
       updatePipelineStage(0, { status: 'running' });
 
       // Send message with streaming
+      // currentSessionId is guaranteed to be non-null here (either from sessionId or newly created)
       await sendMessage(
-        currentSessionId,
+        currentSessionId!,
         content,
         selectedMode,
         files,
@@ -184,8 +185,11 @@ ${agent.modes.map((m) => `- **${m.label}**: ${m.description}`).join('\n')}
             saveSession();
           },
           onError: () => {
-            stages.forEach((_, i) => {
-              if (stages[i].status !== 'completed') {
+            // Mark only non-completed stages as error
+            // Access current store state to preserve completed stages
+            const currentStages = useChatStore.getState().pipelineStages;
+            currentStages.forEach((stage, i) => {
+              if (stage.status !== 'completed') {
                 updatePipelineStage(i, { status: 'error' });
               }
             });

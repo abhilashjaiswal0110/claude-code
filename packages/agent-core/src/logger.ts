@@ -44,6 +44,16 @@ export function logError(message: string, error?: unknown): void {
   console.error(`\n[Error] ${message}`, error || '');
 }
 
+export function logWarning(message: string): void {
+  console.warn(`\n[Warning] ${message}`);
+}
+
+export function logDebug(message: string): void {
+  if (process.env.DEBUG || process.env.ANTHROPIC_LOG_LEVEL === 'debug') {
+    console.log(`\n[Debug] ${message}`);
+  }
+}
+
 export function logProgress(): void {
   process.stdout.write('.');
 }
@@ -57,5 +67,7 @@ export const logger = {
   saved: logSaved,
   done: logDone,
   error: logError,
+  warning: logWarning,
+  debug: logDebug,
   progress: logProgress,
 };

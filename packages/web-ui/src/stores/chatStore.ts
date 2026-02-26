@@ -88,7 +88,10 @@ interface ChatState {
 }
 
 function generateId(): string {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  // Use crypto.getRandomValues for secure randomness instead of Math.random
+  const array = new Uint32Array(2);
+  crypto.getRandomValues(array);
+  return `${Date.now()}-${array[0].toString(36)}${array[1].toString(36)}`.slice(0, 24);
 }
 
 export const useChatStore = create<ChatState>()(
