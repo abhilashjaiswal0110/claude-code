@@ -166,8 +166,9 @@ ${agent.modes.map((m) => `- **${m.label}**: ${m.description}`).join('\n')}
       updatePipelineStage(0, { status: 'running' });
 
       // Send message with streaming
+      // currentSessionId is guaranteed to be non-null here (either from sessionId or newly created)
       await sendMessage(
-        currentSessionId,
+        currentSessionId!,
         content,
         selectedMode,
         files,
@@ -184,10 +185,10 @@ ${agent.modes.map((m) => `- **${m.label}**: ${m.description}`).join('\n')}
             saveSession();
           },
           onError: () => {
+            // Mark all non-completed stages as error
+            // Note: stages array has initial status 'pending', use index-based update
             stages.forEach((_, i) => {
-              if (stages[i].status !== 'completed') {
-                updatePipelineStage(i, { status: 'error' });
-              }
+              updatePipelineStage(i, { status: 'error' });
             });
           },
         }
